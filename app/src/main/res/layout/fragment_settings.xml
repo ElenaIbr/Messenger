@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.example.messengerapplication.ui.fragments.SettingsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settings_header"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/settingsPhoto"
+            android:layout_width="@dimen/settings_user_photo_width"
+            android:layout_height="@dimen/settings_user_photo_height"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            android:src="@drawable/ic_default_user"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/large_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/settingsPhoto"
+            app:layout_constraintTop_toTopOf="@id/settingsPhoto"
+            tools:text="Elena Ibraeva" />
+
+        <TextView
+            android:id="@+id/userStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            android:layout_marginTop="5dp"
+            android:text="В сети"
+            android:textColor="@color/black"
+            android:textSize="@dimen/small_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/settingsPhoto"
+            app:layout_constraintTop_toBottomOf="@id/userName"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_change_num"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_header">
+
+        <TextView
+            android:id="@+id/changenumber_tv"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:textSize="@dimen/normal_text"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@+id/btn_change_num"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart = "@dimen/margin_horizontal_settings_text"
+            android:layout_marginEnd = "@dimen/margin_horizontal"
+            android:layout_marginTop = "@dimen/margin_vertical"/>
+
+        <TextView
+            android:id="@+id/changenumber_tv1"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/changenumber_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/change_num"
+            android:layout_marginStart = "@dimen/margin_horizontal_settings_text"
+            android:textColor="@color/gray"
+            android:layout_marginTop = "@dimen/settings_btn_top"/>
+
+        <View
+            app:layout_constraintTop_toBottomOf="@+id/changenumber_tv1"
+            android:layout_width = "match_parent"
+            android:layout_height = "1dp"
+            android:background="@color/light_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop = "@dimen/margin_vertical"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_change_username"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_change_num">
+
+        <TextView
+            android:id="@+id/changename_tv"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:textSize="@dimen/normal_text"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@+id/btn_change_username"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart = "@dimen/margin_horizontal_settings_text"
+            android:layout_marginEnd = "@dimen/margin_horizontal"
+            android:layout_marginTop = "@dimen/margin_vertical"/>
+
+        <TextView
+            android:id="@+id/changename_tv1"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/changename_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text ="@string/change_userName"
+            android:layout_marginStart = "@dimen/margin_horizontal_settings_text"
+            android:textColor="@color/gray"
+            android:layout_marginTop = "@dimen/settings_btn_top" />
+
+        <View
+            app:layout_constraintTop_toBottomOf="@+id/changename_tv1"
+            android:layout_width = "match_parent"
+            android:layout_height = "1dp"
+            android:background="@color/light_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop = "@dimen/margin_vertical" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_change_info"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:elevation="5dp"
+        android:focusable="true"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_change_username">
+
+        <TextView
+            android:id="@+id/changeInfo_tv"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:textSize="@dimen/normal_text"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@+id/btn_change_info"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart = "@dimen/margin_horizontal_settings_text"
+            android:layout_marginEnd = "@dimen/margin_horizontal"
+            android:layout_marginTop = "@dimen/margin_vertical"/>
+
+        <TextView
+            android:id="@+id/changeInfo_tv1"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/changeInfo_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/about_user"
+            android:layout_marginStart = "@dimen/margin_horizontal_settings_text"
+            android:textColor="@color/gray"
+            android:layout_marginTop = "@dimen/settings_btn_top" />
+
+        <View
+            app:layout_constraintTop_toBottomOf="@+id/changeInfo_tv1"
+            android:layout_width = "match_parent"
+            android:layout_height = "1dp"
+            android:background="@color/light_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop = "@dimen/margin_vertical" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/sign_out_btn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="@string/sign_out"
+        android:textColor="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

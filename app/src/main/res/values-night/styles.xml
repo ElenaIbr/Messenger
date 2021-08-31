@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="first_part_settingsBtn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_horizontal</item>
+        <item name="android:textSize">@dimen/normal_text</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginTop">@dimen/settings_btn_top</item>
+    </style>
+
+    <style name="second_part_settingsBtn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_horizontal_settings_text</item>
+        <item name="android:textSize">@dimen/small_text</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:layout_marginTop">@dimen/settings_btn_top</item>
+    </style>
+
+    <style name="sep_view_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/light_green</item>
+        <item name="android:layout_marginTop">@dimen/margin_vertical</item>
+    </style>
+
+    <style name="MainToolbar">
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?android:attr/actionBarSize</item>
+        <item name="android:background">@color/green</item>
+    </style>
+
+    <style name="settings_button_style">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">@drawable/ripple_effect</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="settings_menu" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="background">@color/white</item>
+        <item name="actionMenuTextColor">@color/black</item>
+    </style>
+
+    <style name="reg_input">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textSize">@dimen/normal_text</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="fab_style">
+        <item name="android:layout_width">@dimen/settings_change_user_photo_width</item>
+        <item name="android:layout_height">@dimen/settings_change_user_photo_height</item>
+        <item name="android:layout_marginEnd">@dimen/margin_horizontal</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="editBox_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_horizontal</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="settings_inputTV">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/large_text</item>
+        <item name="android:layout_marginStart">@dimen/margin_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/margin_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/margin_vertical</item>
+    </style>
+
+    <style name="settings_inputEdit">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/large_text</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginStart">@dimen/margin_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/margin_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/margin_vertical</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="settingsTv">
+        <item name="android:textSize">@dimen/normal_text</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginStart">@dimen/margin_horizontal_settings_text</item>
+        <item name="android:layout_marginEnd">@dimen/margin_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/margin_vertical</item>
+    </style>
+
+</resources>
