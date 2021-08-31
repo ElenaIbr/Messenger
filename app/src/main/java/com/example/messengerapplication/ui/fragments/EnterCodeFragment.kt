@@ -35,7 +35,6 @@ class EnterCodeFragment(val phoneNum: String, val id: String) : Fragment(R.layou
             val str = regInputCode?.text?.toString()
             if(str?.length==6){
                 pressed = true
-                showToast("Введите номер!")
                 enterCode()
             }
         })
