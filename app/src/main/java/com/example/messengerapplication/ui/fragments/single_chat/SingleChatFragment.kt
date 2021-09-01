@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AbsListView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentSingleChatBinding
@@ -25,6 +26,7 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
     private lateinit var adapter: SingleChatAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var messageListener: AppChildrenEventListener
+    private lateinit var mLayoutManager: LinearLayoutManager
 
     private var mCountMessenger: Int = 10
     private var mIsScrolling: Boolean = false
@@ -40,6 +42,8 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
 
         act = activity?.findViewById(R.id.bottomNav)
         act?.visibility = View.GONE
+
+        mLayoutManager = LinearLayoutManager(this.context)
 
         headInfoListener = AppValueEventListener {
             receivingUser = it.getUser()
@@ -68,6 +72,9 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
             .child(UID)
             .child(contact.id)
         recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
+        recyclerView.isNestedScrollingEnabled = false
+        recyclerView.layoutManager = mLayoutManager
 
         messageListener = AppChildrenEventListener{
             val message = it.getCommonModel()
@@ -88,7 +95,7 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
         recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if(mIsScrolling && dy < 0){
+                if(mIsScrolling && dy < 0 && mLayoutManager.findFirstVisibleItemPosition()<=3){
                     updateData()
                 }
             }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.messengerapplication.ui.fragments.authentication.EnterCodeFragment"
     android:orientation="vertical"
-    android:background="@color/dark_white">
+    android:background="@color/ivory">
 
     <LinearLayout
         android:id="@+id/header"
@@ -60,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:gravity="start"
+        android:gravity="center"
         android:hint="@string/code_hint"
         android:inputType="phone"
         android:textColorHint="@color/gray"

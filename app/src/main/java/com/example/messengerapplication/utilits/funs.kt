@@ -91,7 +91,7 @@ enum class SettingsType(val state: String) {
 }
 
 fun EditText.phoneFormat(){
-    val listener = MaskedTextChangedListener("+7 ([000]) [000]-[00]-[00]", this)
+    val listener = MaskedTextChangedListener("+2 ([000]) [000]-[00]-[00]", this)
 
     this.addTextChangedListener(listener)
     this.onFocusChangeListener = listener

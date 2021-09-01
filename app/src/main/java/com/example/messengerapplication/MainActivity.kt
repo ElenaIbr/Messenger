@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
 
 
         initFirebase()
-        Log.d("MyLog", "${authFirebase.currentUser}")
         initFunc()
         initUser {
             //initFunc()
