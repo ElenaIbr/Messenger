@@ -1,4 +1,4 @@
-package com.example.messengerapplication.ui.fragments
+package com.example.messengerapplication.ui.fragments.authentication
 
 import android.os.Bundle
 import android.util.Log
@@ -10,11 +10,9 @@ import com.example.messengerapplication.MainActivity
 import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentEnterPhoneNumBinding
 import com.example.messengerapplication.utilits.*
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
-import com.redmadrobot.inputmask.MaskedTextChangedListener
 import java.util.concurrent.TimeUnit
 
 class EnterPhoneNumFragment : Fragment(R.layout.fragment_enter_phone_num) {

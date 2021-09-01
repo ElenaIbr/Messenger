@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.ActivityRegistrationBinding
-import com.example.messengerapplication.ui.fragments.EnterPhoneNumFragment
+import com.example.messengerapplication.ui.fragments.authentication.EnterPhoneNumFragment
 import com.example.messengerapplication.utilits.changeFragment
 import com.example.messengerapplication.utilits.initFirebase
 

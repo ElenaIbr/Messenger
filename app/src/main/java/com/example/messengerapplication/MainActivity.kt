@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import com.example.messengerapplication.databinding.ActivityMainBinding
 import com.example.messengerapplication.ui.fragments.ChatFragment
 import com.example.messengerapplication.ui.fragments.ContactFragment
-import com.example.messengerapplication.ui.fragments.EnterPhoneNumFragment
+import com.example.messengerapplication.ui.fragments.authentication.EnterPhoneNumFragment
 import com.example.messengerapplication.ui.fragments.SettingsFragment
 import com.example.messengerapplication.utilits.*
 import com.google.android.material.bottomnavigation.BottomNavigationView

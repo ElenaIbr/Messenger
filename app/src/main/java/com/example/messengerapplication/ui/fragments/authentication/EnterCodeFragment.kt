@@ -1,11 +1,10 @@
-package com.example.messengerapplication.ui.fragments
+package com.example.messengerapplication.ui.fragments.authentication
 
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.example.messengerapplication.MainActivity
 import com.example.messengerapplication.R
