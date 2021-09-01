@@ -2,6 +2,7 @@ package com.example.messengerapplication.ui.fragments.single_chat
 
 import android.os.Bundle
 import android.view.View
+import android.widget.AbsListView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
@@ -24,6 +25,10 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
     private lateinit var adapter: SingleChatAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var messageListener: ChildEventListener
+
+    private var mCountMessenger: Int = 10
+    private var mIsScrolling: Boolean = false
+    private var mSmoothScrollToPosition = true
 
     private var listMessages = emptyList<CommonModel>()
 
@@ -67,13 +72,39 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
         recyclerView.adapter = adapter
         messageListener = AppChildrenEventListener{
             adapter.addMessage(it.getCommonModel())
-            recyclerView.smoothScrollToPosition(adapter.itemCount)
+            if(mSmoothScrollToPosition){
+                recyclerView.smoothScrollToPosition(adapter.itemCount)
+            }
         }
 
-        messagesRef.addChildEventListener(messageListener)
+        messagesRef.limitToLast(mCountMessenger).addChildEventListener(messageListener)
+
+        recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if(mIsScrolling && dy < 0){
+                    updateData()
+                }
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                    mIsScrolling = true
+                }
+            }
+        })
+    }
+
+    private fun updateData() {
+        mSmoothScrollToPosition = false
+        mIsScrolling = false
+        mCountMessenger += 10
+        messagesRef.limitToLast(mCountMessenger).addChildEventListener(messageListener)
     }
 
     private fun initHeaderInfo() {
+        mSmoothScrollToPosition = true
         val message = binding.chatInputMessage.text.toString()
         if (message.isEmpty()) {
             showToast("Введите текст!")
@@ -116,7 +147,6 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
 
         binding.toolbarContactStatus.text = receivingUser.state
     }
-
 
     override fun onPause() {
         super.onPause()
