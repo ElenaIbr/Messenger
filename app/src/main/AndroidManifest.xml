@@ -22,7 +22,7 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
             android:name="com.example.messengerapplication.MainActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize">
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

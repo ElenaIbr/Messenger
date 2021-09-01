@@ -9,8 +9,7 @@ import com.example.messengerapplication.databinding.FragmentSingleChatBinding
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
 import com.example.messengerapplication.utilits.*
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ServerValue
+import com.google.firebase.database.*
 
 
 class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_single_chat) {
@@ -24,7 +23,7 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
     private lateinit var messagesRef: DatabaseReference
     private lateinit var adapter: SingleChatAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var messageListener: AppValueEventListener
+    private lateinit var messageListener: ChildEventListener
 
     private var listMessages = emptyList<CommonModel>()
 
@@ -66,12 +65,12 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
             .child(UID)
             .child(contact.id)
         recyclerView.adapter = adapter
-        messageListener = AppValueEventListener { dataSnapshot ->
-            listMessages = dataSnapshot.children.map { it.getCommonModel() }
-            adapter.setList(listMessages)
+        messageListener = AppChildrenEventListener{
+            adapter.addMessage(it.getCommonModel())
             recyclerView.smoothScrollToPosition(adapter.itemCount)
         }
-        messagesRef.addValueEventListener(messageListener)
+
+        messagesRef.addChildEventListener(messageListener)
     }
 
     private fun initHeaderInfo() {
