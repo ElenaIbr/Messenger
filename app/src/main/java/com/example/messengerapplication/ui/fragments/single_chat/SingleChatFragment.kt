@@ -24,13 +24,11 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
     private lateinit var messagesRef: DatabaseReference
     private lateinit var adapter: SingleChatAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var messageListener: ChildEventListener
+    private lateinit var messageListener: AppChildrenEventListener
 
     private var mCountMessenger: Int = 10
     private var mIsScrolling: Boolean = false
     private var mSmoothScrollToPosition = true
-
-    private var listMessages = emptyList<CommonModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -70,14 +68,22 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
             .child(UID)
             .child(contact.id)
         recyclerView.adapter = adapter
+
         messageListener = AppChildrenEventListener{
-            adapter.addMessage(it.getCommonModel())
+            val message = it.getCommonModel()
             if(mSmoothScrollToPosition){
-                recyclerView.smoothScrollToPosition(adapter.itemCount)
+                adapter.addItemToBottom(message){
+                    recyclerView.smoothScrollToPosition(adapter.itemCount)
+                }
+            }else{
+                adapter.addItemToTop(message){
+                    binding.chatSwipe.isRefreshing = false
+                }
             }
         }
-
+        messagesRef.removeEventListener(messageListener)
         messagesRef.limitToLast(mCountMessenger).addChildEventListener(messageListener)
+
 
         recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -94,12 +100,15 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
                 }
             }
         })
+
+        binding.chatSwipe.setOnRefreshListener { updateData() }
     }
 
     private fun updateData() {
         mSmoothScrollToPosition = false
         mIsScrolling = false
         mCountMessenger += 10
+        messagesRef.removeEventListener(messageListener)
         messagesRef.limitToLast(mCountMessenger).addChildEventListener(messageListener)
     }
 
@@ -126,6 +135,7 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
         mapMessage[CHILD_FROM] = UID
         mapMessage[CHILD_TYPE] = typeText
         mapMessage[CHILD_TEXT] = message
+        mapMessage[CHILD_ID] = messageKey.toString()
         mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
 
         val mapDialod = hashMapOf<String, Any>()
