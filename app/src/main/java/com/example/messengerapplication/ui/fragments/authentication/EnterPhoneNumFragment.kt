@@ -36,7 +36,7 @@ class EnterPhoneNumFragment : Fragment(R.layout.fragment_enter_phone_num) {
         regBtnNext = binding.regNextBtn
         regInput = binding.regCodeNum
         //regInput?.requestFocus()
-        regInput?.phoneFormat()
+        //regInput?.phoneFormat()
 
 
         regBtnNext?.setOnClickListener { sendCode() }

@@ -3,7 +3,8 @@ package com.example.messengerapplication
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.messengerapplication.databinding.ActivityMainBinding
@@ -40,12 +41,13 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        mBinding.bottomNav.setOnNavigationItemReselectedListener {
-            when(it.itemId){
+        mBinding.bottomNav.setOnNavigationItemSelectedListener { item ->
+            when(item.itemId){
                 R.id.contacts -> changeFragment(R.id.dataContainer, ContactFragment(), false)
                 R.id.messages -> changeFragment(R.id.dataContainer, ChatFragment(), false)
                 R.id.profile -> changeFragment(R.id.dataContainer, SettingsFragment(), false)
             }
+            true
         }
     }
 

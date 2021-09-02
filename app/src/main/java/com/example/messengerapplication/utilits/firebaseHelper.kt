@@ -32,6 +32,7 @@ const val CHILD_USERNAME = "username"
 const val CHILD_FULLNAME = "fullname"
 const val CHILD_PHOTO_URL = "photoUrl"
 const val CHILD_STATE = "state"
+const val CHILD_FULLNAME_LOWCASE = "fullnameLowcase"
 
 const val CHILD_TEXT = "text"
 const val CHILD_TYPE = "type"
@@ -57,8 +58,16 @@ fun updateField(newValue: String, field: String){
             if(!it.isSuccessful) {
                 showToast("Обновлено")
             }
-
         }
+    if(field == CHILD_FULLNAME){
+        REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_FULLNAME_LOWCASE)
+            .setValue(newValue.lowercase())
+            .addOnCompleteListener {
+                if(!it.isSuccessful) {
+                    showToast("Обновлено")
+                }
+            }
+    }
 }
 
 fun putUrlToDatabase(url: String, function: () -> Unit) {
@@ -104,6 +113,7 @@ fun initContacts() {
                 val phone = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                 val newModel = CommonModel()
                 newModel.fullname = fullName
+                newModel.fullnameLowcase = fullName.lowercase()
                 newModel.phone = phone.replace(Regex("[\\s,-]"), "")
                 arrContacts.add(newModel)
             }
@@ -119,7 +129,7 @@ fun updateContactList(arrContacts: ArrayList<CommonModel>) {
         REF_DATABASE_ROOT.child(NODE_PHONES).addListenerForSingleValueEvent(AppValueEventListener{
             it.children.forEach { snapshop ->
                 arrContacts.forEach { contact ->
-                    if(contact.phone == snapshop.key){
+                    if(contact.phone == snapshop.key && contact.phone!=USER.phone){
                         REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(UID)
                             .child(snapshop.value.toString()).child(CHILD_ID)
                             .setValue(snapshop.value.toString())
@@ -128,6 +138,11 @@ fun updateContactList(arrContacts: ArrayList<CommonModel>) {
                         REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(UID)
                             .child(snapshop.value.toString()).child(CHILD_FULLNAME)
                             .setValue(contact.fullname)
+                            .addOnFailureListener { showToast(it.message.toString()) }
+
+                        REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(UID)
+                            .child(snapshop.value.toString()).child(CHILD_FULLNAME_LOWCASE)
+                            .setValue(contact.fullname.lowercase())
                             .addOnFailureListener { showToast(it.message.toString()) }
                     }
                 }

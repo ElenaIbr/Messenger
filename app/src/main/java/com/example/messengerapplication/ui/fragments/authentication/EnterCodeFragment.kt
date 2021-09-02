@@ -47,25 +47,15 @@ class EnterCodeFragment(val phoneNum: String, val id: String) : Fragment(R.layou
             .addOnCompleteListener {
             if(it.isSuccessful){
                 val uid = authFirebase.currentUser?.uid.toString()
-                Log.d("MyLog", "$uid")
                 val dateMap = mutableMapOf<String, Any>()
                 dateMap[CHILD_ID] = uid
-                Log.d("MyLog", "${dateMap[CHILD_ID]}d")
                 dateMap[CHILD_PHONE] = phoneNum
-                Log.d("MyLog", "${dateMap[CHILD_PHONE]}")
-                //dateMap[CHILD_USERNAME] = getString(R.string.default_username)
 
                 REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNum).setValue(uid)
-                    .addOnFailureListener { showToast(it.message.toString())
-                        Log.d("MyLog", "${it.message.toString()}")
-                    }
+                    .addOnFailureListener { showToast(it.message.toString()) }
                     .addOnSuccessListener {
-                        Log.d("MyLog", "Tyn")
-                        Log.d("MyLog", "$dateMap")
                         REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
                             .addOnCompleteListener {
-                                //replaceFragment(ChatFragment(), false)
-                                //fragmentManager?.beginTransaction()?.remove(this)?.commit()
                                 showToast("Добро пожаловать!")
                                 APP_ACTIVITY.startOtherActivity(MainActivity())
                             }

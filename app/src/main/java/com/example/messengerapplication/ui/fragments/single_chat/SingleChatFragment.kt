@@ -44,6 +44,7 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
         act?.visibility = View.GONE
 
         mLayoutManager = LinearLayoutManager(this.context)
+        mLayoutManager.stackFromEnd = true
 
         headInfoListener = AppValueEventListener {
             receivingUser = it.getUser()
@@ -75,6 +76,7 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
         recyclerView.setHasFixedSize(true)
         recyclerView.isNestedScrollingEnabled = false
         recyclerView.layoutManager = mLayoutManager
+
 
         messageListener = AppChildrenEventListener{
             val message = it.getCommonModel()
