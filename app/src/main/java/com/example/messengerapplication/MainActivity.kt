@@ -3,12 +3,10 @@ package com.example.messengerapplication
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.messengerapplication.databinding.ActivityMainBinding
-import com.example.messengerapplication.ui.fragments.ChatFragment
+import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
 import com.example.messengerapplication.ui.fragments.ContactFragment
 import com.example.messengerapplication.ui.fragments.authentication.EnterPhoneNumFragment
 import com.example.messengerapplication.ui.fragments.SettingsFragment
