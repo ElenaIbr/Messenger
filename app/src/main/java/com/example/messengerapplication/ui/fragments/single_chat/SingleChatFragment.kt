@@ -10,6 +10,7 @@ import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentSingleChatBinding
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
+import com.example.messengerapplication.ui.fragments.PersonalInfoFragment
 import com.example.messengerapplication.utilits.*
 import com.google.firebase.database.*
 
@@ -62,7 +63,12 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
             initHeaderInfo()
         }
 
+        binding.toolbarCl.setOnClickListener {
+            replaceFragment(PersonalInfoFragment(contact))
+        }
+
         initRecyclerView()
+
     }
 
     private fun initRecyclerView() {
@@ -128,8 +134,11 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
             showToast("Введите текст!")
         } else sentMessage(message, contact.id, TYPE_TEXT) {
             binding.chatInputMessage.setText("")
+            saveToChatlist(contact.id, TYPE_TEXT)
         }
     }
+
+
 
     private fun sentMessage(message: String,
                             receivingUserID: String,
@@ -160,9 +169,10 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
     private fun updateToolbarInfo() {
         binding.toolbarImg.setImg(receivingUser.photoUrl)
 
-        if(receivingUser.fullname.isEmpty()){
+        /*if(receivingUser.fullname.isEmpty()){
             binding.toolbarContactName.text = contact.fullname
-        }else binding.toolbarContactName.text = receivingUser.username
+        }else binding.toolbarContactName.text = receivingUser.username*/
+        binding.toolbarContactName.text = contact.fullname
 
         binding.toolbarContactStatus.text = receivingUser.state
     }

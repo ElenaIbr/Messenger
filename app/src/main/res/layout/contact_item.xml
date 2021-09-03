@@ -39,21 +39,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/contact_photo"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/contact_photo"
                 android:text="Elena Ibraeva"
                 android:textColor="@color/black"
                 android:textSize="@dimen/normal_text" />
 
-            <TextView
-                android:id="@+id/contact_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_name"
-                android:layout_alignStart="@+id/contact_name"
-                android:layout_alignBottom="@+id/contact_photo"
-                android:text="В сети"
-                android:textColor="@color/gray"
-                android:textSize="@dimen/small_text" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

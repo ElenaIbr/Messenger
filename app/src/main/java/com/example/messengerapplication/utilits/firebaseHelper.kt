@@ -25,6 +25,8 @@ const val NODE_USERNAMES = "usernames"
 const val NODE_PHONES = "phones"
 const val NODE_PHONES_CONTACTS = "phone_contacts"
 const val NODE_MESSAGES = "messages"
+const val NODE_CHATLIST = "chatlist"
+
 
 const val CHILD_ID = "id"
 const val CHILD_PHONE = "phone"
@@ -151,3 +153,27 @@ fun updateContactList(arrContacts: ArrayList<CommonModel>) {
     }
 }
 
+fun saveToChatlist(
+    id: String,
+    type: String
+) {
+    val refUser = "$NODE_CHATLIST/$UID/$id"
+    val refReceivedUser = "$NODE_CHATLIST/$id/$UID"
+
+    val mapRefUser = hashMapOf<String, Any>()
+    val mapRefReceivUser= hashMapOf<String, Any>()
+
+    mapRefUser[CHILD_ID] = id
+    mapRefUser[CHILD_TYPE] = type
+
+    mapRefReceivUser[CHILD_ID] = UID
+    mapRefReceivUser[CHILD_TYPE] = type
+
+    val commonMap = hashMapOf<String, Any>()
+    commonMap[refUser] = mapRefUser
+    commonMap[refReceivedUser] = mapRefReceivUser
+
+    REF_DATABASE_ROOT.updateChildren(commonMap)
+        .addOnFailureListener { showToast("${it.message.toString()}") }
+
+}

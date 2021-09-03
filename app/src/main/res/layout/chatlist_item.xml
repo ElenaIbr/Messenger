@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chatlist_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/chatlist_contact_photo"
+            android:layout_width="@dimen/settings_change_user_photo_width"
+            android:layout_height="@dimen/settings_change_user_photo_height"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/margin_horizontal"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_default_user"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/chatlist_contact_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/chatlist_contact_photo"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            android:layout_toEndOf="@+id/chatlist_contact_photo"
+            android:text="Name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/normal_text"
+            app:layout_constraintStart_toEndOf="@+id/chatlist_contact_photo"
+            app:layout_constraintTop_toTopOf="@+id/chatlist_contact_photo" />
+
+        <TextView
+            android:id="@+id/chatlist_last_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/chatlist_contact_photo"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            android:layout_toEndOf="@+id/chatlist_contact_photo"
+            android:text="Last message"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/small_text"
+            app:layout_constraintStart_toEndOf="@+id/chatlist_contact_photo"
+            app:layout_constraintTop_toBottomOf="@+id/chatlist_contact_name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

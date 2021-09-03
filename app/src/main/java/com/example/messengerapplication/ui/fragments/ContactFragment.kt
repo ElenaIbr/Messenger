@@ -117,7 +117,7 @@ class ContactFragment : Fragment(R.layout.fragment_contact) {
 
                     holder.name.text = model.fullname
 
-                    holder.status.text = contact.state
+                    //holder.status.text = phoneFormat(contact.phone)
                     holder.photo.setImg(contact.photoUrl)
                     holder.itemView.setOnClickListener {
                         replaceFragment(SingleChatFragment(model))
@@ -131,7 +131,7 @@ class ContactFragment : Fragment(R.layout.fragment_contact) {
 
     class Holder(view: View): RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.contact_name)
-        val status: TextView = view.findViewById(R.id.contact_status)
+        //val status: TextView = view.findViewById(R.id.contact_status)
         val photo: CircleImageView = view.findViewById(R.id.contact_photo)
     }
 
