@@ -51,7 +51,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="Elena Ibraeva"
             android:textColor="@color/black"
             android:textSize="@dimen/normal_text"
             app:layout_constraintStart_toEndOf="@+id/toolbar_img"
@@ -62,11 +61,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="В сети"
             android:textColor="@color/dark_white"
             android:textSize="@dimen/small_text"
             app:layout_constraintStart_toEndOf="@+id/toolbar_img"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_contact_name" />
+
+        <ImageView
+            android:id="@+id/menu_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_dots_setting_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/margin_vertical"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

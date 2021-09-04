@@ -41,9 +41,9 @@ class MainActivity : AppCompatActivity() {
 
         mBinding.bottomNav.setOnNavigationItemSelectedListener { item ->
             when(item.itemId){
-                R.id.contacts -> changeFragment(R.id.dataContainer, ContactFragment(), false)
-                R.id.messages -> changeFragment(R.id.dataContainer, ChatFragment(), false)
-                R.id.profile -> changeFragment(R.id.dataContainer, SettingsFragment(), false)
+                R.id.contacts -> changeFragment(ContactFragment(), false)
+                R.id.messages -> changeFragment(ChatFragment(), false)
+                R.id.profile -> changeFragment(SettingsFragment(), false)
             }
             true
         }
@@ -52,11 +52,11 @@ class MainActivity : AppCompatActivity() {
     private fun initFunc(){
 
         if(authFirebase.currentUser!=null){
-            changeFragment(R.id.dataContainer, ChatFragment(), false)
+            changeFragment(ChatFragment(), false)
         }else{
             //startOtherActivity(RegistrationActivity())
             mBinding.bottomNav.visibility = View.GONE
-            changeFragment(R.id.dataContainer, EnterPhoneNumFragment(), false)
+            changeFragment(EnterPhoneNumFragment(), false)
         }
     }
 

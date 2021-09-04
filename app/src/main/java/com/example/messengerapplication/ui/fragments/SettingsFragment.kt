@@ -7,7 +7,6 @@ import android.view.*
 import com.example.messenger.ui.fragments.BaseFragment
 import com.example.messengerapplication.MainActivity
 import com.example.messengerapplication.R
-import com.example.messengerapplication.activities.RegistrationActivity
 import com.example.messengerapplication.databinding.FragmentSettingsBinding
 import com.example.messengerapplication.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
@@ -71,10 +70,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        activity?.menuInflater?.inflate(R.menu.settings_menu, menu)
+        activity?.menuInflater?.inflate(R.menu.single_chat_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.setting_menu_exit -> {
                 authFirebase.signOut()
@@ -83,7 +82,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             }
         }
         return true
-    }
+    }*/
 
     override fun onStop() {
         super.onStop()

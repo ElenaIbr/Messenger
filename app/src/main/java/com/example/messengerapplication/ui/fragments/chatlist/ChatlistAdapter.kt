@@ -1,18 +1,26 @@
 package com.example.messengerapplication.ui.fragments.chatlist
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
 import com.example.messengerapplication.models.CommonModel
+import com.example.messengerapplication.ui.fragments.single_chat.SingleChatFragment
+import com.example.messengerapplication.utilits.APP_ACTIVITY
+import com.example.messengerapplication.utilits.changeFragment
 import com.example.messengerapplication.utilits.setImg
+import com.example.messengerapplication.utilits.showToast
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
 
+
     private var listItem = mutableListOf<CommonModel>()
+    private var pos: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatlistHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.chatlist_item, parent, false)
@@ -20,9 +28,15 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
     }
 
     override fun onBindViewHolder(holder: ChatlistHolder, position: Int) {
+        Log.d("MyLog", "позиция ${position}")
         holder.contactName.text = listItem[position].fullname
         holder.lastMessage.text = listItem[position].lastMessage
         holder.contactPhoto.setImg(listItem[position].photoUrl)
+
+        holder.itemView.setOnClickListener {
+            APP_ACTIVITY.changeFragment(SingleChatFragment(listItem[position]))
+        }
+
     }
 
     override fun getItemCount(): Int = listItem.size

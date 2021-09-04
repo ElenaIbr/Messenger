@@ -78,23 +78,5 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolde
         }
         onSuccess()
     }
-
-    /*fun addMessage(item: CommonModel,
-                   toBottom: Boolean,
-                   onSuccess: () -> Unit){
-        if(toBottom){
-            if(!mListMessagesCache.contains(item)){
-                mListMessagesCache.add(item)
-                notifyItemInserted(mListMessagesCache.size)
-            }
-        }else{
-            if(!mListMessagesCache.contains(item)){
-                mListMessagesCache.add(item)
-                mListMessagesCache.sortBy { it.timeStamp.toString() }
-                notifyItemInserted(0)
-            }
-        }
-        onSuccess()
-    }*/
 }
 

@@ -20,7 +20,7 @@ class RegistrationActivity : AppCompatActivity() {
         setContentView(mBinding.root)
         initFirebase()
 
-        changeFragment(R.id.dataContainer, EnterPhoneNumFragment(), false)
+        changeFragment(EnterPhoneNumFragment(), false)
     }
 
     override fun onStart() {

@@ -61,30 +61,6 @@ class ContactFragment : Fragment(R.layout.fragment_contact) {
 
     }
 
-    private fun firebaseSearch(searchText: String) {
-
-        contactsRef = REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(UID)
-        contactsRef.orderByChild(CHILD_FULLNAME)
-            .startAt(searchText)
-            .endAt(searchText+"\ufbff")
-            .addValueEventListener(object : ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    snapshot.value
-                    Log.d("MyLog", "${snapshot.value}")
-
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    //TODO("Not yet implemented")
-                }
-
-            })
-
-
-
-    }
-
-
     private fun initRcview(searchText: String) {
         rcView = APP_ACTIVITY.findViewById(R.id.contact_rc)
         contactsRef = REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(UID)

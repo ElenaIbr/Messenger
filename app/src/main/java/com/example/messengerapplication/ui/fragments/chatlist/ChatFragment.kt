@@ -25,6 +25,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         binding = FragmentChatBinding.bind(view)
 
         initRecyclerView()
+
     }
 
     private fun initRecyclerView() {

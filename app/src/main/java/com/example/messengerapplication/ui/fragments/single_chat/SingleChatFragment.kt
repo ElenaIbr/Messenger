@@ -1,8 +1,10 @@
 package com.example.messengerapplication.ui.fragments.single_chat
 
 import android.os.Bundle
+import android.view.MenuInflater
 import android.view.View
 import android.widget.AbsListView
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -63,11 +65,16 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
             initHeaderInfo()
         }
 
-        binding.toolbarCl.setOnClickListener {
+        binding.toolbarImg.setOnClickListener {
             replaceFragment(PersonalInfoFragment(contact))
         }
 
         initRecyclerView()
+
+        binding.menuBtn.setOnClickListener {
+            showPopup(binding.menuBtn)
+        }
+
 
     }
 
@@ -182,5 +189,23 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
         act?.visibility = View.VISIBLE
         userRef.removeEventListener(headInfoListener)
         messagesRef.removeEventListener(messageListener)
+    }
+
+    fun showPopup(v : View){
+        val popup = PopupMenu(APP_ACTIVITY, v)
+        val inflater: MenuInflater = popup.menuInflater
+        inflater.inflate(R.menu.single_chat_menu, popup.menu)
+        popup.setOnMenuItemClickListener { menuItem ->
+            /*when(menuItem.itemId){
+                R.id.action1-> {
+
+                }
+                R.id.action2-> {
+
+                }
+            }*/
+            true
+        }
+        popup.show()
     }
 }

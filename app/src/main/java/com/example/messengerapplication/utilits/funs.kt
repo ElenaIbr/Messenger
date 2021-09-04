@@ -2,19 +2,19 @@ package com.example.messengerapplication.utilits
 
 import android.content.Context
 import android.content.Intent
-import android.os.CountDownTimer
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.MainActivity
 import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.ActivityMainBinding
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
+import com.example.messengerapplication.ui.fragments.single_chat.SingleChatFragment
 import com.google.firebase.database.DataSnapshot
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.redmadrobot.inputmask.MaskedTextChangedListener
@@ -32,16 +32,16 @@ fun AppCompatActivity.startOtherActivity(activity: AppCompatActivity){
     this.finish()
 }
 
-fun AppCompatActivity.changeFragment(container: Int, fragment: Fragment, addStack: Boolean = true){
+fun AppCompatActivity.changeFragment(fragment: Fragment, addStack: Boolean = true){
     if(addStack){
         supportFragmentManager.beginTransaction()
             .addToBackStack(null)
-            .replace(container, fragment)
+            .replace(R.id.dataContainer, fragment)
             .commit()
     }
     else{
         supportFragmentManager.beginTransaction()
-            .replace(container, fragment)
+            .replace(R.id.dataContainer, fragment)
             .commit()
     }
 }
