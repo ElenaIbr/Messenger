@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.ui.fragments.single_chat.SingleChatFragment
-import com.example.messengerapplication.utilits.APP_ACTIVITY
-import com.example.messengerapplication.utilits.changeFragment
-import com.example.messengerapplication.utilits.setImg
-import com.example.messengerapplication.utilits.showToast
+import com.example.messengerapplication.utilits.*
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
@@ -28,10 +25,16 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
     }
 
     override fun onBindViewHolder(holder: ChatlistHolder, position: Int) {
-        Log.d("MyLog", "позиция ${position}")
+
         holder.contactName.text = listItem[position].fullname
         holder.lastMessage.text = listItem[position].lastMessage
         holder.contactPhoto.setImg(listItem[position].photoUrl)
+        if(!listItem[position].timeStamp.toString().isEmpty()){
+            holder.lastMessageTime.text = listItem[position]
+                .timeStamp
+                .toString()
+                .toDateFormat()
+        }else holder.lastMessageTime.text = ""
 
         holder.itemView.setOnClickListener {
             APP_ACTIVITY.changeFragment(SingleChatFragment(listItem[position]))
@@ -45,6 +48,8 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
         val contactName = view.findViewById<TextView>(R.id.chatlist_contact_name)
         val contactPhoto = view.findViewById<CircleImageView>(R.id.chatlist_contact_photo)
         val lastMessage = view.findViewById<TextView>(R.id.chatlist_last_message)
+
+        val lastMessageTime = view.findViewById<TextView>(R.id.message_time)
     }
 
     fun updateListIten(item: CommonModel){

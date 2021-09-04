@@ -1,6 +1,7 @@
 package com.example.messengerapplication.ui.fragments.chatlist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +10,7 @@ import com.example.messengerapplication.databinding.FragmentChatBinding
 import com.example.messengerapplication.databinding.FragmentContactBinding
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.utilits.*
+import java.util.*
 
 class ChatFragment : Fragment(R.layout.fragment_chat) {
 
@@ -41,11 +43,19 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
 
                     refMesseges.child(model.id).limitToLast(1).addListenerForSingleValueEvent(AppValueEventListener{
                         val messageList = it.children.map { it.getCommonModel() }
-                        newModel.lastMessage = messageList[0].text
-
+                        if(messageList.isEmpty()){
+                            newModel.lastMessage = "Чат очищен"
+                        }else if(messageList[0].text.length>30){
+                            newModel.lastMessage = messageList[0].text.substring(0,29)+"..."
+                            newModel.timeStamp = messageList[0].timeStamp
+                        }else {
+                            newModel.lastMessage = messageList[0].text
+                            newModel.timeStamp = messageList[0].timeStamp
+                        }
                         if(newModel.fullname.isEmpty()){
                             newModel.fullname = newModel.phone
                         }
+
                         chatAdapter.updateListIten(newModel)
                     })
 

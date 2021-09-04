@@ -105,3 +105,9 @@ fun String.toTimeFormat():String {
     val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
     return timeFormat.format(time)
 }
+
+fun String.toDateFormat():String {
+    val time = Date(this.toLong())
+    val timeFormat = SimpleDateFormat("dd-MM", Locale.getDefault())
+    return timeFormat.format(time)
+}

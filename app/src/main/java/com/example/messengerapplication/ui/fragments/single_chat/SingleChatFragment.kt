@@ -13,6 +13,7 @@ import com.example.messengerapplication.databinding.FragmentSingleChatBinding
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
 import com.example.messengerapplication.ui.fragments.PersonalInfoFragment
+import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
 import com.example.messengerapplication.utilits.*
 import com.google.firebase.database.*
 
@@ -196,14 +197,20 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
         val inflater: MenuInflater = popup.menuInflater
         inflater.inflate(R.menu.single_chat_menu, popup.menu)
         popup.setOnMenuItemClickListener { menuItem ->
-            /*when(menuItem.itemId){
-                R.id.action1-> {
-
+            when(menuItem.itemId){
+                R.id.clear_chat-> {
+                    clearChat(contact.id){
+                        showToast("Чат очищен")
+                        replaceFragment(ChatFragment())
+                    }
                 }
-                R.id.action2-> {
-
+                R.id.delete_chat-> {
+                    deleteChat(contact.id){
+                        showToast("Чат удален")
+                        replaceFragment(ChatFragment())
+                    }
                 }
-            }*/
+            }
             true
         }
         popup.show()

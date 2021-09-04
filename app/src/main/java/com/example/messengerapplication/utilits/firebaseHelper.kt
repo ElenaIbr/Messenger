@@ -11,6 +11,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlin.jvm.internal.Ref
 
 lateinit var authFirebase: FirebaseAuth
 lateinit var REF_DATABASE_ROOT: DatabaseReference
@@ -176,4 +177,23 @@ fun saveToChatlist(
     REF_DATABASE_ROOT.updateChildren(commonMap)
         .addOnFailureListener { showToast("${it.message.toString()}") }
 
+}
+
+fun deleteChat(id: String, function: () -> Unit) {
+    REF_DATABASE_ROOT.child(NODE_CHATLIST).child(UID).child(id)
+        .removeValue()
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { it.message.toString() }
+}
+
+fun clearChat(id: String, function: () -> Unit) {
+    REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID).child(id)
+        .removeValue()
+        .addOnSuccessListener {
+            REF_DATABASE_ROOT.child(NODE_MESSAGES).child(id).child(UID)
+                .removeValue()
+                .addOnSuccessListener { function() }
+                .addOnFailureListener { it.message.toString() }
+        }
+        .addOnFailureListener { it.message.toString() }
 }

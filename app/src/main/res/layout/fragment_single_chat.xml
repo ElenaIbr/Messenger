@@ -27,14 +27,13 @@
 
         <ImageButton
             android:id="@+id/back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
             android:src="@drawable/ic_back_arrow"
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="@dimen/margin_horizontal"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/toolbar_img"
@@ -68,13 +67,13 @@
 
         <ImageView
             android:id="@+id/menu_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
             android:src="@drawable/ic_dots_setting_menu"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/margin_vertical"/>
+            android:padding="13dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -137,7 +136,7 @@
 
         <ImageView
             android:id="@+id/send_message_btn"
-            android:layout_width="48dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="@dimen/AppPadding"
             android:src="@drawable/ic_send"
