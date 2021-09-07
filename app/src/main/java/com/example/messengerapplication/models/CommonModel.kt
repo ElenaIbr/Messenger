@@ -1,5 +1,7 @@
 package com.example.messengerapplication.models
 
+import java.util.*
+
 data class CommonModel(
     val id: String = "",
     var username: String = "",
@@ -15,6 +17,9 @@ data class CommonModel(
     var type: String = "",
     var from: String = "",
     var timeStamp: Any = "",
+
+    var lastMessageTime: Any = "",
+    var resLastMessageTime: Date = Date(0),
 
     var lastMessage: String = "",
     var namefromcontacts: String = ""

@@ -25,9 +25,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentChatBinding.bind(view)
-
         initRecyclerView()
-
     }
 
     private fun initRecyclerView() {
@@ -37,16 +35,20 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         refChatlist.addListenerForSingleValueEvent(AppValueEventListener{
             listItem = it.children.map { it.getCommonModel() }
 
-            listItem.forEach { model ->
+            listItem.forEach {
+                it.resLastMessageTime = Date(it.lastMessageTime.toString().toLong())
+            }
+
+            val sortedList = listItem.sortedBy{ it.resLastMessageTime }.reversed()
+
+            sortedList.forEach { model ->
+
                 refUsers.child(model.id).addListenerForSingleValueEvent(AppValueEventListener{
                     val newModel = it.getCommonModel()
                     //newModel.fullname = model.fullname
 
                     newModel.namefromcontacts = model.namefromcontacts
                     //изменения
-                    Log.d("MyLog", "${model.id}")
-                    Log.d("MyLog", "${model.fullname}")
-                    Log.d("MyLog", "${model.namefromcontacts}")
                     refMesseges.child(model.id).limitToLast(1).addListenerForSingleValueEvent(AppValueEventListener{
                         val messageList = it.children.map { it.getCommonModel() }
                         if(messageList.isEmpty()){
@@ -61,7 +63,6 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
                         if(newModel.namefromcontacts.isEmpty()){
                             newModel.namefromcontacts = newModel.phone
                         }
-
 
                         chatAdapter.updateListIten(newModel)
                     })

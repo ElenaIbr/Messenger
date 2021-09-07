@@ -15,7 +15,6 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
 
 
     private var listItem = mutableListOf<CommonModel>()
-    private var pos: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatlistHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.chatlist_item, parent, false)
@@ -38,7 +37,6 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
         holder.itemView.setOnClickListener {
             APP_ACTIVITY.changeFragment(SingleChatFragment(listItem[position]))
         }
-
     }
 
     override fun getItemCount(): Int = listItem.size
@@ -47,7 +45,6 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
         val contactName = view.findViewById<TextView>(R.id.chatlist_contact_name)
         val contactPhoto = view.findViewById<CircleImageView>(R.id.chatlist_contact_photo)
         val lastMessage = view.findViewById<TextView>(R.id.chatlist_last_message)
-
         val lastMessageTime = view.findViewById<TextView>(R.id.message_time)
     }
 

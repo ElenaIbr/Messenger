@@ -89,8 +89,6 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
         binding.menuBtn.setOnClickListener {
             showPopup(binding.menuBtn)
         }
-
-
     }
 
     private fun initRecyclerView() {
@@ -159,8 +157,6 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
             saveToChatlist(contact.id, contact.namefromcontacts, TYPE_TEXT)
         }
     }
-
-
 
     private fun sentMessage(message: String,
                             receivingUserID: String,

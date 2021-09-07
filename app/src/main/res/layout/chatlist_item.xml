@@ -1,76 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/chatlist_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:background="@drawable/contact_shape"
+    android:layout_marginStart="3dp"
+    android:layout_marginEnd="3dp"
+    android:layout_marginTop="3dp"
+    app:layout_constraintVertical_bias="0.0">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/chatlist_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/contact_shape"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:layout_marginTop="3dp"
-            app:layout_constraintVertical_bias="0.0">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/chatlist_contact_photo"
+        android:layout_width="@dimen/chatlist_user_photo_width"
+        android:layout_height="@dimen/chatlist_user_photo_height"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/margin_horizontal"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_default_user"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/chatlist_contact_photo"
-                android:layout_width="@dimen/chatlist_user_photo_width"
-                android:layout_height="@dimen/chatlist_user_photo_height"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="@dimen/margin_horizontal"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/ic_default_user"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/chatlist_contact_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/chatlist_contact_photo"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_toEndOf="@+id/chatlist_contact_photo"
+        android:text="Name"
+        android:textColor="@color/black"
+        android:textSize="@dimen/normal_text"
+        app:layout_constraintStart_toEndOf="@+id/chatlist_contact_photo"
+        app:layout_constraintTop_toTopOf="@+id/chatlist_contact_photo" />
 
-            <TextView
-                android:id="@+id/chatlist_contact_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/chatlist_contact_photo"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                android:layout_toEndOf="@+id/chatlist_contact_photo"
-                android:text="Name"
-                android:textColor="@color/black"
-                android:textSize="@dimen/normal_text"
-                app:layout_constraintStart_toEndOf="@+id/chatlist_contact_photo"
-                app:layout_constraintTop_toTopOf="@+id/chatlist_contact_photo" />
+    <TextView
+        android:id="@+id/chatlist_last_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/chatlist_contact_photo"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_toEndOf="@+id/chatlist_contact_photo"
+        android:text="Last message"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/normal_text"
+        app:layout_constraintStart_toEndOf="@+id/chatlist_contact_photo"
+        app:layout_constraintTop_toBottomOf="@+id/chatlist_contact_name" />
 
-            <TextView
-                android:id="@+id/chatlist_last_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/chatlist_contact_photo"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                android:layout_toEndOf="@+id/chatlist_contact_photo"
-                android:text="Last message"
-                android:textColor="@color/gray"
-                android:textSize="@dimen/normal_text"
-                app:layout_constraintStart_toEndOf="@+id/chatlist_contact_photo"
-                app:layout_constraintTop_toBottomOf="@+id/chatlist_contact_name" />
-
-            <TextView
-                android:id="@+id/message_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="time"
-                android:textSize="12dp"
-                android:textStyle="italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="5dp"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/message_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="time"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

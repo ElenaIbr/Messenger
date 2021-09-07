@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin_horizontal">16dp</dimen>
-    <dimen name="large_text">18dp</dimen>
-    <dimen name="normal_text">16dp</dimen>
-    <dimen name="small_text">14dp</dimen>
+    <dimen name="large_text">18sp</dimen>
+    <dimen name="normal_text">16sp</dimen>
+    <dimen name="small_text">14sp</dimen>
 
     <!--Settings-->
     <dimen name="settings_user_photo_width">85dp</dimen>

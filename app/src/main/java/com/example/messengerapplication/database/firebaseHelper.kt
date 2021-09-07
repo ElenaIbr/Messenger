@@ -2,16 +2,15 @@ package com.example.messengerapplication.utilits
 
 import android.net.Uri
 import android.provider.ContactsContract
-import android.util.Log
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import kotlin.jvm.internal.Ref
+import kotlin.collections.ArrayList
 
 lateinit var authFirebase: FirebaseAuth
 lateinit var REF_DATABASE_ROOT: DatabaseReference
@@ -43,6 +42,8 @@ const val CHILD_TEXT = "text"
 const val CHILD_TYPE = "type"
 const val CHILD_FROM = "from"
 const val CHILD_TIMESTAMP = "timeStamp"
+
+const val CHILD_LAST_MESSAGE_TIME = "lastMessageTime"
 
 const val FOLDER_PROFILE_IMG = "profile_images"
 
@@ -170,14 +171,20 @@ fun saveToChatlist(
     val mapRefUser = hashMapOf<String, Any>()
     val mapRefReceivUser= hashMapOf<String, Any>()
 
+    val currentTime = ServerValue.TIMESTAMP
+
+    //val date = LocalDate.parse(currentTime, DateTimeFormatter.ISO_DATE)
+
+
     mapRefUser[CHILD_ID] = id
     mapRefUser[CHILD_TYPE] = type
     mapRefUser[CHILD_NAME_FROM_CONTACTS] = contName
-
+    mapRefUser[CHILD_LAST_MESSAGE_TIME] = currentTime
 
     mapRefReceivUser[CHILD_ID] = UID
     mapRefReceivUser[CHILD_TYPE] = type
     mapRefReceivUser[CHILD_NAME_FROM_CONTACTS] = USER.fullname
+    mapRefReceivUser[CHILD_LAST_MESSAGE_TIME] = currentTime
 
     val commonMap = hashMapOf<String, Any>()
     commonMap[refUser] = mapRefUser

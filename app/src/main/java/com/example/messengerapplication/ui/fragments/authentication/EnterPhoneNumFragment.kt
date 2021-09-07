@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import com.example.messengerapplication.MainActivity
+import com.example.messengerapplication.activities.MainActivity
 import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentEnterPhoneNumBinding
 import com.example.messengerapplication.utilits.*

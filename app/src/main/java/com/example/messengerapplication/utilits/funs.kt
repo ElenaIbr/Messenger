@@ -2,19 +2,16 @@ package com.example.messengerapplication.utilits
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
-import com.example.messengerapplication.MainActivity
 import com.example.messengerapplication.R
-import com.example.messengerapplication.databinding.ActivityMainBinding
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
-import com.example.messengerapplication.ui.fragments.single_chat.SingleChatFragment
 import com.google.firebase.database.DataSnapshot
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.redmadrobot.inputmask.MaskedTextChangedListener
@@ -108,7 +105,26 @@ fun String.toTimeFormat():String {
 }
 
 fun String.toDateFormat():String {
-    val time = Date(this.toLong())
-    val timeFormat = SimpleDateFormat("dd-MM", Locale.getDefault())
-    return timeFormat.format(time)
+
+    val calendar = Calendar.getInstance()
+    calendar.set(Calendar.HOUR, 0)
+    calendar.set(Calendar.MINUTE, 0)
+    calendar.set(Calendar.SECOND, 0)
+
+    Log.d("MyLog", "date before ${calendar.time}")
+
+    if(Date(this.toLong()) > calendar.time){
+        val time = Date(this.toLong())
+        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        return timeFormat.format(time)
+    }else{
+        val time = Date(this.toLong())
+        val timeFormat = SimpleDateFormat("yy-MM-dd", Locale.getDefault())
+        return timeFormat.format(time)
+    }
+
+    /*val time = Date(this.toLong())
+    val timeFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    return timeFormat.format(time)*/
 }
+

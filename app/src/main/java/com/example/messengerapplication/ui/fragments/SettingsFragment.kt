@@ -4,15 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
 import android.widget.TextView
 import com.example.messenger.ui.fragments.BaseFragment
-import com.example.messengerapplication.MainActivity
+import com.example.messengerapplication.activities.MainActivity
 import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentSettingsBinding
-import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
 import com.example.messengerapplication.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView

@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import com.example.messengerapplication.MainActivity
+import com.example.messengerapplication.activities.MainActivity
 import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentEnterCodeBinding
 import com.example.messengerapplication.utilits.*
