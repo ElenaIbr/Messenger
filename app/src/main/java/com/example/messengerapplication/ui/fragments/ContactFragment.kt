@@ -17,7 +17,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.*
 import de.hdodenhof.circleimageview.CircleImageView
-import java.util.*
 
 
 class ContactFragment : Fragment(R.layout.fragment_contact) {
@@ -93,10 +92,13 @@ class ContactFragment : Fragment(R.layout.fragment_contact) {
 
                     holder.name.text = model.fullname
 
+                    contact.namefromcontacts = model.fullname
+
+                    Log.d("MyLog", "контакты ${model.fullname}")
                     //holder.status.text = phoneFormat(contact.phone)
                     holder.photo.setImg(contact.photoUrl)
                     holder.itemView.setOnClickListener {
-                        replaceFragment(SingleChatFragment(model))
+                        replaceFragment(SingleChatFragment(contact))
                     }
                 })
             }

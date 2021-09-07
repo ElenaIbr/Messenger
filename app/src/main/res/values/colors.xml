@@ -11,7 +11,9 @@
     <color name="ivory">#fcfcf7</color>
     <color name="fordWhite">#fff5f5</color>
     <color name="twoWhite">#EAE2D2</color>
-    <color name="alyaska">#f5f4ed</color>
+    <color name="alyaska">#fafafa</color>
+    <color name="light_pink">#fcfcfc</color>
+    <color name="transp">#00000000 </color>
 
 
 
@@ -24,8 +26,8 @@
     <color name="yellow">#FFD8CC</color>
     <color name="bg_light">#F3F1F5</color>
     <color name="brown">#402218</color>
-    <color name="green">#22402a</color>
-    <color name="light_green">#719278</color>
+    <color name="green">#32144f</color>
+    <color name="light_green">#612970</color>
 
     <!-- Material DEFAULT colors -->
     <color name="material_drawer_primary">@color/green</color>

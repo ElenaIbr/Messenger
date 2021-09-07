@@ -2,17 +2,27 @@ package com.example.messengerapplication.ui.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.PopupMenu
+import android.widget.TextView
 import com.example.messenger.ui.fragments.BaseFragment
 import com.example.messengerapplication.MainActivity
 import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentSettingsBinding
+import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
 import com.example.messengerapplication.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 
-class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
+class SettingsFragment(val userName: String = USER.username,
+                       val fullName: String = USER.fullname,
+                       val num: String = USER.phone,
+                       val bio: String = USER.bio,
+                       val photo: String = USER.photoUrl,
+                       val isOtherUser: Boolean = false) : BaseFragment(R.layout.fragment_settings) {
 
     private lateinit var binding: FragmentSettingsBinding
 
@@ -22,37 +32,43 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     }
 
     var name: String? = null
-    var fullName: String? = null
+    //var fullName: String? = null
 
-    override fun onStart() {
-        super.onStart()
-        //APP_ACTIVITY.mDrawer.disableDrawer()
+    override fun onResume() {
         hideKeyboard()
+        super.onResume()
+        setHasOptionsMenu(true)
 
-        binding.changeInfoTv.text = USER.fullname
-        binding.changenumberTv.text = USER.phone
-        binding.changenameTv.text = USER.username
-        binding.userName.text = USER.fullname
-        binding.settingsPhoto.setImg(USER.photoUrl)
+        binding.changenumberTv.text = num
 
-        binding.settingsPhoto.setOnClickListener() {
-            changeUserPhoto()
+        checkInfo(fullName, binding.changeInfoTv)
+        checkInfo(userName, binding.changenameTv)
+        checkInfo(bio, binding.changeBioTv)
+
+        binding.settingsPhoto.setImg(photo)
+
+        if(!isOtherUser){
+            binding.menuSettings.setOnClickListener {
+                showPopup(binding.menuSettings)
+            }
+        }
+        else {
+            binding.menuSettings.visibility = View.GONE
+            binding.backToChat.visibility = View.VISIBLE
+
+            binding.backToChat.setOnClickListener {
+                APP_ACTIVITY.supportFragmentManager.popBackStack()
+            }
         }
 
-        binding.btnChangeNum.setOnClickListener {
-            replaceFragment(DetailSettingsFragment(SettingsType.PHONE))
-        }
-        binding.btnChangeUsername.setOnClickListener {
-            replaceFragment(DetailSettingsFragment(SettingsType.USERNAME))
-        }
-        binding.btnChangeInfo.setOnClickListener {
-            replaceFragment(DetailSettingsFragment(SettingsType.FULLNAME))
-        }
+    }
 
-        binding.signOutBtn.setOnClickListener {
-            authFirebase.signOut()
-            AppStates.updateStates(AppStates.OFFLINE)
-            APP_ACTIVITY.startOtherActivity(MainActivity())
+    private fun checkInfo(info: String, textView: TextView, text: String = "no info") {
+        if (!info.isEmpty()) {
+            textView.text = info
+        } else {
+            textView.setTextColor(Color.GRAY)
+            textView.text = text
         }
     }
 
@@ -63,31 +79,12 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             .setCropShape(CropImageView.CropShape.OVAL)
             .start(APP_ACTIVITY, this)
     }
-    override fun onResume() {
-        super.onResume()
-        setHasOptionsMenu(true)
-        //APP_ACTIVITY.title = getString(R.string.account)
-    }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         activity?.menuInflater?.inflate(R.menu.single_chat_menu, menu)
     }
 
-    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.setting_menu_exit -> {
-                authFirebase.signOut()
-                AppStates.updateStates(AppStates.OFFLINE)
-                APP_ACTIVITY.startOtherActivity(MainActivity())
-            }
-        }
-        return true
-    }*/
-
-    override fun onStop() {
-        super.onStop()
-        //APP_ACTIVITY.mDrawer.enableDrawer()
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
@@ -109,4 +106,27 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
                 }
             }
         }}
+
+    fun showPopup(v : View){
+        val popup = PopupMenu(APP_ACTIVITY, v)
+        val inflater: MenuInflater = popup.menuInflater
+        inflater.inflate(R.menu.settings_menu, popup.menu)
+        popup.setOnMenuItemClickListener { menuItem ->
+            when(menuItem.itemId){
+                R.id.sign_out-> {
+                    authFirebase.signOut()
+                    AppStates.updateStates(AppStates.OFFLINE)
+                    APP_ACTIVITY.startOtherActivity(MainActivity())
+                }
+                R.id.edit_photo-> {
+                    changeUserPhoto()
+                }
+                R.id.edit_info-> {
+                    replaceFragment(DetailSettingsFragment())
+                }
+            }
+            true
+        }
+        popup.show()
+    }
 }

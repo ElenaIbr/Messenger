@@ -3,7 +3,7 @@ package com.example.messengerapplication.models
 data class CommonModel(
     val id: String = "",
     var username: String = "",
-    var boi: String = "",
+    var bio: String = "",
     var fullname: String = "",
     var fullnameLowcase: String = "",
     var state: String = "",
@@ -16,7 +16,8 @@ data class CommonModel(
     var from: String = "",
     var timeStamp: Any = "",
 
-    var lastMessage: String = ""
+    var lastMessage: String = "",
+    var namefromcontacts: String = ""
 
 
 

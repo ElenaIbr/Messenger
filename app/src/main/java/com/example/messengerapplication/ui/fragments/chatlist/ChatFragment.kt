@@ -40,7 +40,13 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
             listItem.forEach { model ->
                 refUsers.child(model.id).addListenerForSingleValueEvent(AppValueEventListener{
                     val newModel = it.getCommonModel()
+                    //newModel.fullname = model.fullname
 
+                    newModel.namefromcontacts = model.namefromcontacts
+                    //изменения
+                    Log.d("MyLog", "${model.id}")
+                    Log.d("MyLog", "${model.fullname}")
+                    Log.d("MyLog", "${model.namefromcontacts}")
                     refMesseges.child(model.id).limitToLast(1).addListenerForSingleValueEvent(AppValueEventListener{
                         val messageList = it.children.map { it.getCommonModel() }
                         if(messageList.isEmpty()){
@@ -52,9 +58,10 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
                             newModel.lastMessage = messageList[0].text
                             newModel.timeStamp = messageList[0].timeStamp
                         }
-                        if(newModel.fullname.isEmpty()){
-                            newModel.fullname = newModel.phone
+                        if(newModel.namefromcontacts.isEmpty()){
+                            newModel.namefromcontacts = newModel.phone
                         }
+
 
                         chatAdapter.updateListIten(newModel)
                     })

@@ -33,4 +33,19 @@
         <item name="cornerFamilyBottomLeft">rounded</item>
         <item name="cornerFamilyBottomRight">rounded</item>
     </style>
+
+    <style name="user_info_btn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="about_you">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_horizontal_settings_text</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:layout_marginTop">@dimen/settings_btn_top</item>
+    </style>
 </resources>

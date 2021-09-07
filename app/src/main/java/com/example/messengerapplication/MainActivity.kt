@@ -3,6 +3,7 @@ package com.example.messengerapplication
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.messengerapplication.databinding.ActivityMainBinding

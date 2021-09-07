@@ -36,6 +36,8 @@ const val CHILD_FULLNAME = "fullname"
 const val CHILD_PHOTO_URL = "photoUrl"
 const val CHILD_STATE = "state"
 const val CHILD_FULLNAME_LOWCASE = "fullnameLowcase"
+const val CHILD_NAME_FROM_CONTACTS = "namefromcontacts"
+const val CHILD_BIO = "bio"
 
 const val CHILD_TEXT = "text"
 const val CHILD_TYPE = "type"
@@ -47,11 +49,13 @@ const val FOLDER_PROFILE_IMG = "profile_images"
 
 
 fun initFirebase(){
+
     authFirebase = FirebaseAuth.getInstance()
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
     USER = User()
     UID = authFirebase.currentUser?.uid.toString()
     REF_STORAGE_ROOT = FirebaseStorage.getInstance().reference
+
 }
 
 fun updateField(newValue: String, field: String){
@@ -96,6 +100,7 @@ fun initUser(function: () -> Unit){
     REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
         .addListenerForSingleValueEvent(AppValueEventListener{
             USER = it.getValue(User::class.java) ?:User()
+
             if(USER.username=="") USER.username = UID
             function()
         })
@@ -156,6 +161,7 @@ fun updateContactList(arrContacts: ArrayList<CommonModel>) {
 
 fun saveToChatlist(
     id: String,
+    contName: String,
     type: String
 ) {
     val refUser = "$NODE_CHATLIST/$UID/$id"
@@ -166,9 +172,12 @@ fun saveToChatlist(
 
     mapRefUser[CHILD_ID] = id
     mapRefUser[CHILD_TYPE] = type
+    mapRefUser[CHILD_NAME_FROM_CONTACTS] = contName
+
 
     mapRefReceivUser[CHILD_ID] = UID
     mapRefReceivUser[CHILD_TYPE] = type
+    mapRefReceivUser[CHILD_NAME_FROM_CONTACTS] = USER.fullname
 
     val commonMap = hashMapOf<String, Any>()
     commonMap[refUser] = mapRefUser

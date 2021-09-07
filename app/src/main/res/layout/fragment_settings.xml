@@ -8,63 +8,110 @@
     android:background="@color/white"
     tools:context="com.example.messengerapplication.ui.fragments.SettingsFragment">
 
+    <LinearLayout
+        android:id="@+id/background_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.1"
+        android:background="@drawable/mesh_gradient"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/settings_header"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/settingsPhoto"
-            android:layout_width="@dimen/settings_user_photo_width"
-            android:layout_height="@dimen/settings_user_photo_height"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            android:src="@drawable/ic_default_user"
+        <ImageView
+            android:id="@+id/menu_settings"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:padding="13dp"
+            android:src="@drawable/ic_dots_setting_menu"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/userName"
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/back_to_chat"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_back_arrow"
+            android:layout_marginTop="@dimen/margin_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_change_username"
+        style="@style/user_info_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_header">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/settingsPhoto"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/large_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/settingsPhoto"
-            app:layout_constraintTop_toTopOf="@id/settingsPhoto"
-            tools:text="Elena Ibraeva" />
+            android:padding="@dimen/AppPadding"
+            android:src="@drawable/ic_default_user"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
-            android:id="@+id/userStatus"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            android:layout_marginTop="5dp"
-            android:text="В сети"
+            android:id="@+id/changename_tv"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:textSize="@dimen/normal_text"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/settingsPhoto"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart = "@dimen/margin_horizontal_settings_text"
+            android:layout_marginEnd = "@dimen/margin_horizontal"
+            android:layout_marginTop = "@dimen/margin_vertical"/>
+
+        <TextView
+            android:id="@+id/changename_tv1"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/changename_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text ="@string/change_userName"
+            android:layout_marginStart = "@dimen/margin_horizontal_settings_text"
             android:textColor="@color/gray"
-            android:textSize="@dimen/small_text"
+            android:layout_marginTop = "@dimen/settings_btn_top" />
+
+        <View
+            app:layout_constraintTop_toBottomOf="@+id/changename_tv1"
+            android:layout_width = "match_parent"
+            android:layout_height = "1dp"
+            android:background="@color/gray"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/settingsPhoto"
-            app:layout_constraintTop_toBottomOf="@id/userName"/>
+            android:layout_marginTop = "@dimen/margin_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btn_change_num"
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:background="@drawable/ripple_effect"
-        android:clickable="true"
-        android:focusable="true"
-        android:elevation="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_header">
+        app:layout_constraintTop_toBottomOf="@+id/btn_change_username"
+        style="@style/user_info_btn">
 
         <TextView
             android:id="@+id/changenumber_tv"
@@ -96,68 +143,20 @@
             android:background="@color/gray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop = "@dimen/margin_vertical"/>
+            android:layout_marginTop = "@dimen/margin_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btn_change_username"
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:background="@drawable/ripple_effect"
-        android:clickable="true"
-        android:focusable="true"
-        android:elevation="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_change_num">
 
-        <TextView
-            android:id="@+id/changename_tv"
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:textSize="@dimen/normal_text"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toTopOf="@+id/btn_change_username"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart = "@dimen/margin_horizontal_settings_text"
-            android:layout_marginEnd = "@dimen/margin_horizontal"
-            android:layout_marginTop = "@dimen/margin_vertical"/>
-
-        <TextView
-            android:id="@+id/changename_tv1"
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/changename_tv"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text ="@string/change_userName"
-            android:layout_marginStart = "@dimen/margin_horizontal_settings_text"
-            android:textColor="@color/gray"
-            android:layout_marginTop = "@dimen/settings_btn_top" />
-
-        <View
-            app:layout_constraintTop_toBottomOf="@+id/changename_tv1"
-            android:layout_width = "match_parent"
-            android:layout_height = "1dp"
-            android:background="@color/gray"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop = "@dimen/margin_vertical" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btn_change_info"
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:background="@drawable/ripple_effect"
-        android:clickable="true"
-        android:elevation="5dp"
-        android:focusable="true"
-
+        style="@style/user_info_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_change_username">
+        app:layout_constraintTop_toBottomOf="@+id/btn_change_num">
 
         <TextView
             android:id="@+id/changeInfo_tv"
@@ -177,7 +176,7 @@
             android:layout_height = "wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/changeInfo_tv"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/about_user"
+            android:text="@string/user_fullname"
             android:layout_marginStart = "@dimen/margin_horizontal_settings_text"
             android:textColor="@color/gray"
             android:layout_marginTop = "@dimen/settings_btn_top" />
@@ -189,19 +188,38 @@
             android:background="@color/gray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop = "@dimen/margin_vertical" />
+            android:layout_marginTop = "@dimen/margin_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/sign_out_btn"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:text="@string/sign_out"
-        android:textColor="@color/gray"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_change_bio"
+        style="@style/user_info_btn"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_change_info">
+
+        <TextView
+            android:id="@+id/changeBio_tv"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:textSize="@dimen/normal_text"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@+id/btn_change_bio"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart = "@dimen/margin_horizontal_settings_text"
+            android:layout_marginEnd = "@dimen/margin_horizontal"
+            android:layout_marginTop = "@dimen/margin_vertical"/>
+
+        <TextView
+            android:id="@+id/changeBio_tv1"
+            app:layout_constraintTop_toBottomOf="@+id/changeBio_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="About you"
+            style="@style/about_you" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

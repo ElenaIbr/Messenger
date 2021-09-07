@@ -22,8 +22,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/chatlist_contact_photo"
-                android:layout_width="@dimen/settings_change_user_photo_width"
-                android:layout_height="@dimen/settings_change_user_photo_height"
+                android:layout_width="@dimen/chatlist_user_photo_width"
+                android:layout_height="@dimen/chatlist_user_photo_height"
                 android:layout_marginStart="@dimen/margin_horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="@dimen/margin_horizontal"

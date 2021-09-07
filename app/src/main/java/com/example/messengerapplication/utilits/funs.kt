@@ -87,7 +87,8 @@ fun phoneFormat(number: String, region: String = "RU"): String{
 enum class SettingsType(val state: String) {
     PHONE("CHILD_PHONE"),
     USERNAME("CHILD_USERNAME"),
-    FULLNAME("CHILD_FULLNAME")
+    FULLNAME("CHILD_FULLNAME"),
+    BIO("CHILD_BIO")
 }
 
 fun EditText.phoneFormat(){

@@ -12,7 +12,7 @@
     <string name="default_username">username</string>
     <string name="change_userName">Username</string>
     <string name="user_info">О себе</string>
-    <string name="about_user">Name and surname</string>
+    <string name="user_fullname">First and last name</string>
     <string name="setting_change_mane">Изменить имя</string>
     <string name="setting_change_exit">Exit</string>
     <string name="reg_phone_number">Your phone number</string>
@@ -21,5 +21,10 @@
     <string name="username">username</string>
     <string name="full_name">name surname</string>
     <string name="sign_out">sign out</string>
+    <string name="settings_fullname">Enter your first and last name</string>
+    <string name="no_info">no info</string>
+    <string name="search_contacts">Search Contacts...</string>
+    <string name="chats">Chats</string>
+
 
 </resources>

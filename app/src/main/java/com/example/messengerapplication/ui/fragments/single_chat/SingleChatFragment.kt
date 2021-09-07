@@ -12,7 +12,7 @@ import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentSingleChatBinding
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
-import com.example.messengerapplication.ui.fragments.PersonalInfoFragment
+import com.example.messengerapplication.ui.fragments.SettingsFragment
 import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
 import com.example.messengerapplication.utilits.*
 import com.google.firebase.database.*
@@ -67,8 +67,22 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
         }
 
         binding.toolbarImg.setOnClickListener {
-            replaceFragment(PersonalInfoFragment(contact))
+            //replaceFragment(PersonalInfoFragment(contact))
+            replaceFragment(SettingsFragment(contact.username,
+                contact.fullname,
+                contact.phone,
+                contact.bio,
+                contact.photoUrl,
+            true))
+
         }
+
+        /*val userName: String = USER.username,
+        val fullName: String = USER.fullname,
+        val num: String = USER.phone,
+        val bio: String = USER.bio,
+        val photo: String = USER.photoUrl,
+        val isOtherUser: Boolean = false*/
 
         initRecyclerView()
 
@@ -142,7 +156,7 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
             showToast("Введите текст!")
         } else sentMessage(message, contact.id, TYPE_TEXT) {
             binding.chatInputMessage.setText("")
-            saveToChatlist(contact.id, TYPE_TEXT)
+            saveToChatlist(contact.id, contact.namefromcontacts, TYPE_TEXT)
         }
     }
 
@@ -180,7 +194,7 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
         /*if(receivingUser.fullname.isEmpty()){
             binding.toolbarContactName.text = contact.fullname
         }else binding.toolbarContactName.text = receivingUser.username*/
-        binding.toolbarContactName.text = contact.fullname
+        binding.toolbarContactName.text = contact.namefromcontacts
 
         binding.toolbarContactStatus.text = receivingUser.state
     }

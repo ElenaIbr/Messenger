@@ -1,11 +1,9 @@
 package com.example.messengerapplication.ui.fragments.chatlist
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
 import com.example.messengerapplication.models.CommonModel
@@ -26,7 +24,8 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
 
     override fun onBindViewHolder(holder: ChatlistHolder, position: Int) {
 
-        holder.contactName.text = listItem[position].fullname
+        //holder.contactName.text = listItem[position].fullname
+        holder.contactName.text = listItem[position].namefromcontacts
         holder.lastMessage.text = listItem[position].lastMessage
         holder.contactPhoto.setImg(listItem[position].photoUrl)
         if(!listItem[position].timeStamp.toString().isEmpty()){

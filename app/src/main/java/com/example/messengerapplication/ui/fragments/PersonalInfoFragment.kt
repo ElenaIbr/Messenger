@@ -7,6 +7,7 @@ import android.view.View
 import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentPersonalInfoBinding
 import com.example.messengerapplication.models.CommonModel
+import com.example.messengerapplication.utilits.setImg
 
 class PersonalInfoFragment(val contact: CommonModel) : Fragment(R.layout.fragment_personal_info) {
 
@@ -19,8 +20,6 @@ class PersonalInfoFragment(val contact: CommonModel) : Fragment(R.layout.fragmen
 
     override fun onStart() {
         super.onStart()
-        binding.contactPhone.text = contact.phone
-        Log.d("MyLog", "dfdfdf ${contact.phone}")
     }
 
     override fun onResume() {
@@ -30,9 +29,9 @@ class PersonalInfoFragment(val contact: CommonModel) : Fragment(R.layout.fragmen
 
     private fun updateInfo() {
         binding.contactPhone.text = contact.phone
-        Log.d("MyLog", "${contact.phone}")
+        binding.userPhoto.setImg(contact.photoUrl)
         binding.contactUsername.text = contact.username
-        binding.contactBio.text = contact.boi
+        binding.toolbarContactName.text = contact.namefromcontacts
     }
 
 }
