@@ -23,7 +23,8 @@ data class CommonModel(
     //var resLastMessageTime: Date = Date(0),
 
     var lastMessage: String = "",
-    var namefromcontacts: String = ""
+    var namefromcontacts: String = "",
+    var token: String = ""
 
 
 

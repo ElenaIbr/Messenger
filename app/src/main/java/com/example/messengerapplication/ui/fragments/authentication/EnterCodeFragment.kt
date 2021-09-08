@@ -1,5 +1,6 @@
 package com.example.messengerapplication.ui.fragments.authentication
 
+import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -9,8 +10,10 @@ import androidx.fragment.app.Fragment
 import com.example.messengerapplication.activities.MainActivity
 import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentEnterCodeBinding
+import com.example.messengerapplication.notifications.FirebaseService
 import com.example.messengerapplication.utilits.*
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.iid.FirebaseInstanceId
 
 class EnterCodeFragment(val phoneNum: String, val id: String) : Fragment(R.layout.fragment_enter_code) {
     private var regInputCode: EditText? = null
@@ -50,6 +53,15 @@ class EnterCodeFragment(val phoneNum: String, val id: String) : Fragment(R.layou
                 val dateMap = mutableMapOf<String, Any>()
                 dateMap[CHILD_ID] = uid
                 dateMap[CHILD_PHONE] = phoneNum
+
+                FirebaseService.sharedPref = APP_ACTIVITY.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+                FirebaseInstanceId.getInstance().instanceId
+                    .addOnFailureListener { Log.d("MyLog", "токен ${it.message.toString()}") }
+                    .addOnSuccessListener {
+                        FirebaseService.token = it.token
+                        dateMap[CHILD_TOKEN] = it.token
+                    }
+
 
                 REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNum).setValue(uid)
                     .addOnFailureListener { showToast(it.message.toString()) }

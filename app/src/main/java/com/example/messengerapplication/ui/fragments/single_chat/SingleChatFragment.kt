@@ -1,6 +1,9 @@
 package com.example.messengerapplication.ui.fragments.single_chat
 
+import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuInflater
 import android.view.View
 import android.widget.AbsListView
@@ -12,10 +15,19 @@ import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentSingleChatBinding
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
+import com.example.messengerapplication.notifications.FirebaseService
+import com.example.messengerapplication.notifications.NotificationData
+import com.example.messengerapplication.notifications.PushNotification
+import com.example.messengerapplication.notifications.RetrofitInstance
 import com.example.messengerapplication.ui.fragments.SettingsFragment
 import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
 import com.example.messengerapplication.utilits.*
 import com.google.firebase.database.*
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_single_chat) {
@@ -73,7 +85,7 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
                 contact.phone,
                 contact.bio,
                 contact.photoUrl,
-            true))
+                true))
 
         }
 
@@ -182,6 +194,26 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
             .updateChildren(mapDialod)
             .addOnSuccessListener { function() }
             .addOnFailureListener { showToast(it.message.toString()) }
+
+        FirebaseService.sharedPref = APP_ACTIVITY.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnFailureListener { Log.d("MyLog", "токен ${it.message.toString()}") }
+            .addOnSuccessListener {
+                FirebaseService.token = it.token
+                val token = it.token
+                Log.d("MyLog", "токен ${it.token}")
+            }
+
+        val title = "От"
+        if(title.isNotEmpty() && message.isNotEmpty() && receivingUserID.isNotEmpty()) {
+            PushNotification(
+                NotificationData("from: ${phoneFormat(USER.phone)}", message),
+                contact.token
+            ).also {
+                sendNotification(it)
+            }
+        }
+
     }
 
     private fun updateToolbarInfo() {
@@ -225,4 +257,18 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
         }
         popup.show()
     }
+
+    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val response = RetrofitInstance.api.postNotification(notification)
+            if(response.isSuccessful) {
+                //Log.d(ContentValues.TAG, "Response: ${Gson().toJson(response)}")
+            } else {
+                //Log.e(ContentValues.TAG, response.errorBody().toString())
+            }
+        } catch(e: Exception) {
+            //Log.e(ContentValues.TAG, e.toString())
+        }
+    }
+
 }

@@ -2,12 +2,14 @@ package com.example.messengerapplication.utilits
 
 import android.net.Uri
 import android.provider.ContactsContract
+import android.util.Log
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
+import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.util.*
@@ -38,6 +40,8 @@ const val CHILD_STATE = "state"
 const val CHILD_FULLNAME_LOWCASE = "fullnameLowcase"
 const val CHILD_NAME_FROM_CONTACTS = "namefromcontacts"
 const val CHILD_BIO = "bio"
+
+const val CHILD_TOKEN = "token"
 
 const val CHILD_TEXT = "text"
 const val CHILD_TYPE = "type"
