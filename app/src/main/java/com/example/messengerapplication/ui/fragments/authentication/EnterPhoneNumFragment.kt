@@ -64,7 +64,8 @@ class EnterPhoneNumFragment : Fragment(R.layout.fragment_enter_phone_num) {
     private fun verifyCallback(){
         callback = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                authFirebase.signInWithCredential(credential).addOnCompleteListener { task ->
+                authFirebase
+                    .signInWithCredential(credential).addOnCompleteListener { task ->
                     if(task.isSuccessful){
                         showToast("Добро пожаловать!")
                         APP_ACTIVITY.startOtherActivity(MainActivity())

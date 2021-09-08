@@ -36,7 +36,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
             listItem = it.children.map { it.getCommonModel() }
 
             listItem.forEach {
-                it.resLastMessageTime = Date(it.lastMessageTime.toString().toLong())
+                if(it.lastMessageTime!="") it.resLastMessageTime = Date(it.lastMessageTime.toString().toLong())
             }
 
             val sortedList = listItem.sortedBy{ it.resLastMessageTime }.reversed()

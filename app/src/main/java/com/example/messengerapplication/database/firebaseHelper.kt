@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import java.util.*
 import kotlin.collections.ArrayList
 
 lateinit var authFirebase: FirebaseAuth
@@ -52,6 +53,7 @@ const val FOLDER_PROFILE_IMG = "profile_images"
 fun initFirebase(){
 
     authFirebase = FirebaseAuth.getInstance()
+    authFirebase.firebaseAuthSettings.setAppVerificationDisabledForTesting(true);
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
     USER = User()
     UID = authFirebase.currentUser?.uid.toString()
@@ -180,7 +182,6 @@ fun saveToChatlist(
     mapRefUser[CHILD_TYPE] = type
     mapRefUser[CHILD_NAME_FROM_CONTACTS] = contName
     mapRefUser[CHILD_LAST_MESSAGE_TIME] = currentTime
-
     mapRefReceivUser[CHILD_ID] = UID
     mapRefReceivUser[CHILD_TYPE] = type
     mapRefReceivUser[CHILD_NAME_FROM_CONTACTS] = USER.fullname
