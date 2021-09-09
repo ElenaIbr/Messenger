@@ -1,14 +1,11 @@
 package com.example.messengerapplication.ui.fragments.single_chat
 
-import android.content.ContentValues
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
 import android.view.MenuInflater
 import android.view.View
 import android.widget.AbsListView
 import android.widget.PopupMenu
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
@@ -19,20 +16,19 @@ import com.example.messengerapplication.notifications.FirebaseService
 import com.example.messengerapplication.notifications.NotificationData
 import com.example.messengerapplication.notifications.PushNotification
 import com.example.messengerapplication.notifications.RetrofitInstance
-import com.example.messengerapplication.ui.fragments.SettingsFragment
+import com.example.messengerapplication.ui.fragments.BaseFragment
+import com.example.messengerapplication.ui.fragments.profile.SettingsFragment
 import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
 import com.example.messengerapplication.utilits.*
 import com.google.firebase.database.*
 import com.google.firebase.iid.FirebaseInstanceId
-import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_single_chat) {
+class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingleChatBinding>() {
 
-    private lateinit var binding: FragmentSingleChatBinding
     private var act: View? = null
     private lateinit var headInfoListener: AppValueEventListener
     private lateinit var receivingUser: User
@@ -48,10 +44,9 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
     private var mIsScrolling: Boolean = false
     private var mSmoothScrollToPosition = true
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentSingleChatBinding.bind(view)
-    }
+    override fun getViewBinding() = FragmentSingleChatBinding.inflate(layoutInflater)
+
+
 
     override fun onResume() {
         super.onResume()
@@ -69,7 +64,6 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
 
         userRef = REF_DATABASE_ROOT.child(NODE_USERS).child(contact.id)
         userRef.addValueEventListener(headInfoListener)
-
         binding.backBtn.setOnClickListener {
             APP_ACTIVITY.supportFragmentManager.popBackStack()
         }
@@ -80,21 +74,16 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
 
         binding.toolbarImg.setOnClickListener {
             //replaceFragment(PersonalInfoFragment(contact))
-            replaceFragment(SettingsFragment(contact.username,
+            replaceFragment(
+                SettingsFragment(contact.username,
                 contact.fullname,
                 contact.phone,
                 contact.bio,
                 contact.photoUrl,
-                true))
+                true)
+            )
 
         }
-
-        /*val userName: String = USER.username,
-        val fullName: String = USER.fullname,
-        val num: String = USER.phone,
-        val bio: String = USER.bio,
-        val photo: String = USER.photoUrl,
-        val isOtherUser: Boolean = false*/
 
         initRecyclerView()
 
@@ -114,7 +103,6 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
         recyclerView.setHasFixedSize(true)
         recyclerView.isNestedScrollingEnabled = false
         recyclerView.layoutManager = mLayoutManager
-
 
         messageListener = AppChildrenEventListener{
             val message = it.getCommonModel()
@@ -185,6 +173,7 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
         mapMessage[CHILD_TEXT] = message
         mapMessage[CHILD_ID] = messageKey.toString()
         mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
+        mapMessage[CHILD_MESSAGE_STATUS] = "не прочитано"
 
         val mapDialod = hashMapOf<String, Any>()
         mapDialod["$refDialogUser/$messageKey"] = mapMessage
@@ -218,12 +207,7 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
 
     private fun updateToolbarInfo() {
         binding.toolbarImg.setImg(receivingUser.photoUrl)
-
-        /*if(receivingUser.fullname.isEmpty()){
-            binding.toolbarContactName.text = contact.fullname
-        }else binding.toolbarContactName.text = receivingUser.username*/
         binding.toolbarContactName.text = contact.namefromcontacts
-
         binding.toolbarContactStatus.text = receivingUser.state
     }
 
@@ -270,5 +254,4 @@ class SingleChatFragment(val contact: CommonModel) : Fragment(R.layout.fragment_
             //Log.e(ContentValues.TAG, e.toString())
         }
     }
-
 }

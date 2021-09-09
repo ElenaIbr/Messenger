@@ -9,12 +9,12 @@ import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentChatBinding
 import com.example.messengerapplication.databinding.FragmentContactBinding
 import com.example.messengerapplication.models.CommonModel
+import com.example.messengerapplication.ui.fragments.BaseFragment
 import com.example.messengerapplication.utilits.*
 import java.util.*
 
-class ChatFragment : Fragment(R.layout.fragment_chat) {
+class ChatFragment : BaseFragment<FragmentChatBinding>() {
 
-    private lateinit var binding: FragmentChatBinding
     private lateinit var chatAdapter: ChatlistAdapter
     private lateinit var chatRecyclerView: RecyclerView
     private val refChatlist = REF_DATABASE_ROOT.child(NODE_CHATLIST).child(UID)
@@ -22,13 +22,15 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
     private val refMesseges = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID)
     private var listItem = listOf<CommonModel>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentChatBinding.bind(view)
+    override fun getViewBinding() = FragmentChatBinding.inflate(layoutInflater)
+
+    override fun onResume() {
+        super.onResume()
         initRecyclerView()
     }
 
     private fun initRecyclerView() {
+
         chatRecyclerView = binding.chatlistRc
         chatAdapter = ChatlistAdapter()
 
@@ -45,10 +47,9 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
 
                 refUsers.child(model.id).addListenerForSingleValueEvent(AppValueEventListener{
                     val newModel = it.getCommonModel()
-                    //newModel.fullname = model.fullname
 
                     newModel.namefromcontacts = model.namefromcontacts
-                    //изменения
+
                     refMesseges.child(model.id).limitToLast(1).addListenerForSingleValueEvent(AppValueEventListener{
                         val messageList = it.children.map { it.getCommonModel() }
                         if(messageList.isEmpty()){
@@ -70,9 +71,6 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
                 })
             }
         })
-
         chatRecyclerView.adapter = chatAdapter
-
     }
-
 }

@@ -13,7 +13,6 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
 
-
     private var listItem = mutableListOf<CommonModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatlistHolder {
@@ -27,6 +26,7 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
         holder.contactName.text = listItem[position].namefromcontacts
         holder.lastMessage.text = listItem[position].lastMessage
         holder.contactPhoto.setImg(listItem[position].photoUrl)
+
         if(!listItem[position].timeStamp.toString().isEmpty()){
             holder.lastMessageTime.text = listItem[position]
                 .timeStamp
@@ -35,6 +35,9 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
         }else holder.lastMessageTime.text = ""
 
         holder.itemView.setOnClickListener {
+            //listItem[position].messageStatus = "Прочитано"
+
+
             APP_ACTIVITY.changeFragment(SingleChatFragment(listItem[position]))
         }
     }

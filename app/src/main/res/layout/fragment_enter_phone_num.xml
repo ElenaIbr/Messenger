@@ -54,12 +54,12 @@
             android:id="@+id/input_phone_label2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            android:layout_marginEnd="@dimen/margin_horizontal"
             android:gravity="center"
             android:text="We will send you verification code to your phone"
             android:textColor="@color/green"
-            android:textSize="@dimen/small_text"
+            android:textSize="@dimen/normal_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_phone_label1" />
 
         <EditText
@@ -89,8 +89,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Send"
+            android:text="Send code"
             android:textColor="@color/white"
+            android:layout_marginTop="@dimen/margin_vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reg_code_num" />

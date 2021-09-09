@@ -24,7 +24,9 @@
     <string name="settings_fullname">Enter your first and last name</string>
     <string name="no_info">no info</string>
     <string name="search_contacts">Search Contacts...</string>
-    <string name="chats">Chats</string>
+    <string name="chats">Chat list</string>
+    <string name="welcome">Welcome!</string>
+    <string name="enter_phone">Please enter your phone number</string>
 
 
 </resources>

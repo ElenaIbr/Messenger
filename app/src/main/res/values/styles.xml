@@ -48,4 +48,42 @@
         <item name="android:textColor">@color/gray</item>
         <item name="android:layout_marginTop">@dimen/settings_btn_top</item>
     </style>
+
+    <style name="settings_label_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/normal_text</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:layout_marginStart">@dimen/margin_horizontal_settings_text</item>
+        <item name="android:layout_marginEnd">@dimen/margin_horizontal</item>
+        <item name="android:layout_marginTop">30dp</item>
+    </style>
+
+    <style name="settings_info_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_horizontal_settings_text</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">@dimen/normal_text</item>
+        <item name="android:layout_marginTop">@dimen/settings_btn_top</item>
+    </style>
+    
+    <style name="FabShape" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSize">20%</item>
+    </style>
+
+    <style name="FabStyle" parent="Widget.Design.FloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/FabShape</item>
+    </style>
+
+    <style name="settings_line_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/gray</item>
+        <item name="android:layout_marginTop">@dimen/margin_vertical</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+    </style>
+
+
 </resources>

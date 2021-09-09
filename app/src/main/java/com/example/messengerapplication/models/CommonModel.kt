@@ -3,6 +3,7 @@ package com.example.messengerapplication.models
 import java.util.*
 
 data class CommonModel(
+
     val id: String = "",
     var username: String = "",
     var bio: String = "",
@@ -17,16 +18,14 @@ data class CommonModel(
     var type: String = "",
     var from: String = "",
     var timeStamp: Any = "",
+    var messageStatus: String = "Не прочитано",
 
     var lastMessageTime: Any = "",
     var resLastMessageTime: Date = Date(0),
-    //var resLastMessageTime: Date = Date(0),
 
     var lastMessage: String = "",
     var namefromcontacts: String = "",
     var token: String = ""
-
-
 
 ){
     override fun equals(other: Any?): Boolean {

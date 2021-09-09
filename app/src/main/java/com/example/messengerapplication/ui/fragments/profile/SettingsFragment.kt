@@ -1,16 +1,15 @@
-package com.example.messengerapplication.ui.fragments
+package com.example.messengerapplication.ui.fragments.profile
 
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
-import android.os.Bundle
 import android.view.*
 import android.widget.PopupMenu
 import android.widget.TextView
-import com.example.messenger.ui.fragments.BaseFragment
 import com.example.messengerapplication.activities.MainActivity
 import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentSettingsBinding
+import com.example.messengerapplication.ui.fragments.BaseFragment
 import com.example.messengerapplication.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -20,14 +19,9 @@ class SettingsFragment(val userName: String = USER.username,
                        val num: String = USER.phone,
                        val bio: String = USER.bio,
                        val photo: String = USER.photoUrl,
-                       val isOtherUser: Boolean = false) : BaseFragment(R.layout.fragment_settings) {
+                       val isOtherUser: Boolean = false) : BaseFragment<FragmentSettingsBinding>() {
 
-    private lateinit var binding: FragmentSettingsBinding
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentSettingsBinding.bind(view)
-    }
+    override fun getViewBinding() = FragmentSettingsBinding.inflate(layoutInflater)
 
     var name: String? = null
     //var fullName: String? = null
@@ -38,6 +32,7 @@ class SettingsFragment(val userName: String = USER.username,
         setHasOptionsMenu(true)
 
         binding.changenumberTv.text = num
+
 
         checkInfo(fullName, binding.changeInfoTv)
         checkInfo(userName, binding.changenameTv)
@@ -52,11 +47,16 @@ class SettingsFragment(val userName: String = USER.username,
         }
         else {
             binding.menuSettings.visibility = View.GONE
+            binding.changePhoto.visibility = View.GONE
             binding.backToChat.visibility = View.VISIBLE
 
             binding.backToChat.setOnClickListener {
                 APP_ACTIVITY.supportFragmentManager.popBackStack()
             }
+        }
+
+        binding.changePhoto.setOnClickListener {
+            changeUserPhoto()
         }
 
     }
@@ -114,7 +114,7 @@ class SettingsFragment(val userName: String = USER.username,
                 R.id.sign_out-> {
                     authFirebase.signOut()
                     AppStates.updateStates(AppStates.OFFLINE)
-                    APP_ACTIVITY.startOtherActivity(MainActivity())
+                    APP_ACTIVITY.restartActivity(MainActivity())
                 }
                 R.id.edit_photo-> {
                     changeUserPhoto()

@@ -23,7 +23,7 @@ fun showToast(message: String){
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
 }
 
-fun AppCompatActivity.startOtherActivity(activity: AppCompatActivity){
+fun AppCompatActivity.restartActivity(activity: AppCompatActivity){
     val intent = Intent(this, activity::class.java)
     startActivity(intent)
     this.finish()

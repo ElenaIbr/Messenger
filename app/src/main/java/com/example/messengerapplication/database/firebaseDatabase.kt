@@ -2,17 +2,14 @@ package com.example.messengerapplication.utilits
 
 import android.net.Uri
 import android.provider.ContactsContract
-import android.util.Log
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
-import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import java.util.*
 import kotlin.collections.ArrayList
 
 lateinit var authFirebase: FirebaseAuth
@@ -40,6 +37,7 @@ const val CHILD_STATE = "state"
 const val CHILD_FULLNAME_LOWCASE = "fullnameLowcase"
 const val CHILD_NAME_FROM_CONTACTS = "namefromcontacts"
 const val CHILD_BIO = "bio"
+const val CHILD_MESSAGE_STATUS= "messageStatus"
 
 const val CHILD_TOKEN = "token"
 
@@ -135,7 +133,6 @@ fun initContacts() {
         }
         cursor?.close()
         updateContactList(arrContacts)
-
     }
 }
 
@@ -186,6 +183,8 @@ fun saveToChatlist(
     mapRefUser[CHILD_TYPE] = type
     mapRefUser[CHILD_NAME_FROM_CONTACTS] = contName
     mapRefUser[CHILD_LAST_MESSAGE_TIME] = currentTime
+
+
     mapRefReceivUser[CHILD_ID] = UID
     mapRefReceivUser[CHILD_TYPE] = type
     mapRefReceivUser[CHILD_NAME_FROM_CONTACTS] = USER.fullname

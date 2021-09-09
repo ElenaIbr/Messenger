@@ -1,25 +1,14 @@
-package com.example.messengerapplication.ui.fragments
+package com.example.messengerapplication.ui.fragments.profile
 
-import android.os.Bundle
-import android.util.Log
-import android.view.View
-import androidx.fragment.app.Fragment
-import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentDetailSettingsBinding
+import com.example.messengerapplication.ui.fragments.BaseFragment
 import com.example.messengerapplication.utilits.*
 
-class DetailSettingsFragment() : Fragment(R.layout.fragment_detail_settings) {
+class DetailSettingsFragment() : BaseFragment<FragmentDetailSettingsBinding>() {
 
-    private lateinit var binding: FragmentDetailSettingsBinding
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentDetailSettingsBinding.bind(view)
-    }
-
-    private var result: String? = null
     private var isUsername: Boolean? = null
-    private var field: SettingsType? = null
+
+    override fun getViewBinding() = FragmentDetailSettingsBinding.inflate(layoutInflater)
 
     override fun onStart() {
         super.onStart()
@@ -54,26 +43,6 @@ class DetailSettingsFragment() : Fragment(R.layout.fragment_detail_settings) {
 
         }
 
-        /*when (fieldType) {
-            SettingsType.PHONE -> {
-                binding.inputLabel.text = "Номер телефона:"
-                binding.input.setText(USER.phone)
-            }
-            SettingsType.USERNAME-> {
-                binding.inputLabel.text = "Имя пользователя:"
-                binding.input.setText(USER.username)
-                isUsername = true
-            }
-            SettingsType.FULLNAME -> {
-                binding.inputLabel.text = "Имя и фамилия:"
-                binding.input.setText(USER.fullname)
-            }
-
-        }
-        binding.saveBtn.setOnClickListener {
-            result = binding.input.text.toString()
-            changeName()
-        }*/
         binding.backBtnFromDetail.setOnClickListener {
             APP_ACTIVITY.supportFragmentManager.popBackStack()
         }
@@ -93,8 +62,6 @@ class DetailSettingsFragment() : Fragment(R.layout.fragment_detail_settings) {
                     })
             }else{
                 updateUserName(fieldType, input)
-                //fragmentManager?.popBackStack()
-                //USER.fullname = result.toString()
             }
         }
     }
@@ -113,8 +80,7 @@ class DetailSettingsFragment() : Fragment(R.layout.fragment_detail_settings) {
         REF_DATABASE_ROOT.child(NODE_USERNAMES).child(USER.username).removeValue()
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    //fragmentManager?.popBackStack()
-                    //USER.username = result.toString()
+
                 } else {
                     showToast(it.exception?.message.toString())
                 }

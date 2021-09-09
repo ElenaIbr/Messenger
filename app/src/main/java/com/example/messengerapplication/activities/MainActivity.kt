@@ -1,23 +1,18 @@
 package com.example.messengerapplication.activities
 
-import android.content.ContentValues.TAG
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.ActivityMainBinding
-import com.example.messengerapplication.notifications.PushNotification
-import com.example.messengerapplication.notifications.RetrofitInstance
 import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
-import com.example.messengerapplication.ui.fragments.ContactFragment
+import com.example.messengerapplication.ui.fragments.ContacstFragment
 import com.example.messengerapplication.ui.fragments.authentication.EnterPhoneNumFragment
-import com.example.messengerapplication.ui.fragments.SettingsFragment
+import com.example.messengerapplication.ui.fragments.profile.SettingsFragment
 import com.example.messengerapplication.utilits.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         mBinding.bottomNav.setOnNavigationItemSelectedListener { item ->
             when(item.itemId){
-                R.id.contacts -> changeFragment(ContactFragment(), false)
+                R.id.contacts -> changeFragment(ContacstFragment(), false)
                 R.id.messages -> changeFragment(ChatFragment(), false)
                 R.id.profile -> changeFragment(SettingsFragment(), false)
             }

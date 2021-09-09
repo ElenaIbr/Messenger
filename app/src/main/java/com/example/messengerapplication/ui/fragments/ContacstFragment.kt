@@ -19,29 +19,20 @@ import com.google.firebase.database.*
 import de.hdodenhof.circleimageview.CircleImageView
 
 
-class ContactFragment : Fragment(R.layout.fragment_contact) {
+class ContacstFragment : BaseFragment<FragmentContactBinding>() {
 
     private lateinit var rcView: RecyclerView
     private lateinit var adapter: FirebaseRecyclerAdapter<CommonModel, Holder>
     private lateinit var contactsRef: DatabaseReference
     private lateinit var userRef: DatabaseReference
 
-    private lateinit var binding: FragmentContactBinding
+    override fun getViewBinding() = FragmentContactBinding.inflate(layoutInflater)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentContactBinding.bind(view)
-    }
+
 
     override fun onResume() {
         super.onResume()
-        //initRcview()
         initRcview("")
-
-        /*binding.searchBtn.setOnClickListener {
-            val searchText = binding.searchEdittext.text.toString()
-            initRcview(searchText)
-        }*/
 
         binding.searchEdittext.addTextChangedListener(object : TextWatcher {
 
