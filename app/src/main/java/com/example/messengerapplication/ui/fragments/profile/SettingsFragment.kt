@@ -24,7 +24,6 @@ class SettingsFragment(val userName: String = USER.username,
     override fun getViewBinding() = FragmentSettingsBinding.inflate(layoutInflater)
 
     var name: String? = null
-    //var fullName: String? = null
 
     override fun onResume() {
         hideKeyboard()
@@ -35,7 +34,7 @@ class SettingsFragment(val userName: String = USER.username,
 
 
         checkInfo(fullName, binding.changeInfoTv)
-        checkInfo(userName, binding.changenameTv)
+        checkInfo(userName, binding.usernameContent)
         checkInfo(bio, binding.changeBioTv)
 
         binding.settingsPhoto.setImg(photo)
@@ -96,10 +95,9 @@ class SettingsFragment(val userName: String = USER.username,
             putImageToStorage(uri, path){
                 getUrlFromStorage(path){
                     putUrlToDatabase(it){
-                        binding.settingsPhoto.setImg(it)
+                        //binding.settingsPhoto.setImg(it)
                         showToast("Данные обновлены")
                         USER.photoUrl = it
-                        //APP_ACTIVITY.mDrawer.updateHeader()
                     }
                 }
             }
@@ -117,7 +115,17 @@ class SettingsFragment(val userName: String = USER.username,
                     APP_ACTIVITY.restartActivity(MainActivity())
                 }
                 R.id.edit_photo-> {
-                    changeUserPhoto()
+                    //changeUserPhoto()
+                    REF_STORAGE_ROOT
+                        .child(FOLDER_PROFILE_IMG)
+                        .child(UID)
+                        .delete()
+                    REF_DATABASE_ROOT.child(NODE_USERS)
+                        .child(UID)
+                        .child(CHILD_PHOTO_URL)
+                        .removeValue()
+                    binding.settingsPhoto.setImg()
+                    USER.photoUrl = ""
                 }
                 R.id.edit_info-> {
                     replaceFragment(DetailSettingsFragment())

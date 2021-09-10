@@ -3,6 +3,7 @@ package com.example.messengerapplication.activities
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.messengerapplication.R
@@ -20,20 +21,21 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var mBottomNav: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         APP_ACTIVITY = this
+    }
 
+    override fun onResume() {
+        super.onResume()
 
         initFirebase()
-        initFunc()
+        //initFunc()
         initUser {
-            //initFunc()
+            initFunc()
             CoroutineScope(Dispatchers.IO).launch{
                 initContacts()
             }
@@ -48,6 +50,8 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+        AppStates.updateStates(AppStates.ONLINE)
     }
 
     private fun initFunc(){
@@ -55,15 +59,9 @@ class MainActivity : AppCompatActivity() {
         if(authFirebase.currentUser!=null){
             changeFragment(ChatFragment(), false)
         }else{
-            //startOtherActivity(RegistrationActivity())
             mBinding.bottomNav.visibility = View.GONE
             changeFragment(EnterPhoneNumFragment(), false)
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        AppStates.updateStates(AppStates.ONLINE)
     }
 
     override fun onStop() {

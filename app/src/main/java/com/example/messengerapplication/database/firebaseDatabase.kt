@@ -2,15 +2,20 @@ package com.example.messengerapplication.utilits
 
 import android.net.Uri
 import android.provider.ContactsContract
+import android.util.Log
+import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
+import com.example.messengerapplication.ui.fragments.chatlist.ChatlistAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 lateinit var authFirebase: FirebaseAuth
 lateinit var REF_DATABASE_ROOT: DatabaseReference
@@ -49,6 +54,10 @@ const val CHILD_TIMESTAMP = "timeStamp"
 const val CHILD_LAST_MESSAGE_TIME = "lastMessageTime"
 
 const val FOLDER_PROFILE_IMG = "profile_images"
+
+
+
+lateinit var contactNames : MutableMap<String, String>
 
 
 
@@ -105,8 +114,7 @@ fun initUser(function: () -> Unit){
     REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
         .addListenerForSingleValueEvent(AppValueEventListener{
             USER = it.getValue(User::class.java) ?:User()
-
-            if(USER.username=="") USER.username = UID
+            //if(USER.username=="") USER.username = UID
             function()
         })
 }
@@ -114,12 +122,14 @@ fun initUser(function: () -> Unit){
 fun initContacts() {
     if(checkPermission(READ_CONTACTS)){
         val arrContacts = arrayListOf<CommonModel>()
+
         val cursor = APP_ACTIVITY.contentResolver.query(
             ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
             null,
             null,
             null,
             null)
+        contactNames = mutableMapOf()
         cursor?.let {
             while(it.moveToNext()){
                 val fullName = it.getString(it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
@@ -129,9 +139,19 @@ fun initContacts() {
                 newModel.fullnameLowcase = fullName.lowercase()
                 newModel.phone = phone.replace(Regex("[\\s,-]"), "")
                 arrContacts.add(newModel)
+
+
+                contactNames.put(newModel.phone, fullName)
+
+                //Log.d("MyLog", "длина ${contactNames.size}")
+
             }
         }
         cursor?.close()
+            /*contactNames.forEach {
+            Log.d("MyLog", "КЛЮЧ ${it.key}")
+            Log.d("MyLog", "ЗНАЧЕНИЕ ${it.value}")
+        }*/
         updateContactList(arrContacts)
     }
 }
@@ -217,3 +237,5 @@ fun clearChat(id: String, function: () -> Unit) {
         }
         .addOnFailureListener { it.message.toString() }
 }
+
+

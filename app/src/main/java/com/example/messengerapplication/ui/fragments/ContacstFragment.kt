@@ -84,8 +84,6 @@ class ContacstFragment : BaseFragment<FragmentContactBinding>() {
                     holder.name.text = model.fullname
 
                     contact.namefromcontacts = model.fullname
-
-                    Log.d("MyLog", "контакты ${model.fullname}")
                     //holder.status.text = phoneFormat(contact.phone)
                     holder.photo.setImg(contact.photoUrl)
                     holder.itemView.setOnClickListener {

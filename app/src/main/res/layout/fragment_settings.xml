@@ -12,7 +12,7 @@
         android:id="@+id/background_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.2"
+        android:alpha="0.1"
         android:background="@drawable/mesh_gradient"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -44,12 +45,12 @@
             android:id="@+id/back_to_chat"
             android:layout_width="45dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_back_arrow"
             android:padding="13dp"
+            android:src="@drawable/ic_back_arrow"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -80,76 +81,86 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/changename_tv"
-                style="@style/settings_label_style"
-                android:layout_marginTop="50dp"
+                android:id="@+id/username_lab"
+                style="@style/settings_info_style"
+                android:layout_marginTop="30dp"
+                android:text="@string/change_userName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settingsPhoto" />
 
             <TextView
-                android:id="@+id/changename_tv1"
-                style="@style/settings_info_style"
-                android:text="@string/change_userName"
+                android:id="@+id/username_content"
+                style="@style/settings_label_style"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/changename_tv" />
+                app:layout_constraintTop_toBottomOf="@+id/username_lab" />
 
             <View
-                app:layout_constraintTop_toBottomOf="@+id/changename_tv1"
+                android:id="@+id/line1"
+                app:layout_constraintTop_toBottomOf="@+id/username_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 style="@style/settings_line_style" />
 
-
-            <TextView
-                android:id="@+id/changenumber_tv"
-                style="@style/settings_label_style"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/changename_tv1" />
 
             <TextView
                 android:id="@+id/changenumber_tv1"
                 style="@style/settings_info_style"
-                android:text="@string/change_num"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/user_number"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/changenumber_tv" />
+                app:layout_constraintTop_toBottomOf="@+id/line1" />
+
+            <TextView
+                android:id="@+id/changenumber_tv"
+                style="@style/settings_label_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/changenumber_tv1" />
 
             <View
-                app:layout_constraintTop_toBottomOf="@+id/changenumber_tv1"
+                android:id="@+id/line2"
+                app:layout_constraintTop_toBottomOf="@+id/changenumber_tv"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 style="@style/settings_line_style" />
-
-            <TextView
-                android:id="@+id/changeInfo_tv"
-                style="@style/settings_label_style"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/changenumber_tv1" />
 
             <TextView
                 android:id="@+id/changeInfo_tv1"
                 style="@style/settings_info_style"
                 android:text="@string/user_fullname"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/changeInfo_tv" />
+                app:layout_constraintTop_toBottomOf="@+id/line2" />
+
+            <TextView
+                android:id="@+id/changeInfo_tv"
+                style="@style/settings_label_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/changeInfo_tv1" />
 
             <View
-                app:layout_constraintTop_toBottomOf="@+id/changeInfo_tv1"
+                android:id="@+id/line3"
+                app:layout_constraintTop_toBottomOf="@+id/changeInfo_tv"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 style="@style/settings_line_style" />
 
             <TextView
-                android:id="@+id/changeBio_tv"
-                style="@style/settings_label_style"
+                android:id="@+id/changeBio_tv1"
+                style="@style/settings_info_style"
+                android:text="@string/bio"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/changeInfo_tv1" />
+                app:layout_constraintTop_toBottomOf="@+id/line3" />
 
             <TextView
-                android:id="@+id/changeBio_tv1"
-                style="@style/about_you"
-                android:text="About you"
+                android:id="@+id/changeBio_tv"
+                style="@style/settings_label_style"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/changeBio_tv" />
+                app:layout_constraintTop_toBottomOf="@+id/changeBio_tv1" />
+
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/changePhoto"

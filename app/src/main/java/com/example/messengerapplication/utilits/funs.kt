@@ -63,7 +63,7 @@ fun hideKeyboard() {
     im.hideSoftInputFromWindow(APP_ACTIVITY.window.decorView.windowToken, 0)
 }
 
-fun ImageView.setImg(url: String){
+fun ImageView.setImg(url: String = ""){
     if(url==""){
         this.setImageResource(R.drawable.ic_default_user)
     }else{

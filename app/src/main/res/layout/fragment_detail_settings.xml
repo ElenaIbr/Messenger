@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -8,99 +8,106 @@
     android:orientation="vertical"
     android:background="@color/ivory">
 
-    <ImageButton
-        android:id="@+id/back_btn_from_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_back_arrow"
-        android:background="@color/ivory"
-        android:layout_margin="@dimen/margin_vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/margin_horizontal"/>
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/edit_message"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/margin_vertical"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:elevation="3dp">
-
-        <TextView
-            android:id="@+id/username_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Username"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <EditText
-            android:id="@+id/username_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLength="15"
-            app:layout_constraintTop_toBottomOf="@+id/username_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
-            android:id="@+id/fullname_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fullname"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/username_input"/>
-
-        <EditText
-            android:id="@+id/fullname_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLength="25"
-            app:layout_constraintTop_toBottomOf="@+id/fullname_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
-            android:id="@+id/bio_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="About me"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fullname_input"/>
-
-        <EditText
-            android:id="@+id/bio_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLength="60"
-            android:inputType="textMultiLine"
-            app:layout_constraintTop_toBottomOf="@+id/bio_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/save_settings_btn"
-            android:layout_width="match_parent"
+            android:id="@+id/back_btn_from_detail"
+            android:layout_width="45dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_done"
+            android:background="@color/ivory"
+            android:padding="13dp"
+            android:src="@drawable/ic_back_arrow"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bio_input"
-            android:layout_marginTop="@dimen/margin_vertical"
-            android:background="@color/transp"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="13dp"
+            android:text="Edit personal information"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/large_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/back_btn_from_detail"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/username_label"
+        android:text="@string/change_userName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        style="@style/settings_page_label_style" />
+
+    <EditText
+        android:id="@+id/username_input"
+        android:maxLength="15"
+        app:layout_constraintTop_toBottomOf="@+id/username_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/settings_page_input_style" />
+
+    <TextView
+        android:id="@+id/fullname_label"
+        android:text="@string/user_fullname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username_input"
+        style="@style/settings_page_label_style"/>
+
+    <EditText
+        android:id="@+id/fullname_input"
+        android:maxLength="25"
+        style="@style/settings_page_input_style"
+        app:layout_constraintTop_toBottomOf="@+id/fullname_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/bio_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fullname_input"
+        style="@style/settings_page_label_style"/>
+
+    <EditText
+        android:id="@+id/bio_input"
+        android:maxLength="200"
+        android:inputType="textMultiLine"
+        app:layout_constraintTop_toBottomOf="@+id/bio_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/settings_page_input_style"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save_settings_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_vertical"
+        android:backgroundTint="@color/alyaska"
+        android:src="@drawable/ic_done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bio_input"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
