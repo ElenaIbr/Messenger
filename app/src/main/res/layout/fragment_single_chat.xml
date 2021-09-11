@@ -29,10 +29,11 @@
 
         <ImageButton
             android:id="@+id/back_btn"
-            android:layout_width="45dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="5dp"
             android:background="@color/white"
+            android:src="@drawable/ic_arrow_left"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,6 +42,8 @@
             android:id="@+id/toolbar_img"
             android:layout_width="45dp"
             android:layout_height="45dp"
+            android:layout_marginStart="@dimen/margin_horizontal"
+
             android:src="@drawable/ic_default_user"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/back_btn"
@@ -53,6 +56,7 @@
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textSize="@dimen/normal_text"
+            android:text="@string/username"
             app:layout_constraintStart_toEndOf="@+id/toolbar_img"
             app:layout_constraintTop_toTopOf="@+id/toolbar_img" />
 
@@ -68,13 +72,13 @@
 
         <ImageView
             android:id="@+id/menu_btn"
-            android:layout_width="45dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_dots_setting_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_hamburger"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:padding="13dp"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -138,11 +142,11 @@
         <ImageView
             android:id="@+id/send_message_btn"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="@dimen/AppPadding"
+            android:layout_height="0dp"
             android:src="@drawable/ic_send"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:padding="@dimen/AppPadding"
             app:layout_constraintTop_toTopOf="@+id/chat_input_message" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

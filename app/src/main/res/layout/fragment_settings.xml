@@ -35,8 +35,9 @@
             android:id="@+id/menu_settings"
             android:layout_width="45dp"
             android:layout_height="match_parent"
-            android:padding="13dp"
-            android:src="@drawable/ic_dots_setting_menu"
+            android:src="@drawable/ic_hamburger"
+            android:layout_marginTop="@dimen/margin_vertical"
+            android:layout_marginEnd="@dimen/margin_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -45,12 +46,13 @@
             android:id="@+id/back_to_chat"
             android:layout_width="45dp"
             android:layout_height="match_parent"
-            android:padding="13dp"
-            android:src="@drawable/ic_back_arrow"
-            android:visibility="gone"
+            android:src="@drawable/ic_arrow_left"
+            android:layout_marginTop="@dimen/margin_vertical"
+            android:layout_marginStart="@dimen/margin_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

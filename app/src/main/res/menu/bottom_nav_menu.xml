@@ -4,7 +4,7 @@
     <item
         android:id="@+id/contacts"
         android:title="@string/contacts"
-        android:icon="@drawable/ic_contacts"/>
+        android:icon="@drawable/ic_contact_book"/>
 
     <item
         android:id="@+id/messages"

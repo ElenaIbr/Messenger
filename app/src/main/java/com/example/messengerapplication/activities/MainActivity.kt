@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         initFirebase()
-        //initFunc()
+
         initUser {
             initFunc()
             CoroutineScope(Dispatchers.IO).launch{
