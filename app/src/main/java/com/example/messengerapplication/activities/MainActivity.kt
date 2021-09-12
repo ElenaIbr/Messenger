@@ -13,6 +13,7 @@ import com.example.messengerapplication.ui.fragments.ContacstFragment
 import com.example.messengerapplication.ui.fragments.authentication.EnterPhoneNumFragment
 import com.example.messengerapplication.ui.fragments.profile.SettingsFragment
 import com.example.messengerapplication.utilits.*
+import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -79,6 +80,9 @@ class MainActivity : AppCompatActivity() {
             initContacts()
         }
     }
+
+
+
 
 
 }

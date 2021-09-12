@@ -3,19 +3,13 @@ package com.example.messengerapplication.utilits
 import android.net.Uri
 import android.provider.ContactsContract
 import android.util.Log
-import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
-import com.example.messengerapplication.ui.fragments.chatlist.ChatlistAdapter
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ServerValue
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 lateinit var authFirebase: FirebaseAuth
 lateinit var REF_DATABASE_ROOT: DatabaseReference
@@ -43,6 +37,7 @@ const val CHILD_FULLNAME_LOWCASE = "fullnameLowcase"
 const val CHILD_NAME_FROM_CONTACTS = "namefromcontacts"
 const val CHILD_BIO = "bio"
 const val CHILD_MESSAGE_STATUS= "messageStatus"
+const val CHILD_MESSAGE_COUNT = "messageCount"
 
 const val CHILD_TOKEN = "token"
 
@@ -58,8 +53,7 @@ const val FOLDER_PROFILE_IMG = "profile_images"
 
 
 lateinit var contactNames : MutableMap<String, String>
-
-
+var messgeCount: Double = 0.0
 
 fun initFirebase(){
 
@@ -188,6 +182,8 @@ fun saveToChatlist(
     contName: String,
     type: String
 ) {
+
+
     val refUser = "$NODE_CHATLIST/$UID/$id"
     val refReceivedUser = "$NODE_CHATLIST/$id/$UID"
 
@@ -198,24 +194,32 @@ fun saveToChatlist(
 
     //val date = LocalDate.parse(currentTime, DateTimeFormatter.ISO_DATE)
 
+    readData(object : firebaseCallback {
+        override fun onCallback(value: Double?) {
 
-    mapRefUser[CHILD_ID] = id
-    mapRefUser[CHILD_TYPE] = type
-    mapRefUser[CHILD_NAME_FROM_CONTACTS] = contName
-    mapRefUser[CHILD_LAST_MESSAGE_TIME] = currentTime
+            mapRefUser[CHILD_ID] = id
+            mapRefUser[CHILD_TYPE] = type
+            mapRefUser[CHILD_NAME_FROM_CONTACTS] = contName
+            mapRefUser[CHILD_LAST_MESSAGE_TIME] = currentTime
+            mapRefUser[CHILD_MESSAGE_COUNT] = 0
 
 
-    mapRefReceivUser[CHILD_ID] = UID
-    mapRefReceivUser[CHILD_TYPE] = type
-    mapRefReceivUser[CHILD_NAME_FROM_CONTACTS] = USER.fullname
-    mapRefReceivUser[CHILD_LAST_MESSAGE_TIME] = currentTime
+            mapRefReceivUser[CHILD_ID] = UID
+            mapRefReceivUser[CHILD_TYPE] = type
+            mapRefReceivUser[CHILD_NAME_FROM_CONTACTS] = USER.fullname
+            mapRefReceivUser[CHILD_LAST_MESSAGE_TIME] = currentTime
+            mapRefReceivUser[CHILD_MESSAGE_COUNT] = messgeCount+1
 
-    val commonMap = hashMapOf<String, Any>()
-    commonMap[refUser] = mapRefUser
-    commonMap[refReceivedUser] = mapRefReceivUser
+            val commonMap = hashMapOf<String, Any>()
+            commonMap[refUser] = mapRefUser
+            commonMap[refReceivedUser] = mapRefReceivUser
 
-    REF_DATABASE_ROOT.updateChildren(commonMap)
-        .addOnFailureListener { showToast("${it.message.toString()}") }
+            Log.d("MyLog", "fgfd $messgeCount")
+
+            REF_DATABASE_ROOT.updateChildren(commonMap)
+                .addOnFailureListener { showToast("${it.message.toString()}") }
+        }
+    }, id)
 
 }
 
@@ -237,5 +241,40 @@ fun clearChat(id: String, function: () -> Unit) {
         }
         .addOnFailureListener { it.message.toString() }
 }
+
+interface firebaseCallback {
+    fun onCallback(value: Double?)
+}
+
+fun readData(firebaseCallback : firebaseCallback, uid: String){
+    val nameRef = REF_DATABASE_ROOT
+    val eventListener: ValueEventListener = object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+            if(dataSnapshot.hasChild(NODE_CHATLIST) && dataSnapshot.child(NODE_CHATLIST).hasChild(uid)
+                && dataSnapshot.child(NODE_CHATLIST).child(uid).hasChild(UID)){
+                messgeCount = dataSnapshot
+                    .child(NODE_CHATLIST)
+                    .child(uid).child(UID)
+                    .child("messageCount")
+                    .getValue<Double>()!!
+
+                firebaseCallback.onCallback(messgeCount)
+            }else {
+                firebaseCallback.onCallback(messgeCount)
+            }
+            //Log.d("MyLog", "res from fun $messgeCount")
+        }
+
+        override fun onCancelled(databaseError: DatabaseError) {
+            messgeCount = 0.0
+            firebaseCallback.onCallback(messgeCount)
+        }
+    }
+    nameRef.addListenerForSingleValueEvent(eventListener)
+}
+
+
+
 
 

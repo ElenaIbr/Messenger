@@ -35,9 +35,6 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
         }else holder.lastMessageTime.text = ""
 
         holder.itemView.setOnClickListener {
-            //listItem[position].messageStatus = "Прочитано"
-
-
             APP_ACTIVITY.changeFragment(SingleChatFragment(listItem[position]))
         }
     }
@@ -49,6 +46,8 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
         val contactPhoto = view.findViewById<CircleImageView>(R.id.chatlist_contact_photo)
         val lastMessage = view.findViewById<TextView>(R.id.chatlist_last_message)
         val lastMessageTime = view.findViewById<TextView>(R.id.message_time)
+
+        val unreadMark = view.findViewById<TextView>(R.id.unread_mark)
     }
 
     fun updateListIten(item: CommonModel){

@@ -9,10 +9,10 @@ import com.example.messengerapplication.databinding.FragmentChatBinding
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.ui.fragments.BaseFragment
 import com.example.messengerapplication.utilits.*
-import com.google.firebase.database.DatabaseReference
-import kotlinx.coroutines.coroutineScope
+import com.google.firebase.database.*
 import kotlinx.coroutines.launch
 import java.util.*
+
 
 class ChatFragment : BaseFragment<FragmentChatBinding>() {
 
@@ -39,6 +39,10 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
 
         }
 
+
+
+
+        //addBadge(countMessages())
         chatRecyclerView = binding.chatlistRc
         chatAdapter = ChatlistAdapter()
 
@@ -59,7 +63,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
 
     override fun onResume() {
         super.onResume()
-        //initRecyclerView()
+        countMessages()
     }
 
 
@@ -112,6 +116,25 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
             }
         })
         chatRecyclerView.adapter = chatAdapter
+    }
+
+    fun countMessages(){
+
+        val nameRef = REF_DATABASE_ROOT.child(NODE_CHATLIST).child(UID)
+        val eventListener: ValueEventListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var count = 0.0
+                for (ds in dataSnapshot.children) {
+                    val rating = ds.child("messageCount").getValue(Double::class.java)!!
+                    count += rating
+                }
+                if(count!=0.0) addBadge(count.toInt())
+                else removeBadge()
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        }
+        nameRef.addListenerForSingleValueEvent(eventListener)
     }
 
 

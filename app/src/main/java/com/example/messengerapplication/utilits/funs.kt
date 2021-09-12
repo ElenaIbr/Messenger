@@ -12,12 +12,16 @@ import androidx.fragment.app.Fragment
 import com.example.messengerapplication.R
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DataSnapshot
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
+
+var messageCount : Int = 0
 
 fun showToast(message: String){
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
@@ -126,5 +130,16 @@ fun String.toDateFormat():String {
     /*val time = Date(this.toLong())
     val timeFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     return timeFormat.format(time)*/
+}
+
+fun addBadge(count : Int) {
+    val badge: BadgeDrawable = APP_ACTIVITY.findViewById<BottomNavigationView>(R.id.bottomNav)
+        .getOrCreateBadge(R.id.messages)
+    badge.number = count
+    badge.isVisible = true
+}
+
+fun removeBadge(){
+    APP_ACTIVITY.findViewById<BottomNavigationView>(R.id.bottomNav).removeBadge(R.id.messages)
 }
 

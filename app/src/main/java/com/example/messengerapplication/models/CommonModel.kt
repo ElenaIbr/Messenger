@@ -25,7 +25,9 @@ data class CommonModel(
 
     var lastMessage: String = "",
     var namefromcontacts: String = "",
-    var token: String = ""
+    var token: String = "",
+
+    var messageCount: Int = 0
 
 ){
     override fun equals(other: Any?): Boolean {

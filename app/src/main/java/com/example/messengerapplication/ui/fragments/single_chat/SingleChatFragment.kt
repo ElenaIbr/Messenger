@@ -6,6 +6,7 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.AbsListView
 import android.widget.PopupMenu
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
@@ -25,6 +26,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.sql.Ref
 
 
 class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingleChatBinding>() {
@@ -47,9 +49,12 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
     override fun getViewBinding() = FragmentSingleChatBinding.inflate(layoutInflater)
 
 
-
     override fun onResume() {
         super.onResume()
+
+        REF_DATABASE_ROOT.child(NODE_CHATLIST).child(UID).child(contact.id).child(
+            CHILD_MESSAGE_COUNT).setValue(0.0)
+        Log.d("MyLog", "мы тут")
 
         act = activity?.findViewById(R.id.bottomNav)
         act?.visibility = View.GONE
@@ -154,7 +159,9 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
             showToast("Введите текст!")
         } else sentMessage(message, contact.id, TYPE_TEXT) {
             binding.chatInputMessage.setText("")
+            Log.d("MyLog", "${messgeCount}")
             saveToChatlist(contact.id, contact.namefromcontacts, TYPE_TEXT)
+
         }
     }
 
@@ -202,7 +209,6 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
                 sendNotification(it)
             }
         }
-
     }
 
     private fun updateToolbarInfo() {
