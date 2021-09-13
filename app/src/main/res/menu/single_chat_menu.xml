@@ -4,9 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/clear_chat"
-        android:icon="@drawable/ic_exit_setting_menu"
-        android:title="Очистить чат"/>
+        android:title="@string/clear_chat"/>
     <item
         android:id="@+id/delete_chat"
-        android:title="Удалить чат"/>
+        android:title="@string/delete_chat"/>
 </menu>

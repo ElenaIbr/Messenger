@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/edit_info"
-        android:title="Edit info" />
+        android:title="@string/edit_info" />
     <item
         android:id="@+id/edit_photo"
-        android:title="Delete photo"/>
+        android:title="@string/delete_photo"/>
     <item
         android:id="@+id/sign_out"
-        android:title="Sign out" />
+        android:title="@string/sign_out" />
 </menu>

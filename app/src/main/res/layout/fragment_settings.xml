@@ -37,7 +37,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_hamburger"
             android:layout_marginTop="@dimen/margin_vertical"
-            android:layout_marginEnd="@dimen/margin_horizontal"
+            android:layout_marginEnd="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -85,8 +85,8 @@
             <TextView
                 android:id="@+id/username_lab"
                 style="@style/settings_info_style"
-                android:layout_marginTop="30dp"
-                android:text="@string/change_userName"
+                android:layout_marginTop="@dimen/margin_vertical"
+                android:text="@string/username"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settingsPhoto" />
 
@@ -108,7 +108,6 @@
             <TextView
                 android:id="@+id/changenumber_tv1"
                 style="@style/settings_info_style"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:text="@string/user_number"
                 app:layout_constraintStart_toStartOf="parent"
@@ -164,19 +163,23 @@
                 app:layout_constraintTop_toBottomOf="@+id/changeBio_tv1" />
 
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <Button
                 android:id="@+id/changePhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="100dp"
-                android:background="@color/transp"
-                android:backgroundTint="@color/alyaska"
-                android:clickable="true"
-                android:src="@drawable/ic_camera"
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
+                app:icon="@drawable/ic_edit_setting_menu"
+                android:text="@string/edit_photo"
+                android:textSize="12dp"
+                android:backgroundTint="@color/gray"
+                app:rippleColor = "@color/dark_gray"
                 app:layout_constraintBottom_toBottomOf="@+id/settingsPhoto"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="@dimen/margin_horizontal"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

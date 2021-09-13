@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin_horizontal">16dp</dimen>
+    <dimen name="margin_vertical">16dp</dimen>
+
     <dimen name="large_text">18sp</dimen>
     <dimen name="normal_text">16sp</dimen>
     <dimen name="small_text">14sp</dimen>
 
-    <!--Settings-->
     <dimen name="settings_user_photo_width">85dp</dimen>
     <dimen name="settings_user_photo_height">85dp</dimen>
 
@@ -16,27 +17,11 @@
     <dimen name="chatlist_user_photo_height">55dp</dimen>
 
     <dimen name="settings_user_photo_border">1dp</dimen>
-    <dimen name="margin_vertical">16dp</dimen>
+
     <dimen name="pressed_settingBtn_corner_radius">4dp</dimen>
     <dimen name="settings_btn_top">10dp</dimen>
     <dimen name="AppPadding">10dp</dimen>
     <dimen name="one_label_marginTop">150dp</dimen>
-
     <dimen name="margin_horizontal_settings_text">18dp</dimen>
-
-    <!-- General margins for the drawer account header -->
-    <dimen name="material_drawer_account_header_height">148dp</dimen>
-    <dimen name="material_drawer_account_header_height_compact">72dp</dimen>
-    <dimen name="material_drawer_account_header_horizontal_top">16dp</dimen>
-    <dimen name="material_drawer_account_header_horizontal_bottom">4dp</dimen>
-    <dimen name="material_drawer_account_header_selected">64dp</dimen>
-    <dimen name="material_drawer_account_header_secondary">40dp</dimen>
-    <dimen name="material_drawer_account_header_compact">56dp</dimen>
-    <dimen name="material_drawer_account_header_text">14sp</dimen>
-    <dimen name="material_drawer_account_header_dropdown">22dp</dimen>
-    <dimen name="material_drawer_account_header_dropdown_padding">5dp</dimen>
-    <dimen name="material_drawer_account_header_dropdown_margin_bottom">14dp</dimen>
-    <dimen name="material_drawer_account_header_non_compact_padding">56dp</dimen>
-
 
 </resources>

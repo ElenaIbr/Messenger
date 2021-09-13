@@ -1,8 +1,10 @@
 package com.example.messengerapplication.ui.fragments.chatlist
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
@@ -27,6 +29,13 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
         holder.lastMessage.text = listItem[position].lastMessage
         holder.contactPhoto.setImg(listItem[position].photoUrl)
 
+        if(listItem[position].messageCount!=0){
+            //holder.messages.setImageResource(R.drawable.unread_message)
+            holder.messages.visibility = View.VISIBLE
+            holder.messages.text = listItem[position].messageCount.toString()
+        }
+        //else holder.messages.visibility = View.VISIBLE
+
         if(!listItem[position].timeStamp.toString().isEmpty()){
             holder.lastMessageTime.text = listItem[position]
                 .timeStamp
@@ -46,8 +55,7 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
         val contactPhoto = view.findViewById<CircleImageView>(R.id.chatlist_contact_photo)
         val lastMessage = view.findViewById<TextView>(R.id.chatlist_last_message)
         val lastMessageTime = view.findViewById<TextView>(R.id.message_time)
-
-        val unreadMark = view.findViewById<TextView>(R.id.unread_mark)
+        val messages = view.findViewById<TextView>(R.id.unread_mark)
     }
 
     fun updateListIten(item: CommonModel){

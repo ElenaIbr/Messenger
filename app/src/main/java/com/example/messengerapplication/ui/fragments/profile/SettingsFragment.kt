@@ -96,6 +96,7 @@ class SettingsFragment(val userName: String = USER.username,
                 getUrlFromStorage(path){
                     putUrlToDatabase(it){
                         //binding.settingsPhoto.setImg(it)
+                        APP_ACTIVITY.changeFragment(SettingsFragment())
                         showToast("Данные обновлены")
                         USER.photoUrl = it
                     }

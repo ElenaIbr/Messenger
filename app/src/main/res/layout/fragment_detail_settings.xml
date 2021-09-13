@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:background="@color/ivory"
             android:padding="13dp"
-            android:src="@drawable/ic_back_arrow"
+            android:src="@drawable/ic_arrow_left"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,15 +30,29 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="13dp"
+            android:layout_height="0dp"
+            android:gravity="center"
             android:text="Edit personal information"
             android:textColor="@color/dark_gray"
             android:textSize="@dimen/large_text"
+            android:layout_marginStart="@dimen/margin_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/back_btn_from_detail"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+            android:id="@+id/save_settings_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@color/ivory"
+            android:padding="13dp"
+            android:src="@drawable/ic_done"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -46,7 +60,7 @@
 
     <TextView
         android:id="@+id/username_label"
-        android:text="@string/change_userName"
+        android:text="@string/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
@@ -94,20 +108,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         style="@style/settings_page_input_style"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/save_settings_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_vertical"
-        android:backgroundTint="@color/alyaska"
-        android:src="@drawable/ic_done"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bio_input"
-        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

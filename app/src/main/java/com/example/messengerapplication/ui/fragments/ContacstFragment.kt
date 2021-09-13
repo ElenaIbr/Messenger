@@ -28,8 +28,6 @@ class ContacstFragment : BaseFragment<FragmentContactBinding>() {
 
     override fun getViewBinding() = FragmentContactBinding.inflate(layoutInflater)
 
-
-
     override fun onResume() {
         super.onResume()
         initRcview("")
@@ -77,10 +75,6 @@ class ContacstFragment : BaseFragment<FragmentContactBinding>() {
                 userRef.addValueEventListener(AppValueEventListener{
                     val contact = it.getValue(CommonModel::class.java)?:CommonModel()
 
-                    /*if(contact.fullname.isEmpty()){
-                        holder.name.text = model.fullname
-                    }else holder.name.text = contact.fullname*/
-
                     holder.name.text = model.fullname
 
                     contact.namefromcontacts = model.fullname
@@ -98,7 +92,6 @@ class ContacstFragment : BaseFragment<FragmentContactBinding>() {
 
     class Holder(view: View): RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.contact_name)
-        //val status: TextView = view.findViewById(R.id.contact_status)
         val photo: CircleImageView = view.findViewById(R.id.contact_photo)
     }
 

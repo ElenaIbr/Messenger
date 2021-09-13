@@ -11,7 +11,8 @@ import com.example.messengerapplication.utilits.*
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.iid.FirebaseInstanceId
 
-class EnterCodeFragment(val phoneNum: String, val id: String) : BaseFragment<FragmentEnterCodeBinding>() {
+class EnterCodeFragment(val phoneNum: String, val id: String) :
+    BaseFragment<FragmentEnterCodeBinding>() {
 
     private var pressed: Boolean = false
 
@@ -23,58 +24,62 @@ class EnterCodeFragment(val phoneNum: String, val id: String) : BaseFragment<Fra
         binding.regCodeInput.requestFocus()
         countdown()
 
-        binding.regCodeInput.addTextChangedListener(AppTextWatcher{
+        binding.regCodeInput.addTextChangedListener(AppTextWatcher {
             val code = binding.regCodeInput.text.toString()
-            if(code.length==6){
+            if (code.length == 6) {
                 pressed = true
                 enterCode()
             }
         })
     }
 
-    private fun enterCode(){
+    private fun enterCode() {
         val credential = PhoneAuthProvider.getCredential(id, binding.regCodeInput.text.toString())
         authFirebase.signInWithCredential(credential)
-            .addOnFailureListener {showToast(it.message.toString())}
+            .addOnFailureListener { showToast(it.message.toString()) }
             .addOnCompleteListener {
-            if(it.isSuccessful){
-                val uid = authFirebase.currentUser?.uid.toString()
-                val dateMap = mutableMapOf<String, Any>()
-                dateMap[CHILD_ID] = uid
-                dateMap[CHILD_PHONE] = phoneNum
+                if (it.isSuccessful) {
+                    //here we create node for new user (uid, phone number, token)
+                    val uid = authFirebase.currentUser?.uid.toString()
+                    val dateMap = mutableMapOf<String, Any>()
+                    dateMap[CHILD_ID] = uid
+                    dateMap[CHILD_PHONE] = phoneNum
 
-                FirebaseService.sharedPref = APP_ACTIVITY.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-                FirebaseInstanceId.getInstance().instanceId
-                    .addOnSuccessListener {
-                        FirebaseService.token = it.token
-                        dateMap[CHILD_TOKEN] = it.token
-                    }
-                    .addOnFailureListener { showToast(it.message.toString()) }
+                    //get device token
+                    FirebaseService.sharedPref =
+                        APP_ACTIVITY.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+                    FirebaseInstanceId.getInstance().instanceId
+                        .addOnSuccessListener {
+                            FirebaseService.token = it.token
+                            dateMap[CHILD_TOKEN] = it.token
+                        }
+                        .addOnFailureListener { showToast(it.message.toString()) }
 
 
-                REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNum).setValue(uid)
-                    .addOnFailureListener { showToast(it.message.toString()) }
-                    .addOnSuccessListener {
-                        REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
-                            .addOnCompleteListener {
-                                showToast(getString(R.string.welcome))
-                                APP_ACTIVITY.restartActivity(MainActivity())
-                            }
-                            .addOnFailureListener { showToast(it.message.toString()) }
-                    }
+                    REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNum).setValue(uid)
+                        .addOnFailureListener { showToast(it.message.toString()) }
+                        .addOnSuccessListener {
+                            REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
+                                .addOnCompleteListener {
+                                    APP_ACTIVITY.restartActivity(MainActivity())
+                                    showToast(getString(R.string.welcome))
+                                }
+                                .addOnFailureListener { showToast(it.message.toString()) }
+                        }
+                } else showToast(it.exception?.message.toString())
             }
-            else showToast(it.exception?.message.toString())
-        }
     }
 
+    //timer for verification code waiting
     private fun countdown() {
         object : CountDownTimer(59000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                if(this@EnterCodeFragment.pressed){
+                if (this@EnterCodeFragment.pressed) {
                     cancel()
                 }
                 binding.chronometer.text = "00:${(millisUntilFinished / 1000)}"
             }
+
             override fun onFinish() {
                 APP_ACTIVITY.restartActivity(MainActivity())
             }

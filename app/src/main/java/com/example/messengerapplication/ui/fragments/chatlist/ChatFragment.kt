@@ -10,6 +10,7 @@ import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.ui.fragments.BaseFragment
 import com.example.messengerapplication.utilits.*
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -66,12 +67,6 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
         countMessages()
     }
 
-
-    private fun initRecyclerView() {
-
-
-    }
-
     fun initItemsForChatlist(chatAdapter: ChatlistAdapter, chatRecyclerView: RecyclerView) {
 
         refChatlist.addListenerForSingleValueEvent(AppValueEventListener {
@@ -86,33 +81,53 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
 
             sortedList.forEach { model ->
 
-                refUsers.child(model.id).addListenerForSingleValueEvent(AppValueEventListener {
-                    val newModel = it.getCommonModel()
+                Log.d("MyLog", "id ${model.id}")
 
-                    //newModel.namefromcontacts = model.namefromcontacts
 
-                    refMesseges.child(model.id).limitToLast(1)
-                        .addListenerForSingleValueEvent(AppValueEventListener {
-                            messageList = it.children.map { it.getCommonModel() }
-                            if (messageList.isEmpty()) {
-                                newModel.lastMessage = "Чат очищен"
-                            } else if (messageList[0].text.length > 30) {
-                                newModel.lastMessage = messageList[0].text.substring(0, 29) + "..."
-                                newModel.timeStamp = messageList[0].timeStamp
-                            } else {
-                                newModel.lastMessage = messageList[0].text
-                                newModel.timeStamp = messageList[0].timeStamp
-                            }
+                readData2(object : firebaseCallback {
+                    override fun onCallback(value: Double?) {
 
-                            newModel.namefromcontacts = contactNames[newModel.phone].toString()
+                        val unreadedMessages = messgeCount2
 
-                            if (newModel.namefromcontacts == "null") {
-                                newModel.namefromcontacts = newModel.phone
-                            }
-                            chatAdapter.updateListIten(newModel)
+                        refUsers.child(model.id).addListenerForSingleValueEvent(AppValueEventListener {
+                            val newModel = it.getCommonModel()
+
+                            //Log.d("MyLog", "${model.id} для ${messgeCount2}")
+                            //newModel.namefromcontacts = model.namefromcontacts
+
+                            refMesseges.child(model.id).limitToLast(1)
+                                .addListenerForSingleValueEvent(AppValueEventListener {
+                                    messageList = it.children.map { it.getCommonModel() }
+                                    if (messageList.isEmpty()) {
+                                        newModel.lastMessage = "Чат очищен"
+                                    } else if (messageList[0].text.length > 30) {
+                                        newModel.lastMessage = messageList[0].text.substring(0, 29) + "..."
+                                        newModel.timeStamp = messageList[0].timeStamp
+                                    } else {
+                                        newModel.lastMessage = messageList[0].text
+                                        newModel.timeStamp = messageList[0].timeStamp
+                                    }
+
+                                    newModel.namefromcontacts = contactNames[newModel.phone].toString()
+
+                                    if (newModel.namefromcontacts == "null") {
+                                        newModel.namefromcontacts = newModel.phone
+                                    }
+
+                                    //Log.d("MyLog", "${model.id} для ${unreadedMessages}")
+                                    newModel.messageCount = unreadedMessages.toInt()
+                                    chatAdapter.updateListIten(newModel)
+                                })
+
                         })
 
-                })
+
+                    }
+                }, model.id)
+
+
+
+
             }
         })
         chatRecyclerView.adapter = chatAdapter
@@ -136,6 +151,5 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
         }
         nameRef.addListenerForSingleValueEvent(eventListener)
     }
-
 
 }

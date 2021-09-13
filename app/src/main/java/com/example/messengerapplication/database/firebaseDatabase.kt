@@ -54,11 +54,12 @@ const val FOLDER_PROFILE_IMG = "profile_images"
 
 lateinit var contactNames : MutableMap<String, String>
 var messgeCount: Double = 0.0
+var messgeCount2: Double = 0.0
 
 fun initFirebase(){
 
     authFirebase = FirebaseAuth.getInstance()
-    authFirebase.firebaseAuthSettings.setAppVerificationDisabledForTesting(true);
+    //authFirebase.firebaseAuthSettings.setAppVerificationDisabledForTesting(true);
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
     USER = User()
     UID = authFirebase.currentUser?.uid.toString()
@@ -214,12 +215,46 @@ fun saveToChatlist(
             commonMap[refUser] = mapRefUser
             commonMap[refReceivedUser] = mapRefReceivUser
 
-            Log.d("MyLog", "fgfd $messgeCount")
-
             REF_DATABASE_ROOT.updateChildren(commonMap)
                 .addOnFailureListener { showToast("${it.message.toString()}") }
         }
     }, id)
+
+}
+
+fun saveToChatlist(
+    id: String,
+    contName: String
+) {
+
+
+    val refUser = "$NODE_CHATLIST/$UID/$id"
+    val refReceivedUser = "$NODE_CHATLIST/$id/$UID"
+
+    val mapRefUser = hashMapOf<String, Any>()
+    val mapRefReceivUser= hashMapOf<String, Any>()
+
+    val currentTime = ServerValue.TIMESTAMP
+
+    //val date = LocalDate.parse(currentTime, DateTimeFormatter.ISO_DATE)
+
+    mapRefUser[CHILD_ID] = id
+    mapRefUser[CHILD_NAME_FROM_CONTACTS] = contName
+    mapRefUser[CHILD_LAST_MESSAGE_TIME] = currentTime
+    mapRefUser[CHILD_MESSAGE_COUNT] = 0
+
+
+    mapRefReceivUser[CHILD_ID] = UID
+    mapRefReceivUser[CHILD_NAME_FROM_CONTACTS] = USER.fullname
+    mapRefReceivUser[CHILD_LAST_MESSAGE_TIME] = currentTime
+    mapRefReceivUser[CHILD_MESSAGE_COUNT] = 0
+
+    val commonMap = hashMapOf<String, Any>()
+    commonMap[refUser] = mapRefUser
+    commonMap[refReceivedUser] = mapRefReceivUser
+
+    REF_DATABASE_ROOT.updateChildren(commonMap)
+        .addOnFailureListener { showToast("${it.message.toString()}") }
 
 }
 
@@ -273,6 +308,36 @@ fun readData(firebaseCallback : firebaseCallback, uid: String){
     }
     nameRef.addListenerForSingleValueEvent(eventListener)
 }
+
+fun readData2(firebaseCallback : firebaseCallback, uid: String){
+    val nameRef = REF_DATABASE_ROOT
+    val eventListener: ValueEventListener = object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+            if(dataSnapshot.hasChild(NODE_CHATLIST) && dataSnapshot.child(NODE_CHATLIST).hasChild(uid)
+                && dataSnapshot.child(NODE_CHATLIST).child(uid).hasChild(UID)){
+                messgeCount2 = dataSnapshot
+                    .child(NODE_CHATLIST)
+                    .child(UID).child(uid)
+                    .child("messageCount")
+                    .getValue<Double>()!!
+
+                firebaseCallback.onCallback(messgeCount2)
+                //Log.d("MyLog", "res from fun $messgeCount2")
+            }else {
+                firebaseCallback.onCallback(messgeCount2)
+            }
+            //Log.d("MyLog", "res from fun $messgeCount")
+        }
+
+        override fun onCancelled(databaseError: DatabaseError) {
+            messgeCount2 = 0.0
+            firebaseCallback.onCallback(messgeCount2)
+        }
+    }
+    nameRef.addListenerForSingleValueEvent(eventListener)
+}
+
 
 
 

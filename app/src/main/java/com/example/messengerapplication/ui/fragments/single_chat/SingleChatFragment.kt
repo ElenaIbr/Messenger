@@ -52,9 +52,10 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
     override fun onResume() {
         super.onResume()
 
-        REF_DATABASE_ROOT.child(NODE_CHATLIST).child(UID).child(contact.id).child(
-            CHILD_MESSAGE_COUNT).setValue(0.0)
-        Log.d("MyLog", "мы тут")
+        saveToChatlist(contact.id, contact.namefromcontacts)
+        /*REF_DATABASE_ROOT.child(NODE_CHATLIST).child(UID).child(contact.id).child(
+            CHILD_MESSAGE_COUNT).setValue(0.0)*/
+
 
         act = activity?.findViewById(R.id.bottomNav)
         act?.visibility = View.GONE

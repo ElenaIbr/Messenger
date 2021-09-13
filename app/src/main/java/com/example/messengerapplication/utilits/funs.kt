@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.example.messengerapplication.R
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
+import com.example.messengerapplication.ui.fragments.profile.SettingsFragment
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DataSnapshot
@@ -123,13 +124,9 @@ fun String.toDateFormat():String {
         return timeFormat.format(time)
     }else{
         val time = Date(this.toLong())
-        val timeFormat = SimpleDateFormat("yy-MM-dd", Locale.getDefault())
+        val timeFormat = SimpleDateFormat("dd-MM", Locale.getDefault())
         return timeFormat.format(time)
     }
-
-    /*val time = Date(this.toLong())
-    val timeFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    return timeFormat.format(time)*/
 }
 
 fun addBadge(count : Int) {
