@@ -11,7 +11,7 @@ giving opportunity to send and get messages from other users. What i have used t
 3. using FCM and Retrofit2 for push-notifications
 
 Let's see how it works and looks like.
-First, when new user launches app he  sees auth fragment on his mobile screen. 
+First, when new (or unlogged) user launches app he sees auth fragment on his mobile screen. 
 App asks for mobile number and send verification code to users mobile phone. 
 After that user inputs auth code and can see main fragment (chat list). 
 
