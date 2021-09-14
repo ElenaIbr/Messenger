@@ -22,7 +22,7 @@ after Firebase instances initialization we call checkAuthorization() and check i
 If there is no cuurent  UID, user has to input his number and log in. 
 In the same time, if user launches messenger on his device for the first time, app asks permissions for contact reading and after that saves contact list in CoroutineScope. We need this indormation to name other users, we have in database and contact list.
 
-Below we can look at main UI. I used bottomnavigationview with three items (Contacts, Messages and Profile). For contact list i used FirebaseRecyclerOptions.Builder, for chat list - usual adapter.
+Below we can look at main UI. I used bottomnavigationview with three items (Contacts, Messages and Profile). For contact list i used FirebaseRecyclerOptions.Builder and its setQuery(), for chat list - usual adapter.
 
 ![](https://github.com/ElenaIbr/Messenger/blob/master/ui_demo.gif?raw=true)
 
