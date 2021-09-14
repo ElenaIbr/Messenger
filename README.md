@@ -34,11 +34,6 @@ And finally, users communication from two different physical devices, using real
 
 Application was created in Android Studio 4.2.1.
 
-android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
-    }
-
     defaultConfig {
         applicationId "com.example.messengerapplication"
         minSdkVersion 21
