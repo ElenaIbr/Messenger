@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Bottom navigation view
+        mBinding.bottomNav.setSelectedItemId(R.id.messages)
         mBinding.bottomNav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.contacts -> changeFragment(ContacstFragment(), false)

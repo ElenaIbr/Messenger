@@ -38,7 +38,7 @@
         android:layout_marginStart="@dimen/margin_horizontal"
         android:layout_toEndOf="@+id/chatlist_contact_photo"
         android:text="Name"
-        android:textColor="@color/black"
+        android:textColor="@color/dark_blue"
         android:textSize="@dimen/normal_text"
         app:layout_constraintStart_toEndOf="@+id/chatlist_contact_photo"
         app:layout_constraintTop_toTopOf="@+id/chatlist_contact_photo" />

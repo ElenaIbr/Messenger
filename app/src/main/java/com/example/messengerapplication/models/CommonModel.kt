@@ -4,6 +4,7 @@ import java.util.*
 
 data class CommonModel(
 
+    //user
     val id: String = "",
     var username: String = "",
     var bio: String = "",
@@ -12,6 +13,8 @@ data class CommonModel(
     var state: String = "",
     var phone: String = "",
     var photoUrl: String = "",
+    var namefromcontacts: String = "",
+    var token: String = "",
 
     //messages
     var text: String = "",
@@ -19,14 +22,9 @@ data class CommonModel(
     var from: String = "",
     var timeStamp: Any = "",
     var messageStatus: String = "Не прочитано",
-
     var lastMessageTime: Any = "",
     var resLastMessageTime: Date = Date(0),
-
     var lastMessage: String = "",
-    var namefromcontacts: String = "",
-    var token: String = "",
-
     var messageCount: Int = 0
 
 ){

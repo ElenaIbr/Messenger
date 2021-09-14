@@ -2,8 +2,8 @@ package com.example.messengerapplication.utilits
 import com.example.messengerapplication.utilits.*
 
 enum class AppStates(val state: String) {
-    ONLINE("В сети"),
-    OFFLINE("Не в сети");
+    ONLINE("online"),
+    OFFLINE("offline");
 
     companion object {
         fun updateStates(appState: AppStates){

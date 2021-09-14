@@ -9,8 +9,10 @@ import com.example.messengerapplication.databinding.FragmentChatBinding
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.ui.fragments.BaseFragment
 import com.example.messengerapplication.utilits.*
-import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -37,29 +39,12 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
             refChatlist = REF_DATABASE_ROOT.child(NODE_CHATLIST).child(UID)
             refUsers = REF_DATABASE_ROOT.child(NODE_USERS)
             refMesseges = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID)
-
         }
 
-
-
-
-        //addBadge(countMessages())
         chatRecyclerView = binding.chatlistRc
         chatAdapter = ChatlistAdapter()
 
         initItemsForChatlist(chatAdapter, chatRecyclerView)
-
-        /*viewLifecycleOwner.lifecycleScope.launch {
-            val job = launch{
-                chatRecyclerView = binding.chatlistRc
-                chatAdapter = ChatlistAdapter()
-
-                initItemsForChatlist(chatAdapter, chatRecyclerView)
-                replaceFragment(ChatFragment())
-            }
-            replaceFragment(WaitingFragment())
-            job.join()
-        }*/
     }
 
     override fun onResume() {
@@ -92,14 +77,11 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
                         refUsers.child(model.id).addListenerForSingleValueEvent(AppValueEventListener {
                             val newModel = it.getCommonModel()
 
-                            //Log.d("MyLog", "${model.id} для ${messgeCount2}")
-                            //newModel.namefromcontacts = model.namefromcontacts
-
                             refMesseges.child(model.id).limitToLast(1)
                                 .addListenerForSingleValueEvent(AppValueEventListener {
                                     messageList = it.children.map { it.getCommonModel() }
                                     if (messageList.isEmpty()) {
-                                        newModel.lastMessage = "Чат очищен"
+                                        newModel.lastMessage = "Chat cleared"
                                     } else if (messageList[0].text.length > 30) {
                                         newModel.lastMessage = messageList[0].text.substring(0, 29) + "..."
                                         newModel.timeStamp = messageList[0].timeStamp
@@ -114,20 +96,12 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
                                         newModel.namefromcontacts = newModel.phone
                                     }
 
-                                    //Log.d("MyLog", "${model.id} для ${unreadedMessages}")
                                     newModel.messageCount = unreadedMessages.toInt()
                                     chatAdapter.updateListIten(newModel)
                                 })
-
                         })
-
-
                     }
                 }, model.id)
-
-
-
-
             }
         })
         chatRecyclerView.adapter = chatAdapter
@@ -146,7 +120,6 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
                 if(count!=0.0) addBadge(count.toInt())
                 else removeBadge()
             }
-
             override fun onCancelled(databaseError: DatabaseError) {}
         }
         nameRef.addListenerForSingleValueEvent(eventListener)

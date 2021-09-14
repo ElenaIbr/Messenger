@@ -4,7 +4,7 @@ import com.example.messengerapplication.databinding.FragmentDetailSettingsBindin
 import com.example.messengerapplication.ui.fragments.BaseFragment
 import com.example.messengerapplication.utilits.*
 
-class DetailSettingsFragment() : BaseFragment<FragmentDetailSettingsBinding>() {
+class DetailSettingsFragment : BaseFragment<FragmentDetailSettingsBinding>() {
 
     private var isUsername: Boolean? = null
 
@@ -39,7 +39,7 @@ class DetailSettingsFragment() : BaseFragment<FragmentDetailSettingsBinding>() {
                 changingsCount++
             }
             if(changingsCount>0) replaceFragment(SettingsFragment())
-            else showToast("Нет изменений")
+            else showToast("No changes")
 
         }
 
@@ -51,13 +51,13 @@ class DetailSettingsFragment() : BaseFragment<FragmentDetailSettingsBinding>() {
     private fun changeName(fieldType:SettingsType, input: String) {
 
         if (input == "") {
-            showToast("Заполните!")
+            showToast("Fill")
         } else {
             if(isUsername==true){
                 REF_DATABASE_ROOT.child(NODE_USERNAMES)
                     .addListenerForSingleValueEvent(AppValueEventListener {
                         if (it.hasChild(input.toString())) {
-                            showToast("Уже существует!")
+                            showToast("Already exists")
                         } else changeUserName(fieldType, input)
                     })
             }else{
@@ -79,15 +79,13 @@ class DetailSettingsFragment() : BaseFragment<FragmentDetailSettingsBinding>() {
     private fun deletePreUsername() {
         REF_DATABASE_ROOT.child(NODE_USERNAMES).child(USER.username).removeValue()
             .addOnCompleteListener {
-                if (it.isSuccessful) {
-
-                } else {
+                if (!it.isSuccessful) {
                     showToast(it.exception?.message.toString())
                 }
             }
     }
 
     private fun updateUserName(fieldType: SettingsType, input: String) {
-        updateField(input.toString(), fieldType.toString().lowercase())
+        updateField(input, fieldType.toString().lowercase())
     }
 }

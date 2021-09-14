@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.messengerapplication.ui.fragments.profile.DetailSettingsFragment"
+    tools:context="com.example.messengerapplication.ui.fragments.profile.AccountInfoChangeFragment"
     android:orientation="vertical"
     android:background="@color/ivory">
 
@@ -12,6 +12,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -55,9 +56,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
     <TextView
         android:id="@+id/username_label"
         android:text="@string/username"
@@ -70,6 +68,7 @@
         android:id="@+id/username_input"
         android:maxLength="15"
         app:layout_constraintTop_toBottomOf="@+id/username_label"
+        android:hint="@string/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         style="@style/settings_page_input_style" />
@@ -85,6 +84,7 @@
     <EditText
         android:id="@+id/fullname_input"
         android:maxLength="25"
+        android:hint="@string/enter_your_full_name"
         style="@style/settings_page_input_style"
         app:layout_constraintTop_toBottomOf="@+id/fullname_label"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,6 +104,7 @@
         android:id="@+id/bio_input"
         android:maxLength="200"
         android:inputType="textMultiLine"
+        android:hint="@string/tell_about_yourself"
         app:layout_constraintTop_toBottomOf="@+id/bio_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

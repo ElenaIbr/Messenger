@@ -53,9 +53,6 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
         super.onResume()
 
         saveToChatlist(contact.id, contact.namefromcontacts)
-        /*REF_DATABASE_ROOT.child(NODE_CHATLIST).child(UID).child(contact.id).child(
-            CHILD_MESSAGE_COUNT).setValue(0.0)*/
-
 
         act = activity?.findViewById(R.id.bottomNav)
         act?.visibility = View.GONE
@@ -79,7 +76,6 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
         }
 
         binding.toolbarImg.setOnClickListener {
-            //replaceFragment(PersonalInfoFragment(contact))
             replaceFragment(
                 SettingsFragment(contact.username,
                 contact.fullname,
@@ -88,7 +84,6 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
                 contact.photoUrl,
                 true)
             )
-
         }
 
         initRecyclerView()
@@ -198,13 +193,13 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
             .addOnSuccessListener {
                 FirebaseService.token = it.token
                 val token = it.token
-                Log.d("MyLog", "токен ${it.token}")
             }
 
-        val title = "От"
+        val title = "From: ${phoneFormat(USER.phone)}"
+        val messageTo = "Message: $message"
         if(title.isNotEmpty() && message.isNotEmpty() && receivingUserID.isNotEmpty()) {
             PushNotification(
-                NotificationData("from: ${phoneFormat(USER.phone)}", message),
+                NotificationData(title, messageTo),
                 contact.token
             ).also {
                 sendNotification(it)
@@ -233,13 +228,13 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
             when(menuItem.itemId){
                 R.id.clear_chat-> {
                     clearChat(contact.id){
-                        showToast("Чат очищен")
+                        showToast("Chat was deleted")
                         replaceFragment(ChatFragment())
                     }
                 }
                 R.id.delete_chat-> {
                     deleteChat(contact.id){
-                        showToast("Чат удален")
+                        showToast("Chat was cleared")
                         replaceFragment(ChatFragment())
                     }
                 }
@@ -252,13 +247,11 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
     private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
         try {
             val response = RetrofitInstance.api.postNotification(notification)
-            if(response.isSuccessful) {
-                //Log.d(ContentValues.TAG, "Response: ${Gson().toJson(response)}")
-            } else {
-                //Log.e(ContentValues.TAG, response.errorBody().toString())
+            if(!response.isSuccessful) {
+                showToast(response.errorBody().toString())
             }
         } catch(e: Exception) {
-            //Log.e(ContentValues.TAG, e.toString())
+            //Log.e("MyLog"G, e.toString())
         }
     }
 }

@@ -24,17 +24,14 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
 
     override fun onBindViewHolder(holder: ChatlistHolder, position: Int) {
 
-        //holder.contactName.text = listItem[position].fullname
         holder.contactName.text = listItem[position].namefromcontacts
         holder.lastMessage.text = listItem[position].lastMessage
         holder.contactPhoto.setImg(listItem[position].photoUrl)
 
         if(listItem[position].messageCount!=0){
-            //holder.messages.setImageResource(R.drawable.unread_message)
             holder.messages.visibility = View.VISIBLE
             holder.messages.text = listItem[position].messageCount.toString()
         }
-        //else holder.messages.visibility = View.VISIBLE
 
         if(!listItem[position].timeStamp.toString().isEmpty()){
             holder.lastMessageTime.text = listItem[position]
@@ -57,7 +54,6 @@ class ChatlistAdapter : RecyclerView.Adapter<ChatlistAdapter.ChatlistHolder>() {
         val lastMessageTime = view.findViewById<TextView>(R.id.message_time)
         val messages = view.findViewById<TextView>(R.id.unread_mark)
     }
-
     fun updateListIten(item: CommonModel){
         listItem.add(item)
         notifyItemInserted(listItem.size)

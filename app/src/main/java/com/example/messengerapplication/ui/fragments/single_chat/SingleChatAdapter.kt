@@ -5,16 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
 import com.example.messengerapplication.models.CommonModel
-import com.example.messengerapplication.utilits.DiffUtilCallback
 import com.example.messengerapplication.utilits.UID
 import com.example.messengerapplication.utilits.toTimeFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder>() {
 
@@ -29,7 +24,6 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolde
         val leftBlockMessage: LinearLayout = view.findViewById(R.id.left_block_message)
         val leftMessage: TextView = view.findViewById(R.id.left_message)
         val leftMessageTime: TextView = view.findViewById(R.id.left_message_time)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleChatHolder {

@@ -2,7 +2,6 @@ package com.example.messengerapplication.utilits
 
 import android.net.Uri
 import android.provider.ContactsContract
-import android.util.Log
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
 import com.google.firebase.auth.FirebaseAuth
@@ -11,13 +10,12 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
+//firebase
 lateinit var authFirebase: FirebaseAuth
 lateinit var REF_DATABASE_ROOT: DatabaseReference
 lateinit var USER: User
 lateinit var UID: String
 lateinit var REF_STORAGE_ROOT: StorageReference
-
-const val TYPE_TEXT = "text"
 
 const val NODE_USERS = "users"
 const val NODE_USERNAMES = "usernames"
@@ -25,7 +23,6 @@ const val NODE_PHONES = "phones"
 const val NODE_PHONES_CONTACTS = "phone_contacts"
 const val NODE_MESSAGES = "messages"
 const val NODE_CHATLIST = "chatlist"
-
 
 const val CHILD_ID = "id"
 const val CHILD_PHONE = "phone"
@@ -36,27 +33,26 @@ const val CHILD_STATE = "state"
 const val CHILD_FULLNAME_LOWCASE = "fullnameLowcase"
 const val CHILD_NAME_FROM_CONTACTS = "namefromcontacts"
 const val CHILD_BIO = "bio"
-const val CHILD_MESSAGE_STATUS= "messageStatus"
+const val CHILD_MESSAGE_STATUS = "messageStatus"
 const val CHILD_MESSAGE_COUNT = "messageCount"
-
 const val CHILD_TOKEN = "token"
-
 const val CHILD_TEXT = "text"
 const val CHILD_TYPE = "type"
 const val CHILD_FROM = "from"
 const val CHILD_TIMESTAMP = "timeStamp"
-
 const val CHILD_LAST_MESSAGE_TIME = "lastMessageTime"
 
+const val TYPE_TEXT = "text"
+
+//name foe storage directory
 const val FOLDER_PROFILE_IMG = "profile_images"
 
+lateinit var contactNames: MutableMap<String, String>
 
-
-lateinit var contactNames : MutableMap<String, String>
 var messgeCount: Double = 0.0
 var messgeCount2: Double = 0.0
 
-fun initFirebase(){
+fun initFirebase() {
 
     authFirebase = FirebaseAuth.getInstance()
     //authFirebase.firebaseAuthSettings.setAppVerificationDisabledForTesting(true);
@@ -67,20 +63,20 @@ fun initFirebase(){
 
 }
 
-fun updateField(newValue: String, field: String){
+fun updateField(newValue: String, field: String) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(field)
         .setValue(newValue)
         .addOnCompleteListener {
-            if(!it.isSuccessful) {
-                showToast("Обновлено")
+            if (!it.isSuccessful) {
+                showToast("Updated")
             }
         }
-    if(field == CHILD_FULLNAME){
+    if (field == CHILD_FULLNAME) {
         REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_FULLNAME_LOWCASE)
             .setValue(newValue.lowercase())
             .addOnCompleteListener {
-                if(!it.isSuccessful) {
-                    showToast("Обновлено")
+                if (!it.isSuccessful) {
+                    showToast("Updated")
                 }
             }
     }
@@ -105,17 +101,16 @@ fun putImageToStorage(uri: Uri, path: StorageReference, function: () -> Unit) {
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun initUser(function: () -> Unit){
+fun initUser(function: () -> Unit) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
-        .addListenerForSingleValueEvent(AppValueEventListener{
-            USER = it.getValue(User::class.java) ?:User()
-            //if(USER.username=="") USER.username = UID
+        .addListenerForSingleValueEvent(AppValueEventListener {
+            USER = it.getValue(User::class.java) ?: User()
             function()
         })
 }
 
 fun initContacts() {
-    if(checkPermission(READ_CONTACTS)){
+    if (checkPermission(READ_CONTACTS)) {
         val arrContacts = arrayListOf<CommonModel>()
 
         val cursor = APP_ACTIVITY.contentResolver.query(
@@ -123,40 +118,34 @@ fun initContacts() {
             null,
             null,
             null,
-            null)
+            null
+        )
         contactNames = mutableMapOf()
         cursor?.let {
-            while(it.moveToNext()){
-                val fullName = it.getString(it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                val phone = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+            while (it.moveToNext()) {
+                val fullName =
+                    it.getString(it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                val phone =
+                    it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                 val newModel = CommonModel()
                 newModel.fullname = fullName
                 newModel.fullnameLowcase = fullName.lowercase()
                 newModel.phone = phone.replace(Regex("[\\s,-]"), "")
                 arrContacts.add(newModel)
-
-
-                contactNames.put(newModel.phone, fullName)
-
-                //Log.d("MyLog", "длина ${contactNames.size}")
-
+                contactNames[newModel.phone] = fullName
             }
         }
         cursor?.close()
-            /*contactNames.forEach {
-            Log.d("MyLog", "КЛЮЧ ${it.key}")
-            Log.d("MyLog", "ЗНАЧЕНИЕ ${it.value}")
-        }*/
         updateContactList(arrContacts)
     }
 }
 
 fun updateContactList(arrContacts: ArrayList<CommonModel>) {
-    if(authFirebase.currentUser!=null){
-        REF_DATABASE_ROOT.child(NODE_PHONES).addListenerForSingleValueEvent(AppValueEventListener{
+    if (authFirebase.currentUser != null) {
+        REF_DATABASE_ROOT.child(NODE_PHONES).addListenerForSingleValueEvent(AppValueEventListener {
             it.children.forEach { snapshop ->
                 arrContacts.forEach { contact ->
-                    if(contact.phone == snapshop.key && contact.phone!=USER.phone){
+                    if (contact.phone == snapshop.key && contact.phone != USER.phone) {
                         REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(UID)
                             .child(snapshop.value.toString()).child(CHILD_ID)
                             .setValue(snapshop.value.toString())
@@ -183,17 +172,13 @@ fun saveToChatlist(
     contName: String,
     type: String
 ) {
-
-
     val refUser = "$NODE_CHATLIST/$UID/$id"
     val refReceivedUser = "$NODE_CHATLIST/$id/$UID"
 
     val mapRefUser = hashMapOf<String, Any>()
-    val mapRefReceivUser= hashMapOf<String, Any>()
+    val mapRefReceivUser = hashMapOf<String, Any>()
 
     val currentTime = ServerValue.TIMESTAMP
-
-    //val date = LocalDate.parse(currentTime, DateTimeFormatter.ISO_DATE)
 
     readData(object : firebaseCallback {
         override fun onCallback(value: Double?) {
@@ -204,19 +189,18 @@ fun saveToChatlist(
             mapRefUser[CHILD_LAST_MESSAGE_TIME] = currentTime
             mapRefUser[CHILD_MESSAGE_COUNT] = 0
 
-
             mapRefReceivUser[CHILD_ID] = UID
             mapRefReceivUser[CHILD_TYPE] = type
             mapRefReceivUser[CHILD_NAME_FROM_CONTACTS] = USER.fullname
             mapRefReceivUser[CHILD_LAST_MESSAGE_TIME] = currentTime
-            mapRefReceivUser[CHILD_MESSAGE_COUNT] = messgeCount+1
+            mapRefReceivUser[CHILD_MESSAGE_COUNT] = messgeCount + 1
 
             val commonMap = hashMapOf<String, Any>()
             commonMap[refUser] = mapRefUser
             commonMap[refReceivedUser] = mapRefReceivUser
 
             REF_DATABASE_ROOT.updateChildren(commonMap)
-                .addOnFailureListener { showToast("${it.message.toString()}") }
+                .addOnFailureListener { showToast(it.message.toString()) }
         }
     }, id)
 
@@ -232,11 +216,9 @@ fun saveToChatlist(
     val refReceivedUser = "$NODE_CHATLIST/$id/$UID"
 
     val mapRefUser = hashMapOf<String, Any>()
-    val mapRefReceivUser= hashMapOf<String, Any>()
+    val mapRefReceivUser = hashMapOf<String, Any>()
 
     val currentTime = ServerValue.TIMESTAMP
-
-    //val date = LocalDate.parse(currentTime, DateTimeFormatter.ISO_DATE)
 
     mapRefUser[CHILD_ID] = id
     mapRefUser[CHILD_NAME_FROM_CONTACTS] = contName
@@ -281,13 +263,15 @@ interface firebaseCallback {
     fun onCallback(value: Double?)
 }
 
-fun readData(firebaseCallback : firebaseCallback, uid: String){
+fun readData(firebaseCallback: firebaseCallback, uid: String) {
     val nameRef = REF_DATABASE_ROOT
     val eventListener: ValueEventListener = object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-            if(dataSnapshot.hasChild(NODE_CHATLIST) && dataSnapshot.child(NODE_CHATLIST).hasChild(uid)
-                && dataSnapshot.child(NODE_CHATLIST).child(uid).hasChild(UID)){
+            if (dataSnapshot.hasChild(NODE_CHATLIST) && dataSnapshot.child(NODE_CHATLIST)
+                    .hasChild(uid)
+                && dataSnapshot.child(NODE_CHATLIST).child(uid).hasChild(UID)
+            ) {
                 messgeCount = dataSnapshot
                     .child(NODE_CHATLIST)
                     .child(uid).child(UID)
@@ -295,10 +279,9 @@ fun readData(firebaseCallback : firebaseCallback, uid: String){
                     .getValue<Double>()!!
 
                 firebaseCallback.onCallback(messgeCount)
-            }else {
+            } else {
                 firebaseCallback.onCallback(messgeCount)
             }
-            //Log.d("MyLog", "res from fun $messgeCount")
         }
 
         override fun onCancelled(databaseError: DatabaseError) {
@@ -309,13 +292,15 @@ fun readData(firebaseCallback : firebaseCallback, uid: String){
     nameRef.addListenerForSingleValueEvent(eventListener)
 }
 
-fun readData2(firebaseCallback : firebaseCallback, uid: String){
+fun readData2(firebaseCallback: firebaseCallback, uid: String) {
     val nameRef = REF_DATABASE_ROOT
     val eventListener: ValueEventListener = object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-            if(dataSnapshot.hasChild(NODE_CHATLIST) && dataSnapshot.child(NODE_CHATLIST).hasChild(uid)
-                && dataSnapshot.child(NODE_CHATLIST).child(uid).hasChild(UID)){
+            if (dataSnapshot.hasChild(NODE_CHATLIST) && dataSnapshot.child(NODE_CHATLIST)
+                    .hasChild(uid)
+                && dataSnapshot.child(NODE_CHATLIST).child(uid).hasChild(UID)
+            ) {
                 messgeCount2 = dataSnapshot
                     .child(NODE_CHATLIST)
                     .child(UID).child(uid)
@@ -323,11 +308,9 @@ fun readData2(firebaseCallback : firebaseCallback, uid: String){
                     .getValue<Double>()!!
 
                 firebaseCallback.onCallback(messgeCount2)
-                //Log.d("MyLog", "res from fun $messgeCount2")
-            }else {
+            } else {
                 firebaseCallback.onCallback(messgeCount2)
             }
-            //Log.d("MyLog", "res from fun $messgeCount")
         }
 
         override fun onCancelled(databaseError: DatabaseError) {

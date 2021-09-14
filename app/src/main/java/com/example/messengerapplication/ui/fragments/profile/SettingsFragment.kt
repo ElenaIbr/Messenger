@@ -30,7 +30,7 @@ class SettingsFragment(val userName: String = USER.username,
         super.onResume()
         setHasOptionsMenu(true)
 
-        binding.changenumberTv.text = num
+        binding.changenumberTv.text = phoneFormat(num)
 
 
         checkInfo(fullName, binding.changeInfoTv)
@@ -95,9 +95,9 @@ class SettingsFragment(val userName: String = USER.username,
             putImageToStorage(uri, path){
                 getUrlFromStorage(path){
                     putUrlToDatabase(it){
-                        //binding.settingsPhoto.setImg(it)
+                        USER.photoUrl = it
                         APP_ACTIVITY.changeFragment(SettingsFragment())
-                        showToast("Данные обновлены")
+                        showToast("Updated!")
                         USER.photoUrl = it
                     }
                 }
