@@ -6,7 +6,7 @@ This app is the solution for communication, or just messenger like Whats`app, Vi
 I have been trying to realize main functionality and cover MVP requirements.
 Of course, there is still a lot of work, but the app does its main function, 
 giving opportunity to send and get messages from other users. What i used to achieve this purpose:
-1. realasing application within single activity (1 activity and 7 fragments were enough)
+1. realasing application within single activity (1 activity and 7 fragments)
 2. using Firebase tools (auth, database)
 3. using FCM and Retrofit2 for push-notifications
 
