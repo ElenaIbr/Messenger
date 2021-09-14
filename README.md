@@ -31,6 +31,7 @@ And finally, users communication from two different physical devices, using real
 | ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/message_senging_demo.gif) | ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/message_getting_demo.gif) |
 
 Database structure, nodes
+
 ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/dataabase.jpg)
 
 ## Tech
