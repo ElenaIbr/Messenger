@@ -30,4 +30,30 @@ And finally, users communication from two different physical devices, using real
 
 | ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/message_senging_demo.gif) | ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/message_getting_demo.gif) |
 
+## Tech
+
+Application was created in Android Studio 4.2.1.
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    defaultConfig {
+        applicationId "com.example.messengerapplication"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+## Help
+
+If you have got any questions please let me know ibraeva.elen@gmail.com
+
+
 
