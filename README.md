@@ -16,3 +16,7 @@ App asks for mobile number and send verification code to users mobile phone.
 After that user inputs auth code and can see main fragment (chat list). 
 
 ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/auth_demo.gif)
+
+What is going on in code. First off all, we have to make shure, that user is not logged. In onResume(), 
+after Firebase instances initialization we call checkAuthorization() and check if there is current user UID. If there is UID, user can interact with his chat list.
+If there is no UID, user has to input his number and log in. 
