@@ -1,7 +1,7 @@
 # Messenger
 
 Hi everyone!
-Here i would like to describe my mobile web app. 
+Here i would like to describe my own mobile web app. 
 The app is the software solution for communication, or just messenger like Whats`app, Viber, Telegram and so on. 
 I have been trying to realize main functionality and cover MVP requirements.
 Of course, there is still a lot of work, but the app does its main function, 
