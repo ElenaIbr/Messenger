@@ -37,9 +37,6 @@ Application was created in Android Studio 4.2.1.
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
-
-    buildFeatures {
-        viewBinding = true
     }
 
     defaultConfig {
