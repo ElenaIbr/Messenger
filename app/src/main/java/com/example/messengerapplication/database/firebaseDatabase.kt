@@ -2,6 +2,7 @@ package com.example.messengerapplication.utilits
 
 import android.net.Uri
 import android.provider.ContactsContract
+import android.util.Log
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
 import com.google.firebase.auth.FirebaseAuth
@@ -55,8 +56,10 @@ var messgeCount2: Double = 0.0
 fun initFirebase() {
 
     authFirebase = FirebaseAuth.getInstance()
+    Log.d("MyLog", "${authFirebase}")
     //authFirebase.firebaseAuthSettings.setAppVerificationDisabledForTesting(true);
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
+    Log.d("MyLog", "${REF_DATABASE_ROOT}")
     USER = User()
     UID = authFirebase.currentUser?.uid.toString()
     REF_STORAGE_ROOT = FirebaseStorage.getInstance().reference

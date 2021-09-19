@@ -30,7 +30,7 @@ class SettingsFragment(val userName: String = USER.username,
         super.onResume()
         setHasOptionsMenu(true)
 
-        binding.changenumberTv.text = phoneFormat(num)
+        binding.changenumberTv.text = num
 
 
         checkInfo(fullName, binding.changeInfoTv)

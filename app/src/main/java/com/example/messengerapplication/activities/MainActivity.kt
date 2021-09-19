@@ -32,9 +32,10 @@ class MainActivity : AppCompatActivity() {
 
         //here we get reference to database and UID for current user
         initFirebase()
+        checkAuthorization()
 
         initUser {
-            checkAuthorization()
+
             CoroutineScope(Dispatchers.IO).launch {
                 initContacts()
             }
