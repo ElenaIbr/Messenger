@@ -15,7 +15,7 @@ After that user inputs auth code and can see main fragment (chat list).
 
 ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/auth_demo.gif)
 
-What is going on in code. First off all, we have to make shure, that user is not logged. In onResume(), 
+What is going on in code. First of all, we have to make shure, that user is not logged. In onResume(), 
 after Firebase instances initialization we call checkAuthorization() and check if there is current user UID. If there is UID, user can interact with his chat list.
 If there is no cuurent  UID, user has to input his number and log in. 
 In the same time, if user launches messenger on his device for the first time, app asks permissions for contact reading. After that in CoroutineScope app compares user`s contacts with realtime database data and saves matches in List. We need this information to name other users, we have in database and contact list.
