@@ -24,7 +24,7 @@ Below we can look at main UI. I used bottomnavigationview with three items (Cont
 
 ![](https://github.com/ElenaIbr/Messenger/blob/master/ui_demo.gif?raw=true)
 
-And finally, users communication from two different physical devices, using real phone number. Time on devices is synchronized.
+And finally, users communication from two different physical devices, using real phone number. Time on devices was synchronized.
 
 | ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/message_senging_demo.gif) | ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/message_getting_demo.gif) |
 
