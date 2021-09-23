@@ -83,6 +83,7 @@ class EnterCodeFragment(private val phoneNum: String, val id: String) :
                 }
                 binding.chronometer.text = "00:${(millisUntilFinished / 1000)}"
             }
+
             override fun onFinish() {
                 appActivity.restartActivity(MainActivity())
             }

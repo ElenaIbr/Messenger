@@ -4,14 +4,14 @@ enum class AppStates(val state: String) {
     ONLINE("online"),
     OFFLINE("offline");
 
-    /*companion object {
+    companion object {
         fun updateStates(appState: AppStates){
-            if(authFirebase.currentUser!=null){
-                REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_STATE)
+            if(mApplication.authFb.currentUser!=null){
+                mApplication.databaseFbRef.child(NODE_USERS).child(mApplication.currentUserID).child(CHILD_STATE)
                     .setValue(appState.state)
-                    .addOnSuccessListener { USER.state = appState.state }
+                    .addOnSuccessListener { mApplication.currentUser.state = appState.state }
                     .addOnFailureListener { showToast(it.message.toString()) }
             }
         }
-    }*/
+    }
 }

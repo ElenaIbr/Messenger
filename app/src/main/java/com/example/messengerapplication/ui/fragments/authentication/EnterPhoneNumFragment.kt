@@ -45,6 +45,7 @@ class EnterPhoneNumFragment : BaseFragment<FragmentEnterPhoneNumBinding>() {
                     .signInWithCredential(credential).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             showToast(getString(R.string.welcome))
+                            AppStates.updateStates(AppStates.ONLINE)
                             appActivity.restartActivity(MainActivity())
                         } else showToast(task.exception?.message.toString())
                     }

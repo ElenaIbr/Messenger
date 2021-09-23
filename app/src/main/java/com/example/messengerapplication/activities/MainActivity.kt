@@ -36,13 +36,11 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         initUserContacts()
         checkAuth()
-
-        //AppStates.updateStates(AppStates.ONLINE)
     }
 
     override fun onStop() {
         super.onStop()
-        //AppStates.updateStates(AppStates.OFFLINE)
+        AppStates.updateStates(AppStates.OFFLINE)
     }
 
     private fun checkAuth() {
@@ -50,6 +48,8 @@ class MainActivity : AppCompatActivity() {
         if (mApplication.authFb.currentUser != null) {
             mApplication.currentUser = User()
             mApplication.currentUserID = mApplication.authFb.currentUser?.uid.toString()
+
+            AppStates.updateStates(AppStates.ONLINE)
 
             initCurrentUser {
                 CoroutineScope(Dispatchers.IO).launch {

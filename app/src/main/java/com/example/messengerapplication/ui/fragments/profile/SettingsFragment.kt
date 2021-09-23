@@ -83,11 +83,9 @@ class SettingsFragment(
             .start(appActivity, this)
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         activity?.menuInflater?.inflate(R.menu.single_chat_menu, menu)
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
@@ -119,7 +117,7 @@ class SettingsFragment(
         popup.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.sign_out -> {
-                    //AppStates.updateStates(AppStates.OFFLINE)
+                    AppStates.updateStates(AppStates.OFFLINE)
                     mApplication.authFb.signOut()
                     appActivity.restartActivity(MainActivity())
                 }
