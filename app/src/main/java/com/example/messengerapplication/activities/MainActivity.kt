@@ -34,21 +34,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        initUserContacts()
         checkAuth()
-        initCurrentUser {
-            CoroutineScope(Dispatchers.IO).launch {
-                initUserContacts()
-            }
-        }
-        //set bottom navigation view
-        mBinding.bottomNav.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.contacts -> changeFragment(ContacstFragment(), false)
-                R.id.messages -> changeFragment(ChatFragment(), false)
-                R.id.profile -> changeFragment(SettingsFragment(), false)
-            }
-            true
-        }
+
         //AppStates.updateStates(AppStates.ONLINE)
     }
 
@@ -58,9 +46,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkAuth() {
+
         if (mApplication.authFb.currentUser != null) {
             mApplication.currentUser = User()
             mApplication.currentUserID = mApplication.authFb.currentUser?.uid.toString()
+
+            initCurrentUser {
+                CoroutineScope(Dispatchers.IO).launch {
+                    initUserContacts()
+                }
+            }
+            //set bottom navigation view
+            mBinding.bottomNav.setOnNavigationItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.contacts -> changeFragment(ContacstFragment(), false)
+                    R.id.messages -> changeFragment(ChatFragment(), false)
+                    R.id.profile -> changeFragment(SettingsFragment(), false)
+                }
+                true
+            }
+
             changeFragment(ChatFragment(), false)
         } else {
             mBinding.bottomNav.visibility = View.GONE

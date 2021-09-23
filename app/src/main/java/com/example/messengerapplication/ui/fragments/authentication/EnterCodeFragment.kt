@@ -41,7 +41,6 @@ class EnterCodeFragment(private val phoneNum: String, val id: String) :
             .addOnFailureListener { showToast(it.message.toString()) }
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-
                     //here we create node for new user (uid, phone number, token)
                     val uid = mApplication.authFb.currentUser?.uid.toString()
                     val dateMap = mutableMapOf<String, Any>()
@@ -84,7 +83,6 @@ class EnterCodeFragment(private val phoneNum: String, val id: String) :
                 }
                 binding.chronometer.text = "00:${(millisUntilFinished / 1000)}"
             }
-
             override fun onFinish() {
                 appActivity.restartActivity(MainActivity())
             }

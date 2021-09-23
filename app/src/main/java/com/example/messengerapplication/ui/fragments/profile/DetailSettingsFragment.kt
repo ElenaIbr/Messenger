@@ -27,24 +27,24 @@ class DetailSettingsFragment() : BaseFragment<FragmentDetailSettingsBinding>() {
 
         binding.saveSettingsBtn.setOnClickListener {
             var changingsCount: Byte = 0
-            if(binding.usernameInput.text.toString() != mApplication.currentUser.username){
+            if (binding.usernameInput.text.toString() != mApplication.currentUser.username) {
                 mApplication.currentUser.username = binding.usernameInput.text.toString()
                 isUsername = true
                 changeName(SettingsType.USERNAME, mApplication.currentUser.username)
                 changingsCount++
             }
-            if(binding.fullnameInput.text.toString() != mApplication.currentUser.fullname){
+            if (binding.fullnameInput.text.toString() != mApplication.currentUser.fullname) {
                 mApplication.currentUser.fullname = binding.fullnameInput.text.toString()
                 changeName(SettingsType.FULLNAME, mApplication.currentUser.fullname)
                 changingsCount++
             }
-            if(binding.bioInput.text.toString() != mApplication.currentUser.bio){
+            if (binding.bioInput.text.toString() != mApplication.currentUser.bio) {
                 mApplication.currentUser.bio = binding.bioInput.text.toString()
                 changeName(SettingsType.BIO, mApplication.currentUser.bio)
                 changingsCount++
             }
-            if(changingsCount>0) replaceFragment(SettingsFragment())
-            else showToast("Нет изменений")
+            if (changingsCount > 0) replaceFragment(SettingsFragment())
+            else showToast("No changes")
 
         }
 
@@ -53,26 +53,27 @@ class DetailSettingsFragment() : BaseFragment<FragmentDetailSettingsBinding>() {
         }
     }
 
-    private fun changeName(fieldType:SettingsType, input: String) {
+    private fun changeName(fieldType: SettingsType, input: String) {
 
         if (input == "") {
-            showToast("Заполните!")
+            showToast("Plese fill all fields")
         } else {
-            if(isUsername==true){
+            if (isUsername == true) {
                 mApplication.databaseFbRef.child(NODE_USERNAMES)
                     .addListenerForSingleValueEvent(AppValueEventListener {
                         if (it.hasChild(input.toString())) {
-                            showToast("Уже существует!")
+                            showToast("Already exist")
                         } else changeUserName(fieldType, input)
                     })
-            }else{
+            } else {
                 updateUserName(fieldType, input)
             }
         }
     }
 
     private fun changeUserName(fieldType: SettingsType, input: String) {
-        mApplication.databaseFbRef.child(NODE_USERNAMES).child(input).setValue(mApplication.currentUserID)
+        mApplication.databaseFbRef.child(NODE_USERNAMES).child(input)
+            .setValue(mApplication.currentUserID)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     updateUserName(fieldType, input)
@@ -82,17 +83,12 @@ class DetailSettingsFragment() : BaseFragment<FragmentDetailSettingsBinding>() {
     }
 
     private fun deletePreUsername() {
-        mApplication.databaseFbRef.child(NODE_USERNAMES).child(mApplication.currentUser.username).removeValue()
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-
-                } else {
-                    showToast(it.exception?.message.toString())
-                }
-            }
+        mApplication.databaseFbRef.child(NODE_USERNAMES).child(mApplication.currentUser.username)
+            .removeValue()
+            .addOnFailureListener { it.message.toString() }
     }
 
     private fun updateUserName(fieldType: SettingsType, input: String) {
-        updateDbValue(input.toString(), fieldType.toString().lowercase())
+        updateDbValue(input, fieldType.toString().lowercase())
     }
 }

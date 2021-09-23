@@ -27,7 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
-class SingleChatFragment(val contact: CommonModel, val chatFromContacts: String = "") :
+class SingleChatFragment(val contact: CommonModel, private val chatFromContacts: String = "") :
     BaseFragment<FragmentSingleChatBinding>() {
 
     private var mBottomNavigation: View? = null
@@ -52,7 +52,7 @@ class SingleChatFragment(val contact: CommonModel, val chatFromContacts: String 
     override fun onResume() {
         super.onResume()
 
-        if (chatFromContacts != FROM_CHAT) saveToChatlist(contact.id, contact.namefromcontacts)
+        if(chatFromContacts != FROM_CHAT) saveToChatlist(contact.id, contact.namefromcontacts)
 
         mBottomNavigation = activity?.findViewById(R.id.bottomNav)
         mBottomNavigation?.visibility = View.GONE
@@ -78,11 +78,7 @@ class SingleChatFragment(val contact: CommonModel, val chatFromContacts: String 
         binding.toolbarImg.setOnClickListener {
             replaceFragment(
                 SettingsFragment(
-                    contact.username,
-                    contact.fullname,
-                    contact.phone,
-                    contact.bio,
-                    contact.photoUrl,
+                    contact,
                     true
                 )
             )
@@ -149,6 +145,7 @@ class SingleChatFragment(val contact: CommonModel, val chatFromContacts: String 
     }
 
     private fun initHeaderInfo() {
+
         mSmoothScrollToPosition = true
         val message = binding.chatInputMessage.text.toString()
         if (message.isEmpty()) {

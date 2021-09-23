@@ -2,7 +2,6 @@ package com.example.messengerapplication.utilits
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -114,8 +113,6 @@ fun String.toDateFormat():String {
     calendar.set(Calendar.HOUR, 0)
     calendar.set(Calendar.MINUTE, 0)
     calendar.set(Calendar.SECOND, 0)
-
-    Log.d("MyLog", "date before ${calendar.time}")
 
     if(Date(this.toLong()) > calendar.time){
         val time = Date(this.toLong())

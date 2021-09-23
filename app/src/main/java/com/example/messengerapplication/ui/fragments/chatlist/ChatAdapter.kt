@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.ui.fragments.single_chat.SingleChatFragment
-import com.example.messengerapplication.utilits.*
+import com.example.messengerapplication.utilits.appActivity
+import com.example.messengerapplication.utilits.changeFragment
+import com.example.messengerapplication.utilits.setImg
+import com.example.messengerapplication.utilits.toDateFormat
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
@@ -40,7 +43,7 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
         } else holder.lastMessageTime.text = ""
 
         holder.itemView.setOnClickListener {
-            appActivity.changeFragment(SingleChatFragment(listItem[position], FROM_CHAT))
+            appActivity.changeFragment(SingleChatFragment(listItem[position]))
         }
     }
 

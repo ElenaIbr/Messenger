@@ -15,7 +15,6 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolde
 
     private var mListMessagesCache = mutableListOf<CommonModel>()
 
-    //private var mApplication = (appActivity.application as MyApplication)
 
     class SingleChatHolder(view: View) : RecyclerView.ViewHolder(view){
 

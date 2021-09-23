@@ -214,7 +214,6 @@ fun saveToChatlist(
                 .addOnFailureListener { showToast(it.message.toString()) }
         }
     }, id)
-
 }
 
 fun saveToChatlist(
