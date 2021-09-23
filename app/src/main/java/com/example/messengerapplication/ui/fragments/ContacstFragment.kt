@@ -1,12 +1,11 @@
 package com.example.messengerapplication.ui.fragments
 
-import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
 import com.example.messengerapplication.databinding.FragmentContactBinding
@@ -15,7 +14,7 @@ import com.example.messengerapplication.ui.fragments.single_chat.SingleChatFragm
 import com.example.messengerapplication.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -25,6 +24,8 @@ class ContacstFragment : BaseFragment<FragmentContactBinding>() {
     private lateinit var adapter: FirebaseRecyclerAdapter<CommonModel, Holder>
     private lateinit var contactsRef: DatabaseReference
     private lateinit var userRef: DatabaseReference
+
+    //private var mApplication = (appActivity.application as MyApplication)
 
     override fun getViewBinding() = FragmentContactBinding.inflate(layoutInflater)
 
@@ -50,8 +51,8 @@ class ContacstFragment : BaseFragment<FragmentContactBinding>() {
     }
 
     private fun initRcview(searchText: String) {
-        rcView = APP_ACTIVITY.findViewById(R.id.contact_rc)
-        contactsRef = REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(UID)
+        rcView = appActivity.findViewById(R.id.contact_rc)
+        contactsRef = mApplication.databaseFbRef.child(NODE_PHONES_CONTACTS).child(mApplication.currentUserID)
 
 
         val options = FirebaseRecyclerOptions.Builder<CommonModel>()
@@ -71,7 +72,7 @@ class ContacstFragment : BaseFragment<FragmentContactBinding>() {
                                           position: Int,
                                           model: CommonModel
             ) {
-                userRef = REF_DATABASE_ROOT.child(NODE_USERS).child(model.id)
+                userRef = mApplication.databaseFbRef.child(NODE_USERS).child(model.id)
                 userRef.addValueEventListener(AppValueEventListener{
                     val contact = it.getValue(CommonModel::class.java)?:CommonModel()
 
@@ -81,7 +82,7 @@ class ContacstFragment : BaseFragment<FragmentContactBinding>() {
                     //holder.status.text = phoneFormat(contact.phone)
                     holder.photo.setImg(contact.photoUrl)
                     holder.itemView.setOnClickListener {
-                        replaceFragment(SingleChatFragment(contact))
+                        replaceFragment(SingleChatFragment(contact, FROM_CHAT))
                     }
                 })
             }

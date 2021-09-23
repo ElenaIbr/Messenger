@@ -1,7 +1,6 @@
 package com.example.messengerapplication.ui.fragments.chatlist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
@@ -19,16 +18,14 @@ import java.util.*
 
 class ChatFragment : BaseFragment<FragmentChatBinding>() {
 
-    private lateinit var chatAdapter: ChatlistAdapter
+    private lateinit var chatAdapter: ChatAdapter
     private lateinit var chatRecyclerView: RecyclerView
-    private lateinit var refChatlist: DatabaseReference
-    private lateinit var refUsers: DatabaseReference
-    private lateinit var refMesseges: DatabaseReference
-    private lateinit var listItem: List<CommonModel>
-    private lateinit var sortedList: List<CommonModel>
-    private lateinit var messageList: List<CommonModel>
-
-
+    private lateinit var chatDbRef: DatabaseReference
+    private lateinit var usersDbRef: DatabaseReference
+    private lateinit var messagesDbRef: DatabaseReference
+    private lateinit var messagesFromChat: List<CommonModel>
+    private lateinit var sortedMessages: List<CommonModel>
+    private lateinit var messages: List<CommonModel>
 
     override fun getViewBinding() = FragmentChatBinding.inflate(layoutInflater)
 
@@ -36,15 +33,20 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            refChatlist = REF_DATABASE_ROOT.child(NODE_CHATLIST).child(UID)
-            refUsers = REF_DATABASE_ROOT.child(NODE_USERS)
-            refMesseges = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID)
+            chatDbRef = mApplication.databaseFbRef
+                .child(NODE_CHATLIST)
+                .child(mApplication.currentUserID)
+            usersDbRef = mApplication.databaseFbRef
+                .child(NODE_USERS)
+            messagesDbRef = mApplication.databaseFbRef
+                .child(NODE_MESSAGES)
+                .child(mApplication.currentUserID)
         }
 
         chatRecyclerView = binding.chatlistRc
-        chatAdapter = ChatlistAdapter()
+        chatAdapter = ChatAdapter()
 
-        initItemsForChatlist(chatAdapter, chatRecyclerView)
+        initItemsForChat(chatAdapter, chatRecyclerView)
     }
 
     override fun onResume() {
@@ -52,54 +54,56 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
         countMessages()
     }
 
-    fun initItemsForChatlist(chatAdapter: ChatlistAdapter, chatRecyclerView: RecyclerView) {
+    private fun initItemsForChat(chatAdapter: ChatAdapter, chatRecyclerView: RecyclerView) {
 
-        refChatlist.addListenerForSingleValueEvent(AppValueEventListener {
-            listItem = it.children.map { it.getCommonModel() }
+        chatDbRef.addListenerForSingleValueEvent(AppValueEventListener { chat ->
+            messagesFromChat = chat.children.map { item -> item.getCommonModel() }
 
-            listItem.forEach {
-                if (it.lastMessageTime != "") it.resLastMessageTime =
-                    Date(it.lastMessageTime.toString().toLong())
+            messagesFromChat.forEach { message ->
+                if (message.lastMessageTime != "") message.resLastMessageTime =
+                    Date(message.lastMessageTime.toString().toLong())
             }
 
-            sortedList = listItem.sortedBy { it.resLastMessageTime }.reversed()
+            sortedMessages =
+                messagesFromChat.sortedBy { item -> item.resLastMessageTime }.reversed()
 
-            sortedList.forEach { model ->
-
-                Log.d("MyLog", "id ${model.id}")
-
+            sortedMessages.forEach { model ->
 
                 readData2(object : firebaseCallback {
                     override fun onCallback(value: Double?) {
 
-                        val unreadedMessages = messgeCount2
+                        val unreadMessages = messgeCount2
 
-                        refUsers.child(model.id).addListenerForSingleValueEvent(AppValueEventListener {
-                            val newModel = it.getCommonModel()
+                        usersDbRef.child(model.id)
+                            .addListenerForSingleValueEvent(AppValueEventListener {
+                                val newModel = it.getCommonModel()
 
-                            refMesseges.child(model.id).limitToLast(1)
-                                .addListenerForSingleValueEvent(AppValueEventListener {
-                                    messageList = it.children.map { it.getCommonModel() }
-                                    if (messageList.isEmpty()) {
-                                        newModel.lastMessage = "Chat cleared"
-                                    } else if (messageList[0].text.length > 30) {
-                                        newModel.lastMessage = messageList[0].text.substring(0, 29) + "..."
-                                        newModel.timeStamp = messageList[0].timeStamp
-                                    } else {
-                                        newModel.lastMessage = messageList[0].text
-                                        newModel.timeStamp = messageList[0].timeStamp
-                                    }
+                                messagesDbRef.child(model.id).limitToLast(1)
+                                    .addListenerForSingleValueEvent(AppValueEventListener { lastMessage ->
+                                        messages =
+                                            lastMessage.children.map { item -> item.getCommonModel() }
+                                        if (messages.isEmpty()) {
+                                            newModel.lastMessage = "Chat was cleared"
+                                        } else if (messages[0].text.length > 30) {
+                                            newModel.lastMessage =
+                                                messages[0].text.substring(0, 29) + "..."
+                                            newModel.timeStamp = messages[0].timeStamp
+                                        } else {
+                                            newModel.lastMessage = messages[0].text
+                                            newModel.timeStamp = messages[0].timeStamp
+                                        }
 
-                                    newModel.namefromcontacts = contactNames[newModel.phone].toString()
+                                        newModel.namefromcontacts =
+                                            contactNamesFromDevice[newModel.phone].toString()
 
-                                    if (newModel.namefromcontacts == "null") {
-                                        newModel.namefromcontacts = newModel.phone
-                                    }
+                                        if (newModel.namefromcontacts == "null") {
+                                            newModel.namefromcontacts = newModel.phone
+                                        }
 
-                                    newModel.messageCount = unreadedMessages.toInt()
-                                    chatAdapter.updateListIten(newModel)
-                                })
-                        })
+                                        newModel.messageCount = unreadMessages.toInt()
+                                        chatAdapter.updateListItem(newModel)
+                                    })
+                            })
                     }
                 }, model.id)
             }
@@ -107,9 +111,10 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
         chatRecyclerView.adapter = chatAdapter
     }
 
-    fun countMessages(){
+    private fun countMessages() {
 
-        val nameRef = REF_DATABASE_ROOT.child(NODE_CHATLIST).child(UID)
+        val nameRef =
+            mApplication.databaseFbRef.child(NODE_CHATLIST).child(mApplication.currentUserID)
         val eventListener: ValueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var count = 0.0
@@ -117,9 +122,10 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
                     val rating = ds.child("messageCount").getValue(Double::class.java)!!
                     count += rating
                 }
-                if(count!=0.0) addBadge(count.toInt())
+                if (count != 0.0) addBadge(count.toInt())
                 else removeBadge()
             }
+
             override fun onCancelled(databaseError: DatabaseError) {}
         }
         nameRef.addListenerForSingleValueEvent(eventListener)

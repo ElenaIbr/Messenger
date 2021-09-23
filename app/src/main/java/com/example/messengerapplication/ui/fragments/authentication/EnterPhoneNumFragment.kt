@@ -4,7 +4,6 @@ import com.example.messengerapplication.R
 import com.example.messengerapplication.activities.MainActivity
 import com.example.messengerapplication.databinding.FragmentEnterPhoneNumBinding
 import com.example.messengerapplication.ui.fragments.BaseFragment
-import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
 import com.example.messengerapplication.utilits.*
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
@@ -34,7 +33,7 @@ class EnterPhoneNumFragment : BaseFragment<FragmentEnterPhoneNumBinding>() {
             binding.regCodeNum.text.toString(),
             60,
             TimeUnit.SECONDS,
-            APP_ACTIVITY,
+            appActivity,
             callback
         )
     }
@@ -42,19 +41,26 @@ class EnterPhoneNumFragment : BaseFragment<FragmentEnterPhoneNumBinding>() {
     private fun verifyCallback() {
         callback = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                authFirebase
+                mApplication.authFb
                     .signInWithCredential(credential).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            //APP_ACTIVITY.changeFragment(ChatFragment())
-                            APP_ACTIVITY.restartActivity(MainActivity())
                             showToast(getString(R.string.welcome))
+                            appActivity.restartActivity(MainActivity())
                         } else showToast(task.exception?.message.toString())
                     }
             }
 
-            override fun onCodeSent(verificationId: String, p1: PhoneAuthProvider.ForceResendingToken) {
+            override fun onCodeSent(
+                verificationId: String,
+                p1: PhoneAuthProvider.ForceResendingToken
+            ) {
                 super.onCodeSent(verificationId, p1)
-                APP_ACTIVITY.changeFragment(EnterCodeFragment(binding.regCodeNum.text.toString(), verificationId))
+                appActivity.changeFragment(
+                    EnterCodeFragment(
+                        binding.regCodeNum.text.toString(),
+                        verificationId
+                    )
+                )
             }
 
             override fun onVerificationFailed(p0: FirebaseException) {

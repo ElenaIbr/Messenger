@@ -1,15 +1,17 @@
 package com.example.messengerapplication.activities
 
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.messengerapplication.R
+import com.example.messengerapplication.app.MyApplication
 import com.example.messengerapplication.databinding.ActivityMainBinding
-import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
+import com.example.messengerapplication.models.User
 import com.example.messengerapplication.ui.fragments.ContacstFragment
 import com.example.messengerapplication.ui.fragments.authentication.EnterPhoneNumFragment
+import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
 import com.example.messengerapplication.ui.fragments.profile.SettingsFragment
 import com.example.messengerapplication.utilits.*
 import kotlinx.coroutines.CoroutineScope
@@ -21,29 +23,24 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-        APP_ACTIVITY = this
+
+        appActivity = this
+        mApplication = (this.application as MyApplication)
     }
 
     override fun onResume() {
         super.onResume()
-
-        //here we get reference to database and UID for current user
-        initFirebase()
-        checkAuthorization()
-
-        initUser {
-
+        checkAuth()
+        initCurrentUser {
             CoroutineScope(Dispatchers.IO).launch {
-                initContacts()
+                initUserContacts()
             }
-
         }
-
-        //Bottom navigation view
-        mBinding.bottomNav.setSelectedItemId(R.id.messages)
+        //set bottom navigation view
         mBinding.bottomNav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.contacts -> changeFragment(ContacstFragment(), false)
@@ -52,22 +49,20 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-        AppStates.updateStates(AppStates.ONLINE)
+        //AppStates.updateStates(AppStates.ONLINE)
     }
 
     override fun onStop() {
         super.onStop()
-        AppStates.updateStates(AppStates.OFFLINE)
+        //AppStates.updateStates(AppStates.OFFLINE)
     }
 
-    private fun checkAuthorization() {
-
-        //if user is in database (users node), he goes to chatlist fragment
-        if (authFirebase.currentUser != null) {
+    private fun checkAuth() {
+        if (mApplication.authFb.currentUser != null) {
+            mApplication.currentUser = User()
+            mApplication.currentUserID = mApplication.authFb.currentUser?.uid.toString()
             changeFragment(ChatFragment(), false)
         } else {
-            //in the opposite case user has to be authorized
             mBinding.bottomNav.visibility = View.GONE
             changeFragment(EnterPhoneNumFragment(), false)
         }
@@ -81,11 +76,12 @@ class MainActivity : AppCompatActivity() {
         //chek permissions for reading users contacts
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (ContextCompat.checkSelfPermission(
-                APP_ACTIVITY,
+                appActivity,
                 READ_CONTACTS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            initContacts()
+            initUserContacts()
         }
     }
 }
+

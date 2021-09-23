@@ -1,11 +1,10 @@
 package com.example.messengerapplication.utilits
-import com.example.messengerapplication.utilits.*
 
 enum class AppStates(val state: String) {
     ONLINE("online"),
     OFFLINE("offline");
 
-    companion object {
+    /*companion object {
         fun updateStates(appState: AppStates){
             if(authFirebase.currentUser!=null){
                 REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_STATE)
@@ -14,5 +13,5 @@ enum class AppStates(val state: String) {
                     .addOnFailureListener { showToast(it.message.toString()) }
             }
         }
-    }
+    }*/
 }

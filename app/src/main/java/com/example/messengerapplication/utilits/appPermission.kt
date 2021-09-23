@@ -10,8 +10,8 @@ const val PER_REQUEST = 200
 
 fun checkPermission(permission: String) : Boolean{
     return if(Build.VERSION.SDK_INT >= 23
-        && ContextCompat.checkSelfPermission(APP_ACTIVITY, permission)!= PackageManager.PERMISSION_GRANTED){
-        ActivityCompat.requestPermissions(APP_ACTIVITY, arrayOf(permission), PER_REQUEST)
+        && ContextCompat.checkSelfPermission(appActivity, permission)!= PackageManager.PERMISSION_GRANTED){
+        ActivityCompat.requestPermissions(appActivity, arrayOf(permission), PER_REQUEST)
         false
     }else true
 }

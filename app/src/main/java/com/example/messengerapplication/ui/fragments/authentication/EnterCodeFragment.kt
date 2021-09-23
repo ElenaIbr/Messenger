@@ -1,5 +1,6 @@
 package com.example.messengerapplication.ui.fragments.authentication
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.CountDownTimer
 import com.example.messengerapplication.R
@@ -11,7 +12,8 @@ import com.example.messengerapplication.utilits.*
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.iid.FirebaseInstanceId
 
-class EnterCodeFragment(val phoneNum: String, val id: String) :
+@Suppress("DEPRECATION")
+class EnterCodeFragment(private val phoneNum: String, val id: String) :
     BaseFragment<FragmentEnterCodeBinding>() {
 
     private var pressed: Boolean = false
@@ -35,44 +37,47 @@ class EnterCodeFragment(val phoneNum: String, val id: String) :
 
     private fun enterCode() {
         val credential = PhoneAuthProvider.getCredential(id, binding.regCodeInput.text.toString())
-        authFirebase.signInWithCredential(credential)
+        mApplication.authFb.signInWithCredential(credential)
             .addOnFailureListener { showToast(it.message.toString()) }
             .addOnCompleteListener {
                 if (it.isSuccessful) {
+
                     //here we create node for new user (uid, phone number, token)
-                    val uid = authFirebase.currentUser?.uid.toString()
+                    val uid = mApplication.authFb.currentUser?.uid.toString()
                     val dateMap = mutableMapOf<String, Any>()
                     dateMap[CHILD_ID] = uid
                     dateMap[CHILD_PHONE] = phoneNum
 
                     //get device token
                     FirebaseService.sharedPref =
-                        APP_ACTIVITY.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+                        appActivity.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
                     FirebaseInstanceId.getInstance().instanceId
-                        .addOnSuccessListener {
-                            FirebaseService.token = it.token
-                            dateMap[CHILD_TOKEN] = it.token
+                        .addOnSuccessListener { instance ->
+                            FirebaseService.token = instance.token
+                            dateMap[CHILD_TOKEN] = instance.token
                         }
-                        .addOnFailureListener { showToast(it.message.toString()) }
+                        .addOnFailureListener { error -> showToast(error.message.toString()) }
 
 
-                    REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNum).setValue(uid)
-                        .addOnFailureListener { showToast(it.message.toString()) }
+                    mApplication.databaseFbRef.child(NODE_PHONES).child(phoneNum).setValue(uid)
+                        .addOnFailureListener { error -> showToast(error.message.toString()) }
                         .addOnSuccessListener {
-                            REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
+                            mApplication.databaseFbRef.child(NODE_USERS).child(uid)
+                                .updateChildren(dateMap)
                                 .addOnCompleteListener {
-                                    APP_ACTIVITY.restartActivity(MainActivity())
+                                    appActivity.restartActivity(MainActivity())
                                     showToast(getString(R.string.welcome))
                                 }
-                                .addOnFailureListener { showToast(it.message.toString()) }
+                                .addOnFailureListener { error -> showToast(error.message.toString()) }
                         }
                 } else showToast(it.exception?.message.toString())
             }
     }
 
-    //timer for verification code waiting
+    //timer for code verification
     private fun countdown() {
         object : CountDownTimer(59000, 1000) {
+            @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
                 if (this@EnterCodeFragment.pressed) {
                     cancel()
@@ -81,7 +86,7 @@ class EnterCodeFragment(val phoneNum: String, val id: String) :
             }
 
             override fun onFinish() {
-                APP_ACTIVITY.restartActivity(MainActivity())
+                appActivity.restartActivity(MainActivity())
             }
         }.start()
     }

@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import com.example.messengerapplication.R
 import com.example.messengerapplication.models.CommonModel
 import com.example.messengerapplication.models.User
-import com.example.messengerapplication.ui.fragments.profile.SettingsFragment
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DataSnapshot
@@ -25,7 +24,7 @@ import java.util.*
 var messageCount : Int = 0
 
 fun showToast(message: String){
-    Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
+    Toast.makeText(appActivity, message, Toast.LENGTH_SHORT).show()
 }
 
 fun AppCompatActivity.restartActivity(activity: AppCompatActivity){
@@ -63,9 +62,9 @@ fun Fragment.replaceFragment(fragment: Fragment, addStack: Boolean = true){
 }
 
 fun hideKeyboard() {
-    val im: InputMethodManager = APP_ACTIVITY.getSystemService(Context.INPUT_METHOD_SERVICE)
+    val im: InputMethodManager = appActivity.getSystemService(Context.INPUT_METHOD_SERVICE)
             as InputMethodManager
-    im.hideSoftInputFromWindow(APP_ACTIVITY.window.decorView.windowToken, 0)
+    im.hideSoftInputFromWindow(appActivity.window.decorView.windowToken, 0)
 }
 
 fun ImageView.setImg(url: String = ""){
@@ -130,13 +129,14 @@ fun String.toDateFormat():String {
 }
 
 fun addBadge(count : Int) {
-    val badge: BadgeDrawable = APP_ACTIVITY.findViewById<BottomNavigationView>(R.id.bottomNav)
+    val badge: BadgeDrawable = appActivity.findViewById<BottomNavigationView>(R.id.bottomNav)
         .getOrCreateBadge(R.id.messages)
     badge.number = count
     badge.isVisible = true
 }
 
 fun removeBadge(){
-    APP_ACTIVITY.findViewById<BottomNavigationView>(R.id.bottomNav).removeBadge(R.id.messages)
+    appActivity.findViewById<BottomNavigationView>(R.id.bottomNav).removeBadge(R.id.messages)
 }
+
 

@@ -1,12 +1,10 @@
 package com.example.messengerapplication.ui.fragments.single_chat
 
 import android.content.Context
-import android.util.Log
 import android.view.MenuInflater
 import android.view.View
 import android.widget.AbsListView
 import android.widget.PopupMenu
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
@@ -18,29 +16,32 @@ import com.example.messengerapplication.notifications.NotificationData
 import com.example.messengerapplication.notifications.PushNotification
 import com.example.messengerapplication.notifications.RetrofitInstance
 import com.example.messengerapplication.ui.fragments.BaseFragment
-import com.example.messengerapplication.ui.fragments.profile.SettingsFragment
 import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
+import com.example.messengerapplication.ui.fragments.profile.SettingsFragment
 import com.example.messengerapplication.utilits.*
-import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ServerValue
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.sql.Ref
 
+@Suppress("DEPRECATION")
+class SingleChatFragment(val contact: CommonModel, val chatFromContacts: String = "") :
+    BaseFragment<FragmentSingleChatBinding>() {
 
-class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingleChatBinding>() {
-
-    private var act: View? = null
-    private lateinit var headInfoListener: AppValueEventListener
-    private lateinit var receivingUser: User
-    private lateinit var userRef: DatabaseReference
-
-    private lateinit var messagesRef: DatabaseReference
-    private lateinit var adapter: SingleChatAdapter
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var messageListener: AppChildrenEventListener
+    private var mBottomNavigation: View? = null
+    private lateinit var mAdapter: SingleChatAdapter
+    private lateinit var mRecyclerView: RecyclerView
     private lateinit var mLayoutManager: LinearLayoutManager
+
+    private lateinit var headInfoListener: AppValueEventListener
+    private lateinit var messageListener: AppChildrenEventListener
+
+    private lateinit var receivingUser: User
+
+    private lateinit var userDbRef: DatabaseReference
+    private lateinit var messagesDbRef: DatabaseReference
 
     private var mCountMessenger: Int = 10
     private var mIsScrolling: Boolean = false
@@ -48,27 +49,26 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
 
     override fun getViewBinding() = FragmentSingleChatBinding.inflate(layoutInflater)
 
-
     override fun onResume() {
         super.onResume()
 
-        saveToChatlist(contact.id, contact.namefromcontacts)
+        if (chatFromContacts != FROM_CHAT) saveToChatlist(contact.id, contact.namefromcontacts)
 
-        act = activity?.findViewById(R.id.bottomNav)
-        act?.visibility = View.GONE
+        mBottomNavigation = activity?.findViewById(R.id.bottomNav)
+        mBottomNavigation?.visibility = View.GONE
 
         mLayoutManager = LinearLayoutManager(this.context)
         mLayoutManager.stackFromEnd = true
 
-        headInfoListener = AppValueEventListener {
-            receivingUser = it.getUser()
+        headInfoListener = AppValueEventListener { data ->
+            receivingUser = data.getUser()
             updateToolbarInfo()
         }
 
-        userRef = REF_DATABASE_ROOT.child(NODE_USERS).child(contact.id)
-        userRef.addValueEventListener(headInfoListener)
+        userDbRef = mApplication.databaseFbRef.child(NODE_USERS).child(contact.id)
+        userDbRef.addValueEventListener(headInfoListener)
         binding.backBtn.setOnClickListener {
-            APP_ACTIVITY.supportFragmentManager.popBackStack()
+            appActivity.supportFragmentManager.popBackStack()
         }
 
         binding.sendMessageBtn.setOnClickListener {
@@ -77,66 +77,66 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
 
         binding.toolbarImg.setOnClickListener {
             replaceFragment(
-                SettingsFragment(contact.username,
-                contact.fullname,
-                contact.phone,
-                contact.bio,
-                contact.photoUrl,
-                true)
+                SettingsFragment(
+                    contact.username,
+                    contact.fullname,
+                    contact.phone,
+                    contact.bio,
+                    contact.photoUrl,
+                    true
+                )
             )
         }
-
         initRecyclerView()
 
         binding.menuBtn.setOnClickListener {
-            showPopup(binding.menuBtn)
+            showMenu(binding.menuBtn)
         }
     }
 
     private fun initRecyclerView() {
 
-        recyclerView = binding.rcMessage
-        adapter = SingleChatAdapter()
-        messagesRef = REF_DATABASE_ROOT.child(NODE_MESSAGES)
-            .child(UID)
+        mRecyclerView = binding.rcMessage
+        mAdapter = SingleChatAdapter()
+        messagesDbRef = mApplication.databaseFbRef.child(NODE_MESSAGES)
+            .child(mApplication.currentUserID)
             .child(contact.id)
-        recyclerView.adapter = adapter
-        recyclerView.setHasFixedSize(true)
-        recyclerView.isNestedScrollingEnabled = false
-        recyclerView.layoutManager = mLayoutManager
+        mRecyclerView.adapter = mAdapter
+        mRecyclerView.setHasFixedSize(true)
+        mRecyclerView.isNestedScrollingEnabled = false
+        mRecyclerView.layoutManager = mLayoutManager
 
-        messageListener = AppChildrenEventListener{
+        messageListener = AppChildrenEventListener {
             val message = it.getCommonModel()
-            if(mSmoothScrollToPosition){
-                adapter.addItemToBottom(message){
-                    recyclerView.smoothScrollToPosition(adapter.itemCount)
+            if (mSmoothScrollToPosition) {
+                mAdapter.addItemToBottom(message) {
+                    mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
                 }
-            }else{
-                adapter.addItemToTop(message){
+            } else {
+                mAdapter.addItemToTop(message) {
                     binding.chatSwipe.isRefreshing = false
                 }
             }
         }
-        messagesRef.removeEventListener(messageListener)
-        messagesRef.limitToLast(mCountMessenger).addChildEventListener(messageListener)
+        messagesDbRef.removeEventListener(messageListener)
+        messagesDbRef.limitToLast(mCountMessenger).addChildEventListener(messageListener)
 
 
-        recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if(mIsScrolling && dy < 0 && mLayoutManager.findFirstVisibleItemPosition()<=3){
+                if (mIsScrolling && dy < 0 && mLayoutManager.findFirstVisibleItemPosition() <= 3) {
                     updateData()
                 }
             }
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                     mIsScrolling = true
                 }
             }
         })
-
         binding.chatSwipe.setOnRefreshListener { updateData() }
     }
 
@@ -144,8 +144,8 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
         mSmoothScrollToPosition = false
         mIsScrolling = false
         mCountMessenger += 10
-        messagesRef.removeEventListener(messageListener)
-        messagesRef.limitToLast(mCountMessenger).addChildEventListener(messageListener)
+        messagesDbRef.removeEventListener(messageListener)
+        messagesDbRef.limitToLast(mCountMessenger).addChildEventListener(messageListener)
     }
 
     private fun initHeaderInfo() {
@@ -155,51 +155,50 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
             showToast("Введите текст!")
         } else sentMessage(message, contact.id, TYPE_TEXT) {
             binding.chatInputMessage.setText("")
-            Log.d("MyLog", "${messgeCount}")
             saveToChatlist(contact.id, contact.namefromcontacts, TYPE_TEXT)
-
         }
     }
 
-    private fun sentMessage(message: String,
-                            receivingUserID: String,
-                            typeText: String,
-                            function: () -> Unit) {
-        val refDialogUser = "$NODE_MESSAGES/$UID/$receivingUserID"
-        val refReceivDialogUser = "$NODE_MESSAGES/$receivingUserID/$UID"
+    private fun sentMessage(
+        message: String,
+        receivingUserID: String,
+        typeText: String,
+        function: () -> Unit
+    ) {
+        val refDialogUser = "$NODE_MESSAGES/${mApplication.currentUserID}/$receivingUserID"
+        val refReceiveDialogUser = "$NODE_MESSAGES/$receivingUserID/${mApplication.currentUserID}"
 
-        val messageKey = REF_DATABASE_ROOT.child(refDialogUser).push().key
+        val messageKey = mApplication.databaseFbRef.child(refDialogUser).push().key
 
         val mapMessage = hashMapOf<String, Any>()
-        mapMessage[CHILD_FROM] = UID
+        mapMessage[CHILD_FROM] = mApplication.currentUserID
         mapMessage[CHILD_TYPE] = typeText
         mapMessage[CHILD_TEXT] = message
         mapMessage[CHILD_ID] = messageKey.toString()
         mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
         mapMessage[CHILD_MESSAGE_STATUS] = "не прочитано"
 
-        val mapDialod = hashMapOf<String, Any>()
-        mapDialod["$refDialogUser/$messageKey"] = mapMessage
-        mapDialod["$refReceivDialogUser/$messageKey"] = mapMessage
+        val mapDialog = hashMapOf<String, Any>()
+        mapDialog["$refDialogUser/$messageKey"] = mapMessage
+        mapDialog["$refReceiveDialogUser/$messageKey"] = mapMessage
 
-        REF_DATABASE_ROOT
-            .updateChildren(mapDialod)
+        mApplication.databaseFbRef
+            .updateChildren(mapDialog)
             .addOnSuccessListener { function() }
             .addOnFailureListener { showToast(it.message.toString()) }
 
-        FirebaseService.sharedPref = APP_ACTIVITY.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        FirebaseService.sharedPref =
+            appActivity.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         FirebaseInstanceId.getInstance().instanceId
-            .addOnFailureListener { Log.d("MyLog", "токен ${it.message.toString()}") }
+            .addOnFailureListener { it.message.toString() }
             .addOnSuccessListener {
                 FirebaseService.token = it.token
-                val token = it.token
             }
 
-        val title = "From: ${phoneFormat(USER.phone)}"
-        val messageTo = "Message: $message"
-        if(title.isNotEmpty() && message.isNotEmpty() && receivingUserID.isNotEmpty()) {
+        val title = "От"
+        if (title.isNotEmpty() && message.isNotEmpty() && receivingUserID.isNotEmpty()) {
             PushNotification(
-                NotificationData(title, messageTo),
+                NotificationData("from: ${phoneFormat(mApplication.currentUser.phone)}", message),
                 contact.token
             ).also {
                 sendNotification(it)
@@ -215,26 +214,26 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
 
     override fun onPause() {
         super.onPause()
-        act?.visibility = View.VISIBLE
-        userRef.removeEventListener(headInfoListener)
-        messagesRef.removeEventListener(messageListener)
+        mBottomNavigation?.visibility = View.VISIBLE
+        userDbRef.removeEventListener(headInfoListener)
+        messagesDbRef.removeEventListener(messageListener)
     }
 
-    fun showPopup(v : View){
-        val popup = PopupMenu(APP_ACTIVITY, v)
+    fun showMenu(view: View) {
+        val popup = PopupMenu(appActivity, view)
         val inflater: MenuInflater = popup.menuInflater
         inflater.inflate(R.menu.single_chat_menu, popup.menu)
         popup.setOnMenuItemClickListener { menuItem ->
-            when(menuItem.itemId){
-                R.id.clear_chat-> {
-                    clearChat(contact.id){
-                        showToast("Chat was deleted")
+            when (menuItem.itemId) {
+                R.id.clear_chat -> {
+                    clearChat(contact.id) {
+                        showToast("Chat was cleared")
                         replaceFragment(ChatFragment())
                     }
                 }
-                R.id.delete_chat-> {
-                    deleteChat(contact.id){
-                        showToast("Chat was cleared")
+                R.id.delete_chat -> {
+                    deleteChat(contact.id) {
+                        showToast("Chat was deleted")
                         replaceFragment(ChatFragment())
                     }
                 }
@@ -244,14 +243,12 @@ class SingleChatFragment(val contact: CommonModel) : BaseFragment<FragmentSingle
         popup.show()
     }
 
-    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            val response = RetrofitInstance.api.postNotification(notification)
-            if(!response.isSuccessful) {
-                showToast(response.errorBody().toString())
+    private fun sendNotification(notification: PushNotification) =
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitInstance.api.postNotification(notification)
+            } catch (e: Exception) {
+                showToast(e.message.toString())
             }
-        } catch(e: Exception) {
-            //Log.e("MyLog"G, e.toString())
         }
-    }
 }

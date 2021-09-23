@@ -8,12 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
 import com.example.messengerapplication.models.CommonModel
-import com.example.messengerapplication.utilits.UID
+import com.example.messengerapplication.utilits.mApplication
 import com.example.messengerapplication.utilits.toTimeFormat
 
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder>() {
 
     private var mListMessagesCache = mutableListOf<CommonModel>()
+
+    //private var mApplication = (appActivity.application as MyApplication)
 
     class SingleChatHolder(view: View) : RecyclerView.ViewHolder(view){
 
@@ -24,6 +26,7 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolde
         val leftBlockMessage: LinearLayout = view.findViewById(R.id.left_block_message)
         val leftMessage: TextView = view.findViewById(R.id.left_message)
         val leftMessageTime: TextView = view.findViewById(R.id.left_message_time)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleChatHolder {
@@ -32,7 +35,7 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolde
     }
 
     override fun onBindViewHolder(holder: SingleChatHolder, position: Int) {
-        if(mListMessagesCache[position].from==UID){
+        if(mListMessagesCache[position].from == mApplication.currentUserID){
             holder.rightBlockMessage.visibility = View.VISIBLE
             holder.leftBlockMessage.visibility = View.GONE
             holder.rightMessage.text = mListMessagesCache[position].text
@@ -63,7 +66,7 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolde
     }
 
     fun addItemToTop(item: CommonModel,
-                        onSuccess: () -> Unit){
+                     onSuccess: () -> Unit){
         if(!mListMessagesCache.contains(item)){
             mListMessagesCache.add(item)
             mListMessagesCache.sortBy { it.timeStamp.toString() }
