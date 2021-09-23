@@ -33,22 +33,19 @@
 
         <TextView
             android:id="@+id/input_phone_label1"
-            android:layout_width = "match_parent"
+            style="@style/reg_input"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            android:layout_marginEnd="@dimen/margin_horizontal"
             android:gravity="center"
             android:textColor="@color/blue"
             android:textSize="@dimen/large_text"
             android:textStyle="bold"
-            style="@style/reg_input"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            android:layout_marginEnd="@dimen/margin_horizontal"
-            android:text="@string/reg_phone_number"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.126" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/input_phone_label2"
@@ -90,6 +87,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Send code"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:textColor="@color/white"
             android:layout_marginTop="@dimen/margin_vertical"
             app:layout_constraintEnd_toEndOf="parent"

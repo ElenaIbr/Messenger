@@ -15,6 +15,7 @@
         <item name="android:textColor">@color/blue</item>
         <item name="android:textSize">@dimen/large_text</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
         <item name="android:layout_marginStart">@dimen/margin_horizontal</item>
     </style>
 
