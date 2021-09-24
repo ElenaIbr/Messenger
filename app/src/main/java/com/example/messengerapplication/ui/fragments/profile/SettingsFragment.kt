@@ -26,10 +26,6 @@ class SettingsFragment(
 
     var name: String? = null
 
-    override fun onStart() {
-        super.onStart()
-    }
-
     override fun onResume() {
         hideKeyboard()
         super.onResume()

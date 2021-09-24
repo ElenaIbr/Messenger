@@ -21,8 +21,7 @@
         android:layout_marginStart="60dp"
         android:elevation="4dp"
         android:background="@drawable/message_shape"
-        android:padding="@dimen/AppPadding"
-        >
+        android:padding="@dimen/AppPadding">
 
         <TextView
             android:id="@+id/right_message"
@@ -31,14 +30,14 @@
             android:padding="5dp"
             android:textSize="@dimen/normal_text"
             android:text="Привет"
-            android:textColor="@color/black" />
+            android:textColor="@color/purple_B32" />
 
         <TextView
             android:id="@+id/right_message_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="22:15"
-            android:textColor="@color/black"
+            android:textColor="@color/purple_15D"
             android:gravity="end"
             android:textSize="10sp"/>
 
@@ -69,14 +68,14 @@
             android:padding="5dp"
             android:text="Привет"
             android:textSize="@dimen/normal_text"
-            android:textColor="@color/black"/>
+            android:textColor="@color/purple_B32"/>
 
         <TextView
             android:id="@+id/left_message_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="22:15"
-            android:textColor="@color/black"
+            android:textColor="@color/purple_15D"
             android:gravity="start"
             android:textSize="10sp"/>
 

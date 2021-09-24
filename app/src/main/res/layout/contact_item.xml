@@ -44,7 +44,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/contact_photo"
                 android:text="Elena Ibraeva"
-                android:textColor="@color/black"
+                android:textColor="@color/purple_B32"
                 android:textSize="@dimen/normal_text" />
 
         </RelativeLayout>

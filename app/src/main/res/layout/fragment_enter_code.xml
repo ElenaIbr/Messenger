@@ -16,7 +16,8 @@
         style="@style/reg_header">
 
         <TextView
-            android:text="@string/app_name"
+            android:text="@string/messenger"
+            android:letterSpacing="0.3"
             style="@style/reg_header_text" />
 
     </LinearLayout>

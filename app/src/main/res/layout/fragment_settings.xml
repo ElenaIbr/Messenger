@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.example.messengerapplication.ui.fragments.profile.UserAccountFragment">
+    tools:context="com.example.messengerapplication.ui.fragments.profile.SettingsFragment">
 
     <LinearLayout
         android:id="@+id/background_layout"
@@ -82,14 +82,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-
             <TextView
                 android:id="@+id/changenumber_tv"
                 style="@style/settings_label_style"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="@string/default_num"
-                android:textColor="@color/dark_gray"
+                android:textColor="@color/purple_15D"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +105,6 @@
             <TextView
                 android:id="@+id/username_content"
                 style="@style/settings_label_style"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toTopOf="@+id/changeInfo_tv1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -122,7 +120,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/username_content" />
-
 
             <TextView
                 android:id="@+id/changeInfo_tv1"

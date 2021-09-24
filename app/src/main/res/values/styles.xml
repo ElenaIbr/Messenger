@@ -55,7 +55,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/normal_text</item>
         <item name="android:textColor">@color/dark_gray</item>
-        <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginStart">30dp</item>
         <item name="android:layout_marginEnd">30dp</item>
     </style>
@@ -65,7 +64,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">30dp</item>
         <item name="android:layout_marginEnd">30dp</item>
-        <item name="android:textColor">@color/gray</item>
+        <item name="android:textColor">@color/purple_B32</item>
         <item name="android:textSize">@dimen/small_text</item>
         <item name="android:layout_marginTop">@dimen/margin_vertical</item>
     </style>
@@ -94,6 +93,7 @@
         <item name="android:layout_marginStart">30dp</item>
         <item name="android:layout_marginEnd">30dp</item>
         <item name="android:textSize">@dimen/small_text</item>
+        <item name="android:textColor">@color/purple_15D</item>
     </style>
 
     <style name="settings_page_input_style">
@@ -103,5 +103,6 @@
         <item name="android:layout_marginEnd">30dp</item>
         <item name="android:textSize">@dimen/normal_text</item>
         <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:padding">@dimen/AppPadding</item>
     </style>
 </resources>

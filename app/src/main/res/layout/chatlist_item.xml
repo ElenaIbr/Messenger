@@ -11,9 +11,9 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     android:background="@drawable/contact_shape"
-    android:layout_marginStart="3dp"
-    android:layout_marginEnd="3dp"
-    android:layout_marginTop="3dp"
+    android:layout_marginStart="@dimen/marginRecycleItems"
+    android:layout_marginEnd="@dimen/marginRecycleItems"
+    android:layout_marginTop="@dimen/marginRecycleItems"
     app:layout_constraintVertical_bias="0.0">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -21,11 +21,11 @@
         android:layout_width="@dimen/chatlist_user_photo_width"
         android:layout_height="@dimen/chatlist_user_photo_height"
         android:layout_marginStart="@dimen/margin_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/marginForTime"
         android:layout_marginEnd="@dimen/margin_horizontal"
         android:layout_marginBottom="10dp"
         android:src="@drawable/ic_default_user"
-        android:elevation="3dp"
+        android:elevation="@dimen/marginRecycleItems"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -51,7 +51,7 @@
         android:layout_marginStart="@dimen/margin_horizontal"
         android:layout_toEndOf="@+id/chatlist_contact_photo"
         android:text="Last message"
-        android:textColor="@color/gray"
+        android:textColor="@color/purple_15D"
         android:textSize="@dimen/normal_text"
         app:layout_constraintStart_toEndOf="@+id/chatlist_contact_photo"
         app:layout_constraintTop_toBottomOf="@+id/chatlist_contact_name" />
@@ -60,9 +60,10 @@
         android:id="@+id/message_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginTop="@dimen/marginForTime"
+        android:layout_marginEnd="@dimen/marginForTime"
         android:text="time"
+        android:textColor="@color/purple_15D"
         android:textSize="12sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"

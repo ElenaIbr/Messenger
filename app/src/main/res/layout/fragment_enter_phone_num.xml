@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.messengerapplication.ui.fragments.authentication.EnterPhoneNumFragment"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/ivory">
 
     <LinearLayout
         android:id="@+id/header"
@@ -16,7 +16,8 @@
         style="@style/reg_header">
 
         <TextView
-            android:text="@string/app_name"
+            android:text="@string/messenger"
+            android:letterSpacing="0.3"
             style="@style/reg_header_text" />
 
     </LinearLayout>

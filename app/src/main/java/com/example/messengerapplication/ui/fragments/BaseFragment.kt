@@ -1,10 +1,10 @@
 package com.example.messengerapplication.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
@@ -20,6 +20,5 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         _binding = getViewBinding()
         return binding.root
     }
-
     abstract fun getViewBinding(): VB
 }

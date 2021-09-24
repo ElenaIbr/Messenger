@@ -25,7 +25,6 @@
             android:textSize="@dimen/large_text"
             android:layout_marginStart="@dimen/margin_horizontal"
             android:hint="@string/search_contacts"
-            android:layout_marginTop="@dimen/margin_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/search_btn"
             app:layout_constraintStart_toStartOf="parent"
