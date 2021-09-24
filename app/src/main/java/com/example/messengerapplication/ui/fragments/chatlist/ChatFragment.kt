@@ -15,7 +15,6 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.launch
 import java.util.*
 
-
 class ChatFragment : BaseFragment<FragmentChatBinding>() {
 
     private lateinit var chatAdapter: ChatAdapter

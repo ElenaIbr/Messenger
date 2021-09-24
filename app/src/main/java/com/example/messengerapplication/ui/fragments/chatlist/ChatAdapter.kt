@@ -3,6 +3,7 @@ package com.example.messengerapplication.ui.fragments.chatlist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
@@ -24,7 +25,7 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
         return ChatHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ChatlistHolder, position: Int) {
+    override fun onBindViewHolder(holder: ChatHolder, position: Int) {
 
         holder.contactName.text = listItem[position].namefromcontacts
         holder.lastMessage.text = listItem[position].lastMessage
@@ -42,6 +43,8 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
                 .toDateFormat()
         } else holder.lastMessageTime.text = ""
 
+        if(listItem[position].state == "online") holder.state.visibility = View.VISIBLE
+
         holder.itemView.setOnClickListener {
             appActivity.changeFragment(SingleChatFragment(listItem[position]))
         }
@@ -55,8 +58,10 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
         val lastMessage: TextView = view.findViewById(R.id.chatlist_last_message)
         val lastMessageTime: TextView = view.findViewById(R.id.message_time)
         val messages: TextView = view.findViewById(R.id.unread_mark)
+        val state: ImageView = view.findViewById(R.id.user_state)
     }
-    fun updateListIten(item: CommonModel){
+
+    fun updateListItem(item: CommonModel) {
         listItem.add(item)
         notifyItemInserted(listItem.size)
     }
