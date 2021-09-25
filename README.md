@@ -22,6 +22,16 @@ In the same time, if user launches messenger on his device for the first time, a
 
 Below we can look at main UI. I used bottomnavigationview with three items (Contacts, Messages and Profile). For contact list i used FirebaseRecyclerOptions.Builder and its setQuery(), for chat list - usual adapter.
 
+<details>
+  <summary>Click to expand!</summary>
+  
+  ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets
+</details>
+
 ![](https://github.com/ElenaIbr/Messenger/blob/master/ui_demo.gif?raw=true)
 
 And finally, users communication from two different physical devices, using real phone number. Time on devices was synchronized.
