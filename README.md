@@ -14,9 +14,11 @@ App asks for mobile number and send verification code to users mobile phone.
 After that user inputs auth code and can see main fragment (chat list). 
 
 Actual version:
+
 ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_1.gif)
 
 Previous version:
+
 ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/auth_demo.gif)
 
 What is going on in code. First of all, we have to make shure, that user is not logged. In onResume(), 
@@ -27,19 +29,23 @@ In the same time, if user launches messenger on his device for the first time, a
 Below we can look at main UI. I used bottomnavigationview with three items (Contacts, Messages and Profile). For contact list i used FirebaseRecyclerOptions.Builder and its setQuery(), for chat list - usual adapter.
 
 Actual version:
+
 ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_2.gif)
 
 Previous version:
+
 ![](https://github.com/ElenaIbr/Messenger/blob/master/ui_demo.gif?raw=true)
 
 
 And finally, users communication from two different physical devices, using real phone number. Time on devices was synchronized.
 
 Actual version:
+
 | ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_4.gif) | 
 ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_3.gif) |
 
 Previous version:
+
 | ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/message_senging_demo.gif) | ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/message_getting_demo.gif) |
 
 Database structure, nodes
