@@ -17,7 +17,7 @@ import com.example.messengerapplication.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 
-class SettingsFragment(
+class UserInfoFragment(
     private val user: CommonModel = CommonModel(),
     private val isOtherUser: Boolean = false
 ) : BaseFragment<FragmentSettingsBinding>() {
@@ -97,7 +97,7 @@ class SettingsFragment(
                 getUrlFromStorage(path) {
                     putUrlToDb(it) {
                         //binding.settingsPhoto.setImg(it)
-                        appActivity.changeFragment(SettingsFragment())
+                        appActivity.changeFragment(UserInfoFragment())
                         showToast("Данные обновлены")
                         mApplication.currentUser.photoUrl = it
                     }
@@ -130,7 +130,7 @@ class SettingsFragment(
                     mApplication.currentUser.photoUrl = ""
                 }
                 R.id.edit_info -> {
-                    replaceFragment(DetailSettingsFragment())
+                    replaceFragment(EditUserInfoFragment())
                 }
             }
             true

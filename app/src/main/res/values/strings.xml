@@ -24,7 +24,11 @@
     <string name="delete_chat">Delete chat</string>
     <string name="edit_info">Edit info</string>
     <string name="delete_photo">Delete photo</string>
-    <string name="enter_your_full_name">Enter your full name</string>
-    <string name="tell_about_yourself">Tell about yourself</string>
+    <string name="updated">Updated</string>
+    <string name="chats">Chats</string>
+    <string name="message_hint">Message...</string>
+    <string name="online_fromLayout">online</string>
+    <string name="back_arrow">back arrow</string>
+
 
 </resources>

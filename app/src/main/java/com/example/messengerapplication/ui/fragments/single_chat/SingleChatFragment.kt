@@ -17,7 +17,7 @@ import com.example.messengerapplication.notifications.PushNotification
 import com.example.messengerapplication.notifications.RetrofitInstance
 import com.example.messengerapplication.ui.fragments.BaseFragment
 import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
-import com.example.messengerapplication.ui.fragments.profile.SettingsFragment
+import com.example.messengerapplication.ui.fragments.profile.UserInfoFragment
 import com.example.messengerapplication.utilits.*
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ServerValue
@@ -52,7 +52,7 @@ class SingleChatFragment(val contact: CommonModel, private val chatFromContacts:
     override fun onResume() {
         super.onResume()
 
-        if(chatFromContacts != FROM_CHAT) saveToChatlist(contact.id, contact.namefromcontacts)
+        if(chatFromContacts != FROM_CHAT) saveChat(contact.id, contact.namefromcontacts, contact.timeStamp)
 
         mBottomNavigation = activity?.findViewById(R.id.bottomNav)
         mBottomNavigation?.visibility = View.GONE
@@ -77,7 +77,7 @@ class SingleChatFragment(val contact: CommonModel, private val chatFromContacts:
 
         binding.toolbarImg.setOnClickListener {
             replaceFragment(
-                SettingsFragment(
+                UserInfoFragment(
                     contact,
                     true
                 )
@@ -94,7 +94,8 @@ class SingleChatFragment(val contact: CommonModel, private val chatFromContacts:
 
         mRecyclerView = binding.rcMessage
         mAdapter = SingleChatAdapter()
-        messagesDbRef = mApplication.databaseFbRef.child(NODE_MESSAGES)
+        messagesDbRef = mApplication.databaseFbRef
+            .child(NODE_MESSAGES)
             .child(mApplication.currentUserID)
             .child(contact.id)
         mRecyclerView.adapter = mAdapter

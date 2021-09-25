@@ -219,24 +219,25 @@ fun saveToChatlist(
     }, id)
 }
 
-fun saveToChatlist(
+fun saveChat(
     id: String,
-    contName: String
+    contName: String,
+    timeStamp: Any
 ) {
     val refUser = "$NODE_CHATLIST/${mApplication.currentUserID}/$id"
     val refReceivedUser = "$NODE_CHATLIST/$id/${mApplication.currentUserID}"
     val mapRefUser = hashMapOf<String, Any>()
     val mapRefReceivUser= hashMapOf<String, Any>()
-    val currentTime = ServerValue.TIMESTAMP
+    //val currentTime = ServerValue.TIMESTAMP
 
     mapRefUser[CHILD_ID] = id
     mapRefUser[CHILD_NAME_FROM_CONTACTS] = contName
-    mapRefUser[CHILD_LAST_MESSAGE_TIME] = currentTime
+    mapRefUser[CHILD_LAST_MESSAGE_TIME] = timeStamp
     mapRefUser[CHILD_MESSAGE_COUNT] = 0
 
     mapRefReceivUser[CHILD_ID] = mApplication.currentUserID
     mapRefReceivUser[CHILD_NAME_FROM_CONTACTS] = mApplication.currentUser.fullname
-    mapRefReceivUser[CHILD_LAST_MESSAGE_TIME] = currentTime
+    mapRefReceivUser[CHILD_LAST_MESSAGE_TIME] = timeStamp
     mapRefReceivUser[CHILD_MESSAGE_COUNT] = 0
 
     val commonMap = hashMapOf<String, Any>()

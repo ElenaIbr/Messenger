@@ -10,7 +10,7 @@
         android:id="@+id/background_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.3"
+        android:alpha="0.4"
         android:background="@drawable/quartz_bg"
         android:orientation="vertical"/>
 
@@ -36,7 +36,8 @@
             android:src="@drawable/ic_arrow_left"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/back_arrow" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/toolbar_img"
@@ -53,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:textColor="@color/black"
+            android:textColor="@color/purple_B32"
             android:textSize="@dimen/normal_text"
             android:text="@string/username"
             app:layout_constraintStart_toEndOf="@+id/toolbar_img"
@@ -64,7 +65,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:textColor="@color/dark_white"
+            android:textColor="@color/purple_grey"
+            android:text="@string/online_fromLayout"
             android:textSize="@dimen/small_text"
             app:layout_constraintStart_toEndOf="@+id/toolbar_img"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_contact_name" />
@@ -73,7 +75,6 @@
             android:id="@+id/menu_btn"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/icon_margin"
             android:src="@drawable/ic_ellypsis_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -128,7 +129,7 @@
             android:id="@+id/chat_input_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Message..."
+            android:hint="@string/message_hint"
             android:textSize="@dimen/normal_text"
             android:padding="@dimen/AppPadding"
             android:textColor="@color/black"

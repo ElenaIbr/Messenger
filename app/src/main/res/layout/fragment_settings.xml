@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.example.messengerapplication.ui.fragments.profile.SettingsFragment">
+    tools:context="com.example.messengerapplication.ui.fragments.profile.UserInfoFragment">
 
     <LinearLayout
         android:id="@+id/background_layout"

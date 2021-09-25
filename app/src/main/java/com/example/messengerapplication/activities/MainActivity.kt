@@ -12,7 +12,7 @@ import com.example.messengerapplication.models.User
 import com.example.messengerapplication.ui.fragments.ContacstFragment
 import com.example.messengerapplication.ui.fragments.authentication.EnterPhoneNumFragment
 import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
-import com.example.messengerapplication.ui.fragments.profile.SettingsFragment
+import com.example.messengerapplication.ui.fragments.profile.UserInfoFragment
 import com.example.messengerapplication.utilits.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-
         appActivity = this
         mApplication = (this.application as MyApplication)
     }
@@ -60,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 when (item.itemId) {
                     R.id.contacts -> changeFragment(ContacstFragment(), false)
                     R.id.messages -> changeFragment(ChatFragment(), false)
-                    R.id.profile -> changeFragment(SettingsFragment(), false)
+                    R.id.profile -> changeFragment(UserInfoFragment(), false)
                 }
                 true
             }
@@ -77,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        //chek permissions for reading users contacts
+        //check permissions for reading users contacts
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (ContextCompat.checkSelfPermission(
                 appActivity,

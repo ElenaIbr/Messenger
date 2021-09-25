@@ -5,7 +5,7 @@ import com.example.messengerapplication.databinding.FragmentDetailSettingsBindin
 import com.example.messengerapplication.ui.fragments.BaseFragment
 import com.example.messengerapplication.utilits.*
 
-class DetailSettingsFragment() : BaseFragment<FragmentDetailSettingsBinding>() {
+class EditUserInfoFragment() : BaseFragment<FragmentDetailSettingsBinding>() {
 
     private var isUsername: Boolean? = null
 
@@ -43,7 +43,7 @@ class DetailSettingsFragment() : BaseFragment<FragmentDetailSettingsBinding>() {
                 changeName(SettingsType.BIO, mApplication.currentUser.bio)
                 changingsCount++
             }
-            if (changingsCount > 0) replaceFragment(SettingsFragment())
+            if (changingsCount > 0) replaceFragment(UserInfoFragment())
             else showToast("No changes")
 
         }
