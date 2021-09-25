@@ -44,11 +44,12 @@
 
         <ImageView
             android:id="@+id/back_to_chat"
-            android:layout_width="45dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_arrow_left"
-            android:layout_marginTop="@dimen/margin_vertical"
-            android:layout_marginStart="@dimen/margin_horizontal"
+            android:padding="@dimen/AppPadding"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -85,13 +86,13 @@
             <TextView
                 android:id="@+id/changenumber_tv"
                 style="@style/settings_label_style"
-                android:layout_marginTop="@dimen/top_icon_margin"
-                android:layout_marginEnd="@dimen/top_icon_margin"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="@string/default_num"
-                android:textColor="@color/purple"
+                android:textColor="@color/purple_grey"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.166"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settingsPhoto" />
 

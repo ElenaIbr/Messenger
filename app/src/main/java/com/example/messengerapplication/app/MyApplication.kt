@@ -22,4 +22,5 @@ class MyApplication : Application() {
         databaseFbRef = FirebaseDatabase.getInstance().reference
         storageFbRef = FirebaseStorage.getInstance().reference
     }
+
 }
