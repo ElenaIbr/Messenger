@@ -6,22 +6,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.messengerapplication.ui.fragments.chatlist.ChatFragment">
 
-    <TextView
-        android:id="@+id/chats"
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/messenger"
-        android:letterSpacing="0.3"
-        android:textSize="@dimen/large_text"
-        android:textStyle="bold"
-        android:textColor="@color/dark_blue"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="@dimen/margin_horizontal"
+        android:orientation="horizontal"
+        android:padding="@dimen/AppPadding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:padding="@dimen/AppPadding"
-        android:gravity="center"/>
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/chats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            android:letterSpacing="0.3"
+            android:text="@string/messenger"
+            android:textColor="@color/purple"
+            android:textSize="@dimen/large_text"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            android:src="@drawable/ic_send"
+            app:layout_constraintBottom_toBottomOf="@+id/chats"
+            app:layout_constraintStart_toEndOf="@+id/header"
+            app:layout_constraintTop_toTopOf="@+id/chats" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatlist_rc"
@@ -31,7 +46,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chats"
+        app:layout_constraintTop_toBottomOf="@+id/header"
         tools:listitem="@layout/chatlist_item"
         android:padding="3dp"/>
 

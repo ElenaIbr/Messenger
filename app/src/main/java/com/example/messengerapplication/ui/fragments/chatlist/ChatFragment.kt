@@ -42,6 +42,8 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
                 .child(mApplication.currentUserID)
         }
 
+        hideKeyboard()
+
         chatRecyclerView = binding.chatlistRc
         chatAdapter = ChatAdapter()
 

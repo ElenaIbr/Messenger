@@ -112,6 +112,9 @@ fun clearChat(id: String, function: () -> Unit) {
 
 fun updateChatContacts(arrContacts: ArrayList<CommonModel>) {
     if(mApplication.authFb.currentUser!=null){
+
+        //Log.d("MyLog", "app ${mApplication.currentUser.phone}")
+
         mApplication.databaseFbRef.child(NODE_PHONES).addListenerForSingleValueEvent(
             AppValueEventListener{
                 it.children.forEach { snapshop ->

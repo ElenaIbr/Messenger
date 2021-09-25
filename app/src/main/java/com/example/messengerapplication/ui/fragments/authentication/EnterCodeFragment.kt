@@ -24,6 +24,7 @@ class EnterCodeFragment(private val phoneNum: String, val id: String) :
 
         super.onStart()
         binding.regCodeInput.requestFocus()
+        showKeyboard()
         countdown()
 
         binding.regCodeInput.addTextChangedListener(AppTextWatcher {

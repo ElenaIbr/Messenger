@@ -66,6 +66,12 @@ fun hideKeyboard() {
     im.hideSoftInputFromWindow(appActivity.window.decorView.windowToken, 0)
 }
 
+fun showKeyboard() {
+    val im: InputMethodManager = appActivity.getSystemService(Context.INPUT_METHOD_SERVICE)
+            as InputMethodManager
+    im.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+}
+
 fun ImageView.setImg(url: String = ""){
     if(url==""){
         this.setImageResource(R.drawable.ic_default_user)

@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        initUserContacts()
         checkAuth()
     }
 
@@ -46,13 +45,13 @@ class MainActivity : AppCompatActivity() {
     private fun checkAuth() {
 
         if (mApplication.authFb.currentUser != null) {
+
             mApplication.currentUser = User()
             mApplication.currentUserID = mApplication.authFb.currentUser?.uid.toString()
 
-            AppStates.updateStates(AppStates.ONLINE)
-
             initCurrentUser {
                 CoroutineScope(Dispatchers.IO).launch {
+                    changeFragment(ChatFragment(), false)
                     initUserContacts()
                 }
             }
@@ -65,8 +64,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
+            AppStates.updateStates(AppStates.ONLINE)
 
-            changeFragment(ChatFragment(), false)
         } else {
             mBinding.bottomNav.visibility = View.GONE
             changeFragment(EnterPhoneNumFragment(), false)
