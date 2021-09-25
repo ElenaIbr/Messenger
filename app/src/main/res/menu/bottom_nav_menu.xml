@@ -9,7 +9,7 @@
     <item
         android:id="@+id/messages"
         android:title="@string/chats"
-        android:icon="@drawable/ic_message"/>
+        android:icon="@drawable/ic_chat"/>
 
     <item
         android:id="@+id/profile"

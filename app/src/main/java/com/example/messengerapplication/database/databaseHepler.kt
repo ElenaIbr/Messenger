@@ -228,7 +228,6 @@ fun saveChat(
     val refReceivedUser = "$NODE_CHATLIST/$id/${mApplication.currentUserID}"
     val mapRefUser = hashMapOf<String, Any>()
     val mapRefReceivUser= hashMapOf<String, Any>()
-    //val currentTime = ServerValue.TIMESTAMP
 
     mapRefUser[CHILD_ID] = id
     mapRefUser[CHILD_NAME_FROM_CONTACTS] = contName

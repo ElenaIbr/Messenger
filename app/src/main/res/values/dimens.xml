@@ -2,4 +2,5 @@
 <resources>
     <dimen name="marginRecycleItems">2dp</dimen>
     <dimen name="marginForTime">10dp</dimen>
+    <dimen name="top_icon_margin">5dp</dimen>
 </resources>
