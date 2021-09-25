@@ -17,10 +17,6 @@ Actual version:
 
 ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_1.gif)
 
-Previous version:
-
-![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/auth_demo.gif)
-
 What is going on in code. First of all, we have to make shure, that user is not logged. In onResume(), 
 after Firebase instances initialization we call checkAuthorization() and check if there is current user UID. If there is UID, user can interact with his chat list.
 If there is no cuurent  UID, user has to input his number and log in. 
@@ -44,9 +40,6 @@ Actual version:
 | ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_4.gif) | 
 ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_3.gif) |
 
-Previous version:
-
-| ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/message_senging_demo.gif) | ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/message_getting_demo.gif) |
 
 Database structure, nodes
 
