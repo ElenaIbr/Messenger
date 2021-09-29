@@ -13,8 +13,6 @@ First, when new (or unlogged) user launches app he sees auth fragment on his mob
 App asks for mobile number and send verification code to users mobile phone. 
 After that user inputs auth code and can see main fragment (chat list). 
 
-Auth:
-
 <details>
 <summary>Auth:</summary>
     
