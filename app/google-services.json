@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "255748383477",
+    "firebase_url": "https://messengerapplication-2a678-default-rtdb.firebaseio.com",
     "project_id": "messengerapplication-2a678",
     "storage_bucket": "messengerapplication-2a678.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "255748383477-1n3o8tepretcgd0d5choteh4mu10e9v0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.messengerapplication",
+            "certificate_hash": "b2c8899d083ddb3b0186865f2aa2f66faab36325"
+          }
+        },
         {
           "client_id": "255748383477-rup0bjg8h6udvo388tvm9f989mdmvl6d.apps.googleusercontent.com",
           "client_type": 1,
