@@ -29,6 +29,7 @@
     <string name="message_hint">Message...</string>
     <string name="online_fromLayout">online</string>
     <string name="back_arrow">back arrow</string>
-
+    <string name="enter_your_full_name">Enter your full name</string>
+    <string name="tell_about_yourself">Tell about yourself</string>
 
 </resources>

@@ -2,17 +2,17 @@
     android:viewportHeight="24" android:viewportWidth="24"
     android:width="48dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillColor="#00000000"
-        android:pathData="M2,5h20v14h-20z" android:strokeColor="@color/purple_B32"
+        android:pathData="M2,5h20v14h-20z" android:strokeColor="@color/purple_500"
         android:strokeLineCap="square" android:strokeLineJoin="miter" android:strokeWidth="1"/>
     <path android:fillColor="#00000000"
-        android:pathData="M2,5l10,9 10,-9" android:strokeColor="@color/purple_B32"
+        android:pathData="M2,5l10,9 10,-9" android:strokeColor="@color/purple_500"
         android:strokeLineCap="round" android:strokeLineJoin="miter" android:strokeWidth="1"/>
     <path android:fillColor="#00000000"
         android:pathData="M2,19l6.825,-7.8"
-        android:strokeColor="@color/purple_B32" android:strokeLineCap="round"
+        android:strokeColor="@color/purple_500" android:strokeLineCap="round"
         android:strokeLineJoin="miter" android:strokeWidth="1"/>
     <path android:fillColor="#00000000"
         android:pathData="M22,19l-6.844,-7.822"
-        android:strokeColor="@color/purple_B32" android:strokeLineCap="round"
+        android:strokeColor="@color/purple_500" android:strokeLineCap="round"
         android:strokeLineJoin="miter" android:strokeWidth="1"/>
 </vector>

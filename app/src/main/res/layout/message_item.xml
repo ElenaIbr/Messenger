@@ -30,14 +30,14 @@
             android:padding="5dp"
             android:textSize="@dimen/normal_text"
             android:text="Привет"
-            android:textColor="@color/purple_B32" />
+            android:textColor="@color/purple" />
 
         <TextView
             android:id="@+id/right_message_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="22:15"
-            android:textColor="@color/purple_15D"
+            android:textColor="@color/purple"
             android:gravity="end"
             android:textSize="10sp"/>
 
@@ -68,14 +68,14 @@
             android:padding="5dp"
             android:text="Привет"
             android:textSize="@dimen/normal_text"
-            android:textColor="@color/purple_B32"/>
+            android:textColor="@color/purple"/>
 
         <TextView
             android:id="@+id/left_message_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="22:15"
-            android:textColor="@color/purple_15D"
+            android:textColor="@color/purple"
             android:gravity="start"
             android:textSize="10sp"/>
 
