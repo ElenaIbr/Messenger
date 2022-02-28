@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.messengerapplication.R
-import com.example.messengerapplication.models.CommonModel
-import com.example.messengerapplication.models.User
+import com.example.messengerapplication.features.chat.domain.entity.CommonModel
+import com.example.messengerapplication.features.user.domain.entity.User
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DataSnapshot

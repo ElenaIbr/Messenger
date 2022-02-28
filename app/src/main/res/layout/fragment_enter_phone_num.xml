@@ -72,7 +72,7 @@
             android:hint="@string/default_num"
             android:inputType="phone"
             android:maxLines="1"
-            android:padding="@dimen/AppPadding"
+            android:padding="@dimen/ic_padding_size"
             android:textColor="@color/black"
             android:textColorHint="@color/gray"
             android:gravity="center"

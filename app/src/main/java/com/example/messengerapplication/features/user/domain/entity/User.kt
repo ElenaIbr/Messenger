@@ -1,4 +1,4 @@
-package com.example.messengerapplication.models
+package com.example.messengerapplication.features.user.domain.entity
 
 data class User(
     val id: String = "",
@@ -7,4 +7,5 @@ data class User(
     var fullname: String = "",
     var state: String = "",
     var phone: String = "",
-    var photoUrl: String = "")
+    var photoUrl: String = ""
+)

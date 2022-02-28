@@ -7,14 +7,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
-import com.example.messengerapplication.models.CommonModel
+import com.example.messengerapplication.features.chat.domain.entity.CommonModel
 import com.example.messengerapplication.utilits.mApplication
 import com.example.messengerapplication.utilits.toTimeFormat
 
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder>() {
 
     private var mListMessagesCache = mutableListOf<CommonModel>()
-
 
     class SingleChatHolder(view: View) : RecyclerView.ViewHolder(view){
 

@@ -1,14 +1,12 @@
-package com.example.messengerapplication.activities
+package com.example.messengerapplication
 
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.messengerapplication.R
-import com.example.messengerapplication.app.MyApplication
 import com.example.messengerapplication.databinding.ActivityMainBinding
-import com.example.messengerapplication.models.User
+import com.example.messengerapplication.features.user.domain.entity.User
 import com.example.messengerapplication.ui.fragments.ContacstFragment
 import com.example.messengerapplication.ui.fragments.authentication.EnterPhoneNumFragment
 import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
@@ -48,10 +46,10 @@ class MainActivity : AppCompatActivity() {
             mApplication.currentUser = User()
             mApplication.currentUserID = mApplication.authFb.currentUser?.uid.toString()
 
-            initCurrentUser {
+            mApplication.userInteractor.initCurrentUser {
                 CoroutineScope(Dispatchers.IO).launch {
                     changeFragment(ChatFragment(), false)
-                    initUserContacts()
+                    mApplication.userInteractor.initUserContacts()
                 }
             }
             //set bottom navigation view
@@ -83,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                 READ_CONTACTS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            initUserContacts()
+            mApplication.userInteractor.initUserContacts()
         }
     }
 }

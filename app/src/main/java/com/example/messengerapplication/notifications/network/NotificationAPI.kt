@@ -1,7 +1,8 @@
-package com.example.messengerapplication.notifications
+package com.example.messengerapplication.notifications.network
 
 import com.example.messengerapplication.notifications.Constants.Companion.CONTENT_TYPE
 import com.example.messengerapplication.notifications.Constants.Companion.SERVER_KEY
+import com.example.messengerapplication.notifications.entity.PushNotification
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body

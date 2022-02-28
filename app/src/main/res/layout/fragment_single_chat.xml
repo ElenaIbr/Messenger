@@ -147,7 +147,7 @@
             android:src="@drawable/ic_send"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:padding="@dimen/AppPadding"
+            android:padding="@dimen/ic_padding_size"
             app:layout_constraintTop_toTopOf="@+id/chat_input_message" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

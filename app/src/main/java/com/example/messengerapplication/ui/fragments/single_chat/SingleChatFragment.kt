@@ -8,13 +8,14 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
+import com.example.messengerapplication.features.chat.domain.ChatInteractor
 import com.example.messengerapplication.databinding.FragmentSingleChatBinding
-import com.example.messengerapplication.models.CommonModel
-import com.example.messengerapplication.models.User
+import com.example.messengerapplication.features.chat.domain.entity.CommonModel
+import com.example.messengerapplication.features.user.domain.entity.User
 import com.example.messengerapplication.notifications.FirebaseService
-import com.example.messengerapplication.notifications.NotificationData
-import com.example.messengerapplication.notifications.PushNotification
-import com.example.messengerapplication.notifications.RetrofitInstance
+import com.example.messengerapplication.notifications.entity.NotificationData
+import com.example.messengerapplication.notifications.entity.PushNotification
+import com.example.messengerapplication.notifications.network.RetrofitInstance
 import com.example.messengerapplication.ui.fragments.BaseFragment
 import com.example.messengerapplication.ui.fragments.chatlist.ChatFragment
 import com.example.messengerapplication.ui.fragments.profile.UserInfoFragment
@@ -29,6 +30,8 @@ import kotlinx.coroutines.launch
 @Suppress("DEPRECATION")
 class SingleChatFragment(val contact: CommonModel, private val chatFromContacts: String = "") :
     BaseFragment<FragmentSingleChatBinding>() {
+
+    private val chatInteractor: ChatInteractor = ChatInteractor()
 
     private var mBottomNavigation: View? = null
     private lateinit var mAdapter: SingleChatAdapter
@@ -52,7 +55,7 @@ class SingleChatFragment(val contact: CommonModel, private val chatFromContacts:
     override fun onResume() {
         super.onResume()
 
-        if(chatFromContacts != FROM_CHAT) saveChat(contact.id, contact.namefromcontacts, contact.timeStamp)
+        if(chatFromContacts != FROM_CHAT) chatInteractor.saveChat(contact.id, contact.namefromcontacts, contact.timeStamp)
 
         mBottomNavigation = activity?.findViewById(R.id.bottomNav)
         mBottomNavigation?.visibility = View.GONE
@@ -153,7 +156,7 @@ class SingleChatFragment(val contact: CommonModel, private val chatFromContacts:
             showToast("Введите текст!")
         } else sentMessage(message, contact.id, TYPE_TEXT) {
             binding.chatInputMessage.setText("")
-            saveToChatlist(contact.id, contact.namefromcontacts, TYPE_TEXT)
+            chatInteractor.saveToChat(contact.id, contact.namefromcontacts, TYPE_TEXT)
         }
     }
 
@@ -224,13 +227,13 @@ class SingleChatFragment(val contact: CommonModel, private val chatFromContacts:
         popup.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.clear_chat -> {
-                    clearChat(contact.id) {
+                    chatInteractor.clearChat(contact.id) {
                         showToast("Chat was cleared")
                         replaceFragment(ChatFragment())
                     }
                 }
                 R.id.delete_chat -> {
-                    deleteChat(contact.id) {
+                    chatInteractor.deleteChat(contact.id) {
                         showToast("Chat was deleted")
                         replaceFragment(ChatFragment())
                     }

@@ -1,4 +1,4 @@
-package com.example.messengerapplication.models
+package com.example.messengerapplication.features.chat.domain.entity
 
 import java.util.*
 

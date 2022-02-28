@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.CountDownTimer
 import com.example.messengerapplication.R
-import com.example.messengerapplication.activities.MainActivity
+import com.example.messengerapplication.MainActivity
 import com.example.messengerapplication.databinding.FragmentEnterCodeBinding
 import com.example.messengerapplication.notifications.FirebaseService
 import com.example.messengerapplication.ui.fragments.BaseFragment
@@ -83,7 +83,6 @@ class EnterCodeFragment(private val phoneNum: String, val id: String) :
                 }
                 binding.chronometer.text = "00:${(millisUntilFinished / 1000)}"
             }
-
             override fun onFinish() {
                 appActivity.restartActivity(MainActivity())
             }

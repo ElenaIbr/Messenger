@@ -1,6 +1,6 @@
 package com.example.messengerapplication.ui.fragments.profile
 
-import com.example.messengerapplication.app.MyApplication
+import com.example.messengerapplication.MyApplication
 import com.example.messengerapplication.databinding.FragmentDetailSettingsBinding
 import com.example.messengerapplication.ui.fragments.BaseFragment
 import com.example.messengerapplication.utilits.*
@@ -8,9 +8,7 @@ import com.example.messengerapplication.utilits.*
 class EditUserInfoFragment() : BaseFragment<FragmentDetailSettingsBinding>() {
 
     private var isUsername: Boolean? = null
-
     override fun getViewBinding() = FragmentDetailSettingsBinding.inflate(layoutInflater)
-
     private lateinit var mApplication: MyApplication
 
     override fun onStart() {
@@ -54,7 +52,6 @@ class EditUserInfoFragment() : BaseFragment<FragmentDetailSettingsBinding>() {
     }
 
     private fun changeName(fieldType: SettingsType, input: String) {
-
         if (input == "") {
             showToast("Plese fill all fields")
         } else {
@@ -63,32 +60,11 @@ class EditUserInfoFragment() : BaseFragment<FragmentDetailSettingsBinding>() {
                     .addListenerForSingleValueEvent(AppValueEventListener {
                         if (it.hasChild(input.toString())) {
                             showToast("Already exist")
-                        } else changeUserName(fieldType, input)
+                        } else mApplication.userInteractor.changeUserName(fieldType, input)
                     })
             } else {
-                updateUserName(fieldType, input)
+                mApplication.userInteractor.updateUserName(fieldType, input)
             }
         }
-    }
-
-    private fun changeUserName(fieldType: SettingsType, input: String) {
-        mApplication.databaseFbRef.child(NODE_USERNAMES).child(input)
-            .setValue(mApplication.currentUserID)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    updateUserName(fieldType, input)
-                    deletePreUsername()
-                }
-            }
-    }
-
-    private fun deletePreUsername() {
-        mApplication.databaseFbRef.child(NODE_USERNAMES).child(mApplication.currentUser.username)
-            .removeValue()
-            .addOnFailureListener { it.message.toString() }
-    }
-
-    private fun updateUserName(fieldType: SettingsType, input: String) {
-        updateDbValue(input, fieldType.toString().lowercase())
     }
 }

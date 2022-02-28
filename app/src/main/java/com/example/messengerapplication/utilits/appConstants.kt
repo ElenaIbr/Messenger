@@ -1,7 +1,7 @@
 package com.example.messengerapplication.utilits
 
-import com.example.messengerapplication.activities.MainActivity
-import com.example.messengerapplication.app.MyApplication
+import com.example.messengerapplication.MainActivity
+import com.example.messengerapplication.MyApplication
 
 lateinit var appActivity: MainActivity
 lateinit var mApplication: MyApplication

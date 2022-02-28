@@ -1,4 +1,4 @@
-package com.example.messengerapplication.notifications
+package com.example.messengerapplication.notifications.entity
 
 data class PushNotification(
     val data: NotificationData,

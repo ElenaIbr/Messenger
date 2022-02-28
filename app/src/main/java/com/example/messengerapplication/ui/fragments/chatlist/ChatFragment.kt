@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.example.messengerapplication.features.chat.domain.ChatInteractor
 import com.example.messengerapplication.databinding.FragmentChatBinding
-import com.example.messengerapplication.models.CommonModel
+import com.example.messengerapplication.features.chat.domain.entity.CommonModel
 import com.example.messengerapplication.ui.fragments.BaseFragment
 import com.example.messengerapplication.utilits.*
 import com.google.firebase.database.DataSnapshot
@@ -70,7 +71,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
 
             sortedMessages.forEach { model ->
 
-                readData2(object : firebaseCallback {
+                mApplication.chatInteractor.readMessageCount(object : ChatInteractor.IFirebaseCallback {
                     override fun onCallback(value: Double?) {
 
                         val unreadMessages = messgeCount2

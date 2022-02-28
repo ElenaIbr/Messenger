@@ -1,7 +1,7 @@
 package com.example.messengerapplication.ui.fragments.authentication
 
 import com.example.messengerapplication.R
-import com.example.messengerapplication.activities.MainActivity
+import com.example.messengerapplication.MainActivity
 import com.example.messengerapplication.databinding.FragmentEnterPhoneNumBinding
 import com.example.messengerapplication.ui.fragments.BaseFragment
 import com.example.messengerapplication.utilits.*

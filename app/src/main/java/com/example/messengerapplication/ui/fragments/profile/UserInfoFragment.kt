@@ -9,9 +9,9 @@ import android.view.View
 import android.widget.PopupMenu
 import android.widget.TextView
 import com.example.messengerapplication.R
-import com.example.messengerapplication.activities.MainActivity
+import com.example.messengerapplication.MainActivity
 import com.example.messengerapplication.databinding.FragmentSettingsBinding
-import com.example.messengerapplication.models.CommonModel
+import com.example.messengerapplication.features.chat.domain.entity.CommonModel
 import com.example.messengerapplication.ui.fragments.BaseFragment
 import com.example.messengerapplication.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
@@ -23,7 +23,6 @@ class UserInfoFragment(
 ) : BaseFragment<FragmentSettingsBinding>() {
 
     override fun getViewBinding() = FragmentSettingsBinding.inflate(layoutInflater)
-
     var name: String? = null
 
     override fun onResume() {
@@ -93,10 +92,9 @@ class UserInfoFragment(
             val path = mApplication.storageFbRef.child(FOLDER_PROFILE_IMG)
                 .child(mApplication.currentUserID)
 
-            putImageToStorage(uri, path) {
-                getUrlFromStorage(path) {
-                    putUrlToDb(it) {
-                        //binding.settingsPhoto.setImg(it)
+            mApplication.userInteractor.createPicture(uri, path) {
+                mApplication.userInteractor.getUser(path) {
+                    mApplication.userInteractor.saveUrl(it) {
                         appActivity.changeFragment(UserInfoFragment())
                         showToast("Данные обновлены")
                         mApplication.currentUser.photoUrl = it

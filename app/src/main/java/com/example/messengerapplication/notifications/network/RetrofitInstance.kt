@@ -1,4 +1,4 @@
-package com.example.messengerapplication.notifications
+package com.example.messengerapplication.notifications.network
 
 import com.example.messengerapplication.notifications.Constants.Companion.BASE_URL
 import retrofit2.Retrofit

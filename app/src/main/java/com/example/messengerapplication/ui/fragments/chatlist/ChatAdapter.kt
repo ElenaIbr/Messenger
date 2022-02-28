@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.messengerapplication.R
-import com.example.messengerapplication.models.CommonModel
+import com.example.messengerapplication.features.chat.domain.entity.CommonModel
 import com.example.messengerapplication.ui.fragments.single_chat.SingleChatFragment
 import com.example.messengerapplication.utilits.appActivity
 import com.example.messengerapplication.utilits.changeFragment

@@ -3,20 +3,33 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/contact_shape.xml" value="0.246875" />
         <entry key="app/src/main/res/drawable/ic_arrow_left.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_chat.xml" value="0.246875" />
+        <entry key="app/src/main/res/drawable/ic_contacts.xml" value="0.246875" />
+        <entry key="app/src/main/res/drawable/ic_default_user.xml" value="0.17222222222222222" />
         <entry key="app/src/main/res/drawable/ic_done.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_ellypsis_vertical.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_envelope.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_icon.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_message_icon.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_person.xml" value="0.246875" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_send.xml" value="0.246875" />
+        <entry key="app/src/main/res/drawable/ic_user.xml" value="0.246875" />
         <entry key="app/src/main/res/drawable/unread_message.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/user_status.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1109375" />
         <entry key="app/src/main/res/layout/chatlist_item.xml" value="0.1109375" />
         <entry key="app/src/main/res/layout/contact_item.xml" value="0.1109375" />
-        <entry key="app/src/main/res/layout/fragment_single_chat.xml" value="0.1109375" />
+        <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.23072916666666668" />
+        <entry key="app/src/main/res/layout/fragment_contact.xml" value="0.23072916666666668" />
+        <entry key="app/src/main/res/layout/fragment_detail_settings.xml" value="0.22395833333333334" />
+        <entry key="app/src/main/res/layout/fragment_enter_code.xml" value="0.23072916666666668" />
+        <entry key="app/src/main/res/layout/fragment_enter_phone_num.xml" value="0.23072916666666668" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.23072916666666668" />
+        <entry key="app/src/main/res/layout/fragment_single_chat.xml" value="0.25" />
         <entry key="app/src/main/res/layout/message_item.xml" value="0.1109375" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />

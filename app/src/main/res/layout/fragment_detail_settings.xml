@@ -22,7 +22,7 @@
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:background="@color/ivory"
-            android:padding="@dimen/AppPadding"
+            android:padding="@dimen/ic_padding_size"
             android:src="@drawable/ic_arrow_left"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
