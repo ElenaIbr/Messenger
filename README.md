@@ -24,6 +24,8 @@ What is going on in code. First of all, we have to make sure, that user is not l
 If there is no current  UID, user has to input his number and log in. 
 In the same time, if user launches messenger on his device for the first time, app asks permissions for contacts reading. After that in CoroutineScope app compares user`s contacts with realtime database data and saves matches in List. We need this information to name other users, we have in database and contact list.
 
+Link for downloading https://github.com/ElenaIbr/Messenger/raw/master/app-debug.apk
+
 Below we can look at main UI. I used bottomnavigationview with three items (Contacts, Chats and Profile). For contact list i used FirebaseRecyclerOptions.Builder and its setQuery(), for chat list - usual adapter.
 
 Actual version:
