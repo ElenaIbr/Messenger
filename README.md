@@ -1,5 +1,7 @@
 # Messenger
 
+[Download APK](https://github.com/ElenaIbr/Messenger/raw/master/app-debug.apk)
+
 This mobile web app is the software solution for communication, or just messenger like Whats`app, Viber, Telegram and so on. 
 I have been trying to realize main functionality and cover MVP requirements.
 Of course, there is still a lot of work, but the app does its main function, 
@@ -23,8 +25,6 @@ https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_1.gif
 What is going on in code. First of all, we have to make sure, that user is not logged. After Firebase instances initialization we call checkAuthorization() and check if there is current user UID. If there is UID, user can interact with his chat list.
 If there is no current  UID, user has to input his number and log in. 
 In the same time, if user launches messenger on his device for the first time, app asks permissions for contacts reading. After that in CoroutineScope app compares user`s contacts with realtime database data and saves matches in List. We need this information to name other users, we have in database and contact list.
-
-Link for downloading https://github.com/ElenaIbr/Messenger/raw/master/app-debug.apk
 
 Below we can look at main UI. I used bottomnavigationview with three items (Contacts, Chats and Profile). For contact list i used FirebaseRecyclerOptions.Builder and its setQuery(), for chat list - usual adapter.
 
