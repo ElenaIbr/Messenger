@@ -32,11 +32,6 @@ Actual version:
 
 ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_2.gif)
 
-Previous version:
-
-![](https://github.com/ElenaIbr/Messenger/blob/master/ui_demo.gif?raw=true)
-
-
 And finally, users communication from two different physical devices, using real phone number. Time on devices was synchronized.
 
 Actual version:
