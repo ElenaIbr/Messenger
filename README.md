@@ -25,17 +25,11 @@ In the same time, if user launches messenger on his device for the first time, a
 
 Below we can look at main UI. I used bottomnavigationview with three items (Contacts, Chats and Profile). For contact list i used FirebaseRecyclerOptions.Builder and its setQuery(), for chat list - usual adapter.
 
-Actual version:
-
-![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_2.gif)
+<img width="220" alt="Снимок экрана 2022-04-03 в 18 34 44" src="https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_2.gif">
 
 And finally, users communication from two different physical devices, using real phone number. Time on devices was synchronized.
 
-Actual version:
-
-| ![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_4.gif) | 
-![](https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_3.gif) |
-
+<img width="220" alt="Снимок экрана 2022-04-03 в 18 34 44" src="https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_4.gif"> <img width="220" alt="Снимок экрана 2022-04-03 в 18 34 44" src="https://raw.githubusercontent.com/ElenaIbr/Messenger/master/demo_3.gif">
 
 Database structure, nodes
 
