@@ -15,15 +15,9 @@ First, when new (or unlogged) user launches app he sees auth fragment on his mob
 App asks for mobile number and send verification code to users mobile phone. 
 After that user inputs auth code and can see main fragment (chat list). 
 
-<img width="220" alt="Снимок экрана 2022-04-03 в 16 04 29" src="https://user-images.githubusercontent.com/87421176/161432689-98cabcfe-4118-49fd-bfca-30042d66c843.jpg">
+<img width="220" alt="Снимок экрана 2022-04-03 в 16 04 29" src="https://user-images.githubusercontent.com/87421176/161432689-98cabcfe-4118-49fd-bfca-30042d66c843.jpg"> <img width="220" alt="Снимок экрана 2022-04-03 в 16 04 29" src="https://user-images.githubusercontent.com/87421176/161432690-d7f4671d-66bb-4f38-804c-12854a945303.jpg"> <img width="220" alt="Снимок экрана 2022-04-03 в 16 04 29" src="https://user-images.githubusercontent.com/87421176/161432692-adf35b35-c5a8-4dd0-97a7-aeb5597878a3.jpg">
 
-<img width="220" alt="Снимок экрана 2022-04-03 в 16 04 29" src="https://user-images.githubusercontent.com/87421176/161432690-d7f4671d-66bb-4f38-804c-12854a945303.jpg">
-
-<img width="220" alt="Снимок экрана 2022-04-03 в 16 04 29" src="https://user-images.githubusercontent.com/87421176/161432692-adf35b35-c5a8-4dd0-97a7-aeb5597878a3.jpg">
-
-<img width="220" alt="Снимок экрана 2022-04-03 в 16 04 29" src="https://user-images.githubusercontent.com/87421176/161432964-f8fb8a83-3dc2-4732-9f03-ec51b98f1063.jpg">
-
-<img width="220" alt="Снимок экрана 2022-04-03 в 16 04 29" src="https://user-images.githubusercontent.com/87421176/161432694-fe0ef623-245a-4b86-9261-89bc87f29ad0.jpg">
+<img width="220" alt="Снимок экрана 2022-04-03 в 18 34 44" src="https://user-images.githubusercontent.com/87421176/161438354-2ed32549-1de2-4cf2-a496-02d0a85b4ff3.jpg"> <img width="220" alt="Снимок экрана 2022-04-03 в 16 04 29" src="https://user-images.githubusercontent.com/87421176/161432694-fe0ef623-245a-4b86-9261-89bc87f29ad0.jpg">
 
 What is going on in code. First of all, we have to make sure, that user is not logged. After Firebase instances initialization we call checkAuthorization() and check if there is current user UID. If there is UID, user can interact with his chat list.
 If there is no current  UID, user has to input his number and log in. 
